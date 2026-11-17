@@ -1,0 +1,52 @@
+TP02 de Sistemas Distribuídos com Hazelcast
+BCC362 - Professor Joubert Lima
+
+Qual é o problema
+
+Vários programas separados querem usar o mesmo recurso ao mesmo tempo. Esse recurso se chama R.
+Se dois usam juntos, os dados podem ficar inconsistentes. Por isso, só um pode usar de cada vez.
+A parte do código que usa o R se chama região crítica. Garantir que só um entra de cada vez se chama exclusão mútua.
+
+O R é um recurso hipotético. Nenhum arquivo é gravado de verdade. Escrever em R é apenas esperar um tempo curto, simulando a escrita.
+
+O que o enunciado pede
+
+O trabalho tem duas trilhas. Na trilha A, o grupo programa um algoritmo de exclusão mútua. Na trilha B, o grupo usa uma tecnologia pronta.
+ESSE TP: trilha B, opção B5, que é o Hazelcast.
+
+O que o Hazelcast oferece
+
+O FencedLock é um lock distribuído, que funciona entre programas diferentes. Quem pega o lock entra na região crítica e os outros esperam. Quando quem está dentro solta o lock, o próximo entra.
+Para ele funcionar, o CP Subsystem do Hazelcast precisa estar habilitado e exige no mínimo 3 membros.
+
+O enunciado também pede um semáforo distribuído. O lock deixa só 1 entrar. O semáforo deixa entrar até K ao mesmo tempo.
+Também pede mostrar a reentrância, que é pegar o mesmo lock duas vezes na mesma thread.
+
+Como o cenário funciona
+
+São 5 clientes e 5 cluster sync, cada um em um programa separado. Cada cliente fala somente com o seu cluster sync. Quem disputa o lock no Hazelcast são os cluster sync.
+
+O cliente:
+Faz de 10 a 50 pedidos de escrita.
+- Cada pedido tem um nome único, formado pelo id do cliente e o número do pedido.
+- Envia o pedido e espera a resposta.
+- Depois espera de 1 a 5 segundos e envia o próximo.
+
+O cluster sync:
+- Recebe o pedido do cliente.
+- Tenta pegar o lock, ou seja, tenta entrar na região crítica. Se outro já está lá dentro, ele espera.
+- Quando entra, simula a escrita por um tempo entre 200 e 1000 milissegundos.
+- Solta o lock.
+- Responde COMMITTED ao cliente. O COMMITTED apenas indica que o acesso simulado terminou.
+
+Como os programas se comunicam
+
+O cliente fala com o cluster sync por socket, que é uma ligação pela rede entre dois programas. O cluster sync fala com o Hazelcast para pedir o lock.
+
+Em que ponto estamos
+
+- O cliente já está pronto.
+- Falta o cluster sync, que é a parte do lock.
+- Falta o verificador, que vai ler os logs e provar que nunca entraram dois ao mesmo tempo.
+- A main ainda está incompleta.
+- Faltam o semáforo, a reentrância, os scripts para subir tudo e a apresentação.
