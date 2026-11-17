@@ -2,7 +2,18 @@
 
 BCC362 — Sistemas Distribuídos | Prof. Joubert Lima
 
-Trabalho feito sobre o [TP01](https://github.com/cardosoAM/bcc362-tp01-hazelcast) (Hazelcast 5.6.0), seguindo a **Trilha B, opção B5 (Hazelcast)** do enunciado.
+Trabalho feito sobre o [TP01](https://github.com/cardosoAM/bcc362-tp01-hazelcast), seguindo a **Trilha B, opção B5 (Hazelcast)** do enunciado.
+
+## Versão do Hazelcast: 5.4.0 (Community)
+
+O enunciado pede conferir edição e licença antes de usar o Hazelcast. O TP01 usava a 5.6.0, mas a partir da **5.5** o CP Subsystem passou a ser recurso **Enterprise** (pago). Testamos:
+
+| Versão | Edição | `cpMemberCount = 3` | Resultado |
+|---|---|---|---|
+| 5.6.0 | Community | membro não sobe | `IllegalStateException: CP subsystem is a licensed feature. Please ensure you have an Enterprise license that enables CP.` |
+| 5.4.0 | Community | sobe com 3 membros CP | FencedLock (com reentrância, mesmo fence) e ISemaphore funcionaram |
+
+Por isso fixamos a **5.4.0**, a última versão Community com CP Subsystem. Assim não é preciso chave de licença (nem credencial no repositório), e qualquer pessoa reproduz com `bash scripts/build.sh`. A alternativa seria a licença trial Enterprise de 30 dias, que expira e exige chave para cada pessoa.
 
 ## Objetivo
 
@@ -23,7 +34,7 @@ Sincronizar o acesso de vários clientes a um recurso hipotético **R**, usando 
 
 ```
 src/        código Java
-lib/        hazelcast-5.6.0.jar
+lib/        hazelcast-5.4.0.jar (SHA-256 em lib/SHA256SUMS)
 scripts/    build.sh e run.sh
 pom.xml     build com Maven (opcional)
 ```
@@ -41,4 +52,6 @@ bash scripts/run.sh <argumentos>
 
 ## Referência
 
-- [Hazelcast 5.6 — FencedLock e CP Subsystem](https://docs.hazelcast.com/hazelcast/5.6/data-structures/fencedlock)
+- [Hazelcast 5.4 — FencedLock](https://docs.hazelcast.com/hazelcast/5.4/data-structures/fencedlock)
+- [Hazelcast 5.4 — Configuração do CP Subsystem](https://docs.hazelcast.com/hazelcast/5.4/cp-subsystem/configuration)
+- [Hazelcast 5.6 — CP Subsystem como recurso Enterprise](https://docs.hazelcast.com/hazelcast/5.6/cp-subsystem/cp-subsystem)
