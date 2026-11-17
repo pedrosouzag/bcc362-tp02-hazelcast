@@ -69,19 +69,21 @@ public class Main {
         System.out.println("CP_PRONTO id=" + id + " membrosCP=" + cp.getCPMembers().toCompletableFuture().get().size()
             + " souCP=" + (local != null));
 
-        // Parte 2: aqui sobe o servidor de socket do ClusterSync (porta 6000+id).
-        new CountDownLatch(1).await();
+        // Sobe o servidor de socket do ClusterSync (porta 6000+id) e atende os pedidos dos clientes.
+        ClusterSync.servir(hz, id);
     }
 
     public static void main(String[] args) throws Exception {
         java.util.logging.Logger.getLogger("com.hazelcast").setLevel(java.util.logging.Level.WARNING);
-        if (args.length < 2) {
-            System.out.println("Comandos: sync ID | cliente ID");
+        boolean soVerificar = args.length == 1 && args[0].equals("verificar");   // verificar nao precisa de ID
+        if (args.length < 2 && !soVerificar) {
+            System.out.println("Comandos: sync ID | cliente ID | verificar");
             return;
         }
         switch (args[0]) {
             case "sync" -> sync(Integer.parseInt(args[1]));
             case "cliente" -> Cliente.executar(args);
+            case "verificar" -> System.exit(Verificador.executar());
             default -> System.out.println("Comando desconhecido: " + args[0]);
         }
     }

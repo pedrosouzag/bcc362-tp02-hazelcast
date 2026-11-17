@@ -24,7 +24,7 @@ Também pede mostrar a reentrância, que é pegar o mesmo lock duas vezes na mes
 
 Como o cenário funciona
 
-São 5 clientes e 5 cluster sync, cada um em um programa separado. Cada cliente fala somente com o seu cluster sync. Quem disputa o lock no Hazelcast são os cluster sync.
+São 5 clientes e 5 cluster sync, cada um em um programa separado. Cada cliente fala somente com o seu cluster sync. Quem disputa o lock no Hazelcast são os cluster sync. Os 5 cluster sync são também os membros do cluster Hazelcast, que guardam o lock juntos.
 
 O cliente:
 Faz de 10 a 50 pedidos de escrita.
@@ -41,12 +41,23 @@ O cluster sync:
 
 Como os programas se comunicam
 
-O cliente fala com o cluster sync por socket, que é uma ligação pela rede entre dois programas. O cluster sync fala com o Hazelcast para pedir o lock.
+O cliente fala com o cluster sync por socket, que é uma ligação pela rede entre dois programas. Como o cluster sync é um membro do Hazelcast, ele pede o lock direto ao cluster.
 
 Em que ponto estamos
 
-- O cliente já está pronto.
-- Falta o cluster sync, que é a parte do lock.
-- Falta o verificador, que vai ler os logs e provar que nunca entraram dois ao mesmo tempo.
-- A main ainda está incompleta.
-- Faltam o semáforo, a reentrância, os scripts para subir tudo e a apresentação.
+Já feito:
+- O cliente.
+- O CP Subsystem configurado no Hazelcast 5.4.0 (na 5.6.0 Community ele não sobe).
+- O cluster sync, que atende o cliente, pega o lock e escreve o log.
+- O verificador, que lê os logs e prova que nunca entraram dois ao mesmo tempo na região crítica.
+
+Em andamento:
+- A comunicação por socket entre o cliente e o cluster sync.
+
+Falta:
+- Compilar e testar tudo.
+- O semáforo com K=2 e K=3.
+- A demonstração da reentrância.
+- Os scripts para subir os 5 cluster sync e os 5 clientes.
+- Medir espera e concorrência.
+- A apresentação.
