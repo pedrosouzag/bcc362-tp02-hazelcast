@@ -45,19 +45,4 @@ O cliente fala com o cluster sync por socket, que é uma ligação pela rede ent
 
 Em que ponto estamos
 
-Já feito:
-- O cliente.
-- O CP Subsystem configurado no Hazelcast 5.4.0 (na 5.6.0 Community ele não sobe).
-- O cluster sync, que atende o cliente, pega o lock e escreve o log.
-- O verificador, que lê os logs e prova que nunca entraram dois ao mesmo tempo na região crítica.
 
-Em andamento:
-- A comunicação por socket entre o cliente e o cluster sync.
-
-Falta:
-- Compilar e testar tudo.
-- O semáforo com K=2 e K=3.
-- A demonstração da reentrância.
-- Os scripts para subir os 5 cluster sync e os 5 clientes.
-- Medir espera e concorrência.
-- A apresentação.
