@@ -45,4 +45,24 @@ O cliente fala com o cluster sync por socket, que é uma ligação pela rede ent
 
 Em que ponto estamos
 
+Tópicos prontos:
+- O cliente.
+- O CP Subsystem configurado no Hazelcast 5.4.0 (na 5.6.0 Community ele não sobe).
+- O cluster sync, que atende o cliente, pega o lock e escreve o log com os eventos REQUEST, ACQUIRE, ENTER, EXIT, RELEASE e COMMITTED.
+- O verificador, que lê os logs e prova que nunca entraram dois ao mesmo tempo na região crítica e que todos os pedidos foram concluídos.
+
+O que falta:
+- Compilar e testar tudo, incluindo a comunicação por socket entre o cliente e o cluster sync.
+- O observador, que recebe BEGIN e END de todos os cluster sync e conta quantos estão em R ao mesmo tempo.
+- O modo sem proteção (sem lock), para o observador mostrar que detecta acessos simultâneos.
+- Medir a espera para pegar o lock (com relógio monotônico) e calcular a mediana.
+- Configurar por variáveis de ambiente a duração da seção crítica, as esperas, a semente aleatória e o número de pedidos.
+- O semáforo com K=2 e K=3.
+- A demonstração da reentrância.
+- Cliente configurável: sem espera (alta contenção) e um cliente com frequência maior (carga desigual).
+- Rodar com 5 e com 10 cluster sync.
+- Os scripts para subir tudo, rodar os experimentos e guardar os resultados.
+- O README com versões, comandos e configuração.
+- Os experimentos: carga normal, alta contenção, sem proteção, carga desigual, 5 e 10 processos, semáforo e reentrância, com pelo menos 3 repetições.
+- A apresentação, de 10 a 15 slides.
 

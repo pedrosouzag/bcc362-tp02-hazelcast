@@ -10,6 +10,14 @@ import java.util.Random;
     Atende os pedidos do cliente: pega o lock, finge que escreve em R, solta o lock e responde COMMITTED.
     Cada passo importante e anotado em logs/sync-ID.log, no formato lido pelo Verificador:
     hora;sync;pedido;evento;fence
+
+    Eventos de cada pedido, na ordem:
+    REQUEST    o pedido chegou ao cluster sync (ainda nao tem fence, entao fica -1)
+    ACQUIRE    o lock foi conseguido (a espera acabou) e ja temos o fence
+    ENTER      comeca a regiao critica
+    EXIT       termina a regiao critica
+    RELEASE    o lock foi solto
+    COMMITTED  a resposta foi enviada ao cliente
  */
 public class ClusterSync {
 
@@ -43,23 +51,29 @@ public class ClusterSync {
             String linha = entrada.readLine();            // ex.: "WRITE 3-17"
             String pedido = linha.split(" ")[1];          // pega so o "3-17"
 
+            log(id, pedido, "REQUEST", -1);               // pedido chegou, ainda sem fence
+
             long fence = lock.lockAndGetFence();          // espera a vez e entra na regiao critica
             try {
-                log(id, pedido, "ENTROU", fence);
+                log(id, pedido, "ACQUIRE", fence);        // conseguiu o lock
+                log(id, pedido, "ENTER", fence);          // comeca a regiao critica
                 Thread.sleep(200 + rnd.nextInt(801));     // finge que escreve em R (200 a 1000 ms)
-                log(id, pedido, "SAIU", fence);           // anota a saida ANTES de soltar o lock
+                log(id, pedido, "EXIT", fence);           // termina a regiao critica, ANTES de soltar o lock
             } finally {
                 // finally: solta o lock mesmo se der erro, senao os outros esperariam para sempre
                 lock.unlock();                            // sai da regiao critica
             }
+            log(id, pedido, "RELEASE", fence);            // lock solto
 
             saida.println("COMMITTED " + pedido);         // avisa o cliente
+            log(id, pedido, "COMMITTED", fence);          // anota que respondeu
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     // escreve uma linha no log. synchronized: so uma thread escreve por vez
+    // fence = -1 quando o pedido ainda nao tem fence (evento REQUEST)
     static synchronized void log(int id, String pedido, String evento, long fence) throws IOException {
         // linha no formato: hora;sync;pedido;evento;fence
         String linha = System.currentTimeMillis() + ";" + id + ";" + pedido + ";" + evento + ";" + fence + "\n";

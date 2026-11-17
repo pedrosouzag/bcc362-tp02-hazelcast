@@ -4,7 +4,8 @@ import java.util.ArrayList;
 /*
     Le os logs e confere se dois cluster sync ficaram na regiao critica ao mesmo tempo.
     Cada linha do log: hora;sync;pedido;evento;fence
-    O evento eh ENTROU ou SAIU. Qualquer outro evento e ignorado.
+    Usa ENTER e EXIT (inicio e fim da regiao critica) e COMMITTED (pedido concluido).
+    Os outros eventos (REQUEST, ACQUIRE, RELEASE) sao ignorados aqui.
  */
 public class Verificador {
 
@@ -13,7 +14,7 @@ public class Verificador {
         String pedido;
         long fence;
         long horaEntrou;
-        long horaSaiu = -1;   // -1 quer dizer que ainda nao achamos o SAIU
+        long horaSaiu = -1;   // -1 quer dizer que ainda nao achamos o EXIT
     }
 
     // devolve 0 se esta tudo certo e 1 se achou erro
@@ -32,12 +33,12 @@ public class Verificador {
             }
         }
 
-        // passo 2: cada ENTROU vira um acesso
+        // passo 2: cada ENTER vira um acesso
         ArrayList<Acesso> acessos = new ArrayList<>();
         for (String linha : linhas) {
             // corta a linha nos ";" -> [0]=hora [1]=sync [2]=pedido [3]=evento [4]=fence
             String[] partes = linha.split(";");
-            if (partes[3].equals("ENTROU")) {
+            if (partes[3].equals("ENTER")) {
                 Acesso a = new Acesso();
                 a.horaEntrou = Long.parseLong(partes[0]);   // texto -> numero
                 a.pedido = partes[2];
@@ -46,14 +47,14 @@ public class Verificador {
             }
         }
 
-        // passo 3: cada SAIU completa o acesso que tem o mesmo fence
+        // passo 3: cada EXIT completa o acesso que tem o mesmo fence
         for (String linha : linhas) {
             String[] partes = linha.split(";");
-            if (partes[3].equals("SAIU")) {
+            if (partes[3].equals("EXIT")) {
                 long fence = Long.parseLong(partes[4]);
                 boolean achou = false;
                 for (Acesso a : acessos) {
-                    if (a.fence == fence) {   // o fence liga o SAIU ao ENTROU certo
+                    if (a.fence == fence) {   // o fence liga o EXIT ao ENTER certo
                         a.horaSaiu = Long.parseLong(partes[0]);
                         achou = true;
                     }
@@ -73,7 +74,20 @@ public class Verificador {
             }
         }
 
-        // passo 5: compara os acessos dois a dois (cada par so uma vez)
+        // passo 5: todo acesso precisa ter um COMMITTED (o pedido foi concluido e respondido)
+        for (Acesso a : acessos) {
+            boolean concluiu = false;
+            for (String linha : linhas) {
+                String[] partes = linha.split(";");
+                if (partes[3].equals("COMMITTED") && partes[2].equals(a.pedido)) concluiu = true;
+            }
+            if (!concluiu) {
+                System.out.println("ERRO: pedido " + a.pedido + " nao foi concluido (sem COMMITTED)");
+                erros++;
+            }
+        }
+
+        // passo 6: compara os acessos dois a dois (cada par so uma vez)
         for (int i = 0; i < acessos.size(); i++) {
             for (int j = i + 1; j < acessos.size(); j++) {
                 Acesso a = acessos.get(i);
@@ -91,7 +105,7 @@ public class Verificador {
                 }
                 // se um entrou antes do outro sair, e o outro tambem entrou antes dele sair,
                 // os dois estavam la dentro ao mesmo tempo
-                boolean temSaida = a.horaSaiu != -1 && b.horaSaiu != -1;   // so compara se os dois ja saíram
+                boolean temSaida = a.horaSaiu != -1 && b.horaSaiu != -1;   // so compara se os dois ja sairam
                 if (temSaida && a.horaEntrou < b.horaSaiu && b.horaEntrou < a.horaSaiu) {
                     System.out.println("ERRO: SOBREPOSICAO entre " + a.pedido + " e " + b.pedido);
                     erros++;
@@ -101,7 +115,7 @@ public class Verificador {
 
         // resultado: 0 = tudo certo, 1 = achou erro
         if (erros == 0) {
-            System.out.println("OK: " + acessos.size() + " acessos, nenhuma sobreposicao");
+            System.out.println("OK: " + acessos.size() + " acessos, todos concluidos, nenhuma sobreposicao");
             return 0;
         }
         System.out.println("FALHOU: " + erros + " erro(s)");
