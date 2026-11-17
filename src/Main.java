@@ -2,7 +2,6 @@ import com.hazelcast.config.*;
 import com.hazelcast.config.cp.*;
 import com.hazelcast.core.*;
 import java.util.Arrays;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -16,7 +15,7 @@ public class Main {
     // Membros conhecidos para o join TCP. Para 10 processos, passar as 10 portas em HZ_MEMBERS.
     static final String SEEDS = System.getenv().getOrDefault("HZ_MEMBERS",
         "127.0.0.1:5701,127.0.0.1:5702,127.0.0.1:5703,127.0.0.1:5704,127.0.0.1:5705");
-    // Quantos membros participam do grupo Raft do CP Subsystem. Mínimo 3; usamos 5.
+    // Quantos membros integram o CP Subsystem. Mínimo 3; usamos 5.
     static final int CP_MEMBROS = Integer.parseInt(System.getenv().getOrDefault("HZ_CP_MEMBROS", "5"));
 
     // Nomes das primitivas usadas no trabalho.
@@ -25,6 +24,7 @@ public class Main {
     static final String SEMAFORO_K3 = "R-K3";  // semáforo com 3 permissões
 
     static Config configuracao(int porta) {
+        if (CP_MEMBROS < 3) throw new IllegalArgumentException("Use pelo menos 3 membros CP.");
         Config config = new Config();
         config.setClusterName(CLUSTER);
         config.getNetworkConfig().setPort(porta).setPortAutoIncrement(false);
@@ -55,7 +55,7 @@ public class Main {
         return config;
     }
 
-    static void sync(int id) throws Exception {
+    static void sync(int id, boolean protegido) throws Exception {
         int porta = 5700 + id;
         HazelcastInstance hz = Hazelcast.newHazelcastInstance(configuracao(porta));
         Runtime.getRuntime().addShutdownHook(new Thread(hz::shutdown));
@@ -69,20 +69,41 @@ public class Main {
         System.out.println("CP_PRONTO id=" + id + " membrosCP=" + cp.getCPMembers().toCompletableFuture().get().size()
             + " souCP=" + (local != null));
 
-        // Parte 2: aqui sobe o servidor de socket do ClusterSync (porta 6000+id).
-        new CountDownLatch(1).await();
+        // O atendimento só começa depois que o CP está pronto.
+        try {
+            new ClusterSync(hz, id, protegido).executar();
+        } finally {
+            hz.shutdown();
+        }
+    }
+
+    static int validarId(String valor) {
+        int id = Integer.parseInt(valor);
+        if (id < 1 || id > 10) throw new IllegalArgumentException("ID deve estar entre 1 e 10.");
+        return id;
     }
 
     public static void main(String[] args) throws Exception {
         java.util.logging.Logger.getLogger("com.hazelcast").setLevel(java.util.logging.Level.WARNING);
-        if (args.length < 2) {
-            System.out.println("Comandos: sync ID | cliente ID");
-            return;
-        }
+        if (args.length == 0) throw new IllegalArgumentException(
+            "Comandos: sync ID [sem-lock] | cliente ID [pedidos] [intervalo-ms] | observador | verificar");
         switch (args[0]) {
-            case "sync" -> sync(Integer.parseInt(args[1]));
-            case "cliente" -> Cliente.executar(args);
-            default -> System.out.println("Comando desconhecido: " + args[0]);
+            case "sync" -> {
+                if (args.length < 2 || args.length > 3 || (args.length == 3 && !args[2].equals("sem-lock")))
+                    throw new IllegalArgumentException("Uso: sync ID [sem-lock]");
+                sync(validarId(args[1]), args.length == 2);
+            }
+            case "cliente" -> {
+                if (args.length < 2 || args.length > 4)
+                    throw new IllegalArgumentException("Uso: cliente ID [pedidos] [intervalo-ms]");
+                Cliente.executar(args);
+            }
+            case "observador", "verificar" -> {
+                if (args.length != 1) throw new IllegalArgumentException("Este comando não recebe argumentos.");
+                if (args[0].equals("observador")) Verificador.executar();
+                else System.out.println(Verificador.enviar("SUMMARY"));
+            }
+            default -> throw new IllegalArgumentException("Comando desconhecido: " + args[0]);
         }
     }
 }

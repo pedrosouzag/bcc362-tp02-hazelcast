@@ -2,3 +2,4 @@
 *.sh text eol=lf
 *.java text eol=lf
 *.jar binary
+lib/SHA256SUMS text eol=lf
