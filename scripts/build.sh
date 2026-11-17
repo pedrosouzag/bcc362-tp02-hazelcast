@@ -9,5 +9,5 @@ if [ ! -f lib/hazelcast-5.4.0.jar ]; then
 fi
 (cd lib && sha256sum -c SHA256SUMS)
 javac --release 17 -encoding UTF-8 -cp lib/hazelcast-5.4.0.jar -d build/classes src/*.java
-jar --create --file build/tp01.jar --main-class Main -C build/classes .
+jar --create --file build/tp02.jar --main-class Main -C build/classes .
 echo 'Compilação concluída.'

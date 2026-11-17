@@ -45,10 +45,26 @@ Requisitos: Java 17+ (Ubuntu/WSL ou Linux).
 
 ```bash
 bash scripts/build.sh
-bash scripts/run.sh <argumentos>
 ```
 
-> Os argumentos de execução serão documentados aqui conforme a implementação do TP02 avançar.
+Subir os 5 processos do Cluster Sync (um terminal para cada; portas 5701 a 5705):
+
+```bash
+HZ_BIND=127.0.0.1 bash scripts/run.sh sync 1   # ... até sync 5
+```
+
+Cada processo imprime `MEMBRO_PRONTO` e, quando os 5 se encontram e formam o grupo Raft, `CP_PRONTO ... membrosCP=5`.
+
+Configuração por variável de ambiente:
+
+| Variável | Padrão | Uso |
+|---|---|---|
+| `HZ_CLUSTER` | `tp02-sync` | nome do cluster |
+| `HZ_MEMBERS` | `127.0.0.1:5701` … `:5705` | membros para o join TCP (10 processos: listar as 10 portas) |
+| `HZ_CP_MEMBROS` | `5` | `cpMemberCount` do CP Subsystem (mínimo 3) |
+| `HZ_BIND` | — | interface de rede (`127.0.0.1` para rodar local) |
+
+> Os demais argumentos (clientes, observador, experimentos) serão documentados conforme a implementação avançar.
 
 ## Referência
 
