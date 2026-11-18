@@ -110,13 +110,15 @@
 \node[muted,align=center] at (2.4,0.15) {\scriptsize socket TCP\\[-1pt]\scriptsize porta $6000+\mathrm{id}$};
 \node[muted,align=center] at (4.8,-4.6) {\scriptsize membros do cluster Hazelcast\\[-1pt]\scriptsize portas $5700+\mathrm{id}$};
 \node[muted,align=center] at (7.7,0.15) {\scriptsize pedem o lock};
-\node[caixa,minimum width=3.2cm,minimum height=0.7cm,align=center] (obs) at (10.2,-4.25) {Observador\\[-2pt]\scriptsize porta 7000};
-\draw[seta,dashed] (6.05,-3.6) -- node[below,pos=0.72,font=\scriptsize,text=muted]{BEGIN / END} (obs.west);
+\node[caixa,minimum width=3.2cm,minimum height=0.7cm,align=center] (obs) at (10.2,-4.7) {Observador\\[-2pt]\scriptsize porta 7000};
+\draw[seta,dashed] (6.05,-4.0) -- (obs.west);
+\node[muted,align=center,font=\scriptsize] at (10.2,-3.75) {todos os Sync avisam\\[-1pt]BEGIN / END};
 \end{tikzpicture}
 \begin{itemize}\setlength\itemsep{0.1cm}\small
-\item Cada cliente fala só com o seu Cluster Sync. Quem \textbf{disputa o lock} são os 5 Cluster Sync. O observador só registra.
+\item Cada cliente fala só com o seu Cluster Sync e não conhece o Hazelcast.
+\item Quem \textbf{disputa o lock} são os Cluster Sync. O \textbf{observador} só confere.
 \end{itemize}
-\note{5 clientes e 5 cluster sync, cada um e um processo separado. Os cluster sync sao os proprios membros do Hazelcast (implantacao minima permitida). O cliente nao conhece o Hazelcast.}
+\note{O observador e um programa a parte, so para verificar. Cada Sync avisa BEGIN quando entra em R e END quando sai; o observador mantem um contador de quantos estao dentro ao mesmo tempo. Com o lock o maximo tem que ser 1; se chegar a 2, ele registra uma sobreposicao. Ele nao participa da disputa pelo lock: quem decide quem entra e so o FencedLock. 5 clientes e 5 cluster sync, cada um e um processo separado. Os cluster sync sao os proprios membros do Hazelcast (implantacao minima permitida). O cliente nao conhece o Hazelcast.}
 \end{frame}
 
 % 5 ---------------------------------------------------------------
@@ -170,21 +172,21 @@ try {
 \centering
 \begin{tikzpicture}[font=\small]
 \draw[-{Stealth},muted] (-0.9,0.85) -- (12.9,0.85) node[midway,above,font=\scriptsize]{ordem de entrada em R, um de cada vez};
-\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (0,0) {4-1};
-\node[dentro,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (2,0) {1-1\\fence 8};
-\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (4,0) {2-1};
-\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (6,0) {3-1};
-\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (8,0) {5-1};
-\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (10,0) {4-2};
-\node[dentro,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (12,0) {1-2\\fence 15};
-\draw[<->,muted,thick] (2.95,-0.7) -- (11.05,-0.7) node[midway,below,font=\scriptsize,text=muted]{o Cluster Sync 1 espera 2,03 s pelo pedido 1-2};
+\node[dentro,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (0,0) {1-1\\fence7};
+\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (2,0) {5-1\\fence8};
+\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (4,0) {4-1\\fence9};
+\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (6,0) {3-1\\fence10};
+\node[dentro,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (8,0) {2-1\\fence11};
+\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (10,0) {1-2\\fence13};
+\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (12,0) {5-2\\fence15};
+\draw[<->,muted,thick] (0.95,-0.7) -- (8.95,-0.7) node[midway,below,font=\scriptsize,text=muted]{o pedido 2-1 esperou 2,55 s};
 \end{tikzpicture}
 \begin{itemize}\setlength\itemsep{0.12cm}\small
-\item O pedido \texttt{1-2} esperou 2,03 s e entrou com o fence 15.
-\item Entre o \texttt{1-1} (fence 8) e o \texttt{1-2} (fence 15) entraram \texttt{2-1}, \texttt{3-1}, \texttt{5-1} e \texttt{4-2}.
+\item Os 5 clientes pediram quase juntos (em 9 ms). Entrou um por vez, e o \texttt{2-1} esperou os outros 4.
+\item A ordem de entrada não foi a ordem de chegada: o \texttt{3-1} pediu primeiro e entrou em quarto.
 \end{itemize}
-{\scriptsize Fonte: \texttt{resultados/integracao-local} (5 clientes, 10 pedidos cada, sem pausa, com lock).}
-\note{Exemplo pedido pelo enunciado: mostrar por que um processo entrou e por que os demais esperaram. A ordem vem do log do observador; os fences 8 e 15 e a espera de 2029 ms vem do log do Sync 1. O fence pula de 8 para 15 porque outras operacoes do lock tambem ocupam posicoes no log do Raft. A ordem do desenho nao esta em escala de tempo.}
+{\scriptsize Fonte: \texttt{resultados/experimentos/final/alta-r2} (alta contenção, 5 clientes, sem pausa, com lock).}
+\note{Exemplo pedido pelo enunciado: mostrar por que um processo entrou e por que os demais esperaram. Os 5 primeiros REQUEST sairam em 9 ms (largada conjunta). A ordem vem do log do observador (BEGIN/END); os fences e a espera de 2547 ms do pedido 2-1 vem do log do Sync 2. O fence pula de 11 para 13 e de 13 para 15 porque outras operacoes do lock tambem ocupam posicoes no log do Raft. O pedido 3-1 chegou primeiro (REQUEST) e entrou em quarto: o Hazelcast nao promete ordem FIFO. A ordem do desenho nao esta em escala de tempo.}
 \end{frame}
 
 % 8 ---------------------------------------------------------------
@@ -230,14 +232,22 @@ try {
 \node[dentro,rounded corners=2pt,minimum width=1.2cm,minimum height=0.6cm] at (2.0,-1.4) {P2};
 \node[espera,rounded corners=2pt,minimum width=1.2cm,minimum height=0.6cm] at (4.0,-1.4) {P3};
 \node[font=\scriptsize,muted,anchor=west] at (4.8,-1.4) {espera};
+\begin{scope}[yshift=-3.1cm,xshift=-2.4cm,font=\scriptsize]
+\node[caixa,minimum width=1.5cm,minimum height=0.6cm] (p) at (0,0) {pedido};
+\node[dentro,rounded corners=2pt,minimum width=2.3cm,minimum height=0.6cm] (e1) at (2.5,0) {1. R com lock};
+\node[caixa,minimum width=2.5cm,minimum height=0.6cm] (e2) at (6.2,0) {2. semáforo (K)};
+\node[caixa,minimum width=2.0cm,minimum height=0.6cm] (c) at (9.1,0) {COMMITTED};
+\draw[seta] (p) -- (e1);
+\draw[seta] (e1) -- (e2);
+\node[muted] at (4.35,0.55) {solta o lock};
+\draw[seta] (e2) -- (c);
+\end{scope}
 \end{tikzpicture}
-\begin{itemize}\setlength\itemsep{0.15cm}
-\item \textbf{Lock:} só 1 entra.
-\item \textbf{Semáforo:} entram até K ao mesmo tempo.
-\item Testamos K=2 e K=3.
+\begin{itemize}\setlength\itemsep{0.1cm}\small
+\item \textbf{Lock:} só 1 entra. \textbf{Semáforo:} entram até K ao mesmo tempo (testamos K=2 e K=3).
+\item Cada pedido passa pelas duas etapas e só recebe \texttt{COMMITTED} no fim.
 \end{itemize}
-{\small Cada pedido usa R com lock, solta o lock e só depois usa a etapa do semáforo.}
-\note{Semaforos R-K2 e R-K3 ja estao configurados no Main. Falta a etapa que os usa e o contador de acessos simultaneos. No lock, quem pegou e quem solta.}
+\note{Lock deixa 1, semaforo deixa ate K. Nos modos semaforo2 e semaforo3 cada pedido faz primeiro a etapa em R com o lock, solta o lock, e so depois usa o semaforo R-K2 ou R-K3. Assim nunca se segura um recurso esperando o outro, o que evita deadlock. O observador confirmou: R sempre com no maximo 1, semaforo com pico K (2 e 3) e nunca acima.}
 \end{frame}
 
 % 10 --------------------------------------------------------------
