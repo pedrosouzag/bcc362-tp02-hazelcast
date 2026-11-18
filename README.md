@@ -73,7 +73,24 @@ Cada cliente conhece somente `127.0.0.1:6000+ID`. O padrão continua sendo 10 a 
 bash scripts/run.sh cliente 1 10 0   # repetir para IDs 2, 3, 4 e 5
 ```
 
-Os argumentos opcionais são `cliente ID [pedidos] [intervalo-ms]`: pedidos entre 10 e 50; intervalo 0 ou entre 1000 e 5000 ms. A duração de cada acesso a R permanece aleatória entre 200 e 1000 ms em qualquer modo. O cliente rejeita erro, conexão encerrada e confirmação de outro pedido.
+Os argumentos opcionais são `cliente ID [pedidos] [intervalo-ms]`: pedidos entre 10 e 50 (ou 0 para sortear); intervalo fixo entre 0 e 5000 ms. O padrão de carga normal continua sendo 1–5 s; intervalos menores servem aos experimentos. A duração de cada acesso a R permanece aleatória entre 200 e 1000 ms em qualquer modo. O cliente rejeita erro, conexão encerrada e confirmação de outro pedido.
+
+Também é possível configurar o cliente por ambiente, conforme a atualização da equipe:
+
+| Variável | Padrão | Significado |
+|---|---|---|
+| `CLIENTE_PEDIDOS` | `0` | 0 sorteia 10–50; valores fixos devem estar entre 10 e 50 |
+| `CLIENTE_ESPERA_MIN_MS` | `1000` | limite inferior da pausa |
+| `CLIENTE_ESPERA_MAX_MS` | `5000` | limite superior; exige 0 ≤ mínimo ≤ máximo ≤ 5000 |
+| `CLIENTE_SEMENTE` | `-1` | -1 usa sorteio novo; outro inteiro usa semente + ID do cliente |
+
+Argumentos explícitos de quantidade e intervalo têm prioridade sobre as variáveis correspondentes. A semente é definida por ambiente. Exemplo de alta contenção (repetir para os cinco IDs):
+
+```bash
+CLIENTE_PEDIDOS=10 CLIENTE_ESPERA_MIN_MS=0 CLIENTE_ESPERA_MAX_MS=0 CLIENTE_SEMENTE=42 bash scripts/run.sh cliente 1
+```
+
+Para carga desigual, usar intervalo zero em apenas um cliente e manter os demais com seus intervalos normais. A semente repete os sorteios do cliente, não a ordem de escalonamento da rede nem as durações sorteadas no Sync; a reprodução completa dos experimentos ainda exige configurar essas durações.
 
 Após todos os clientes terminarem, consultar o observador:
 
@@ -182,7 +199,7 @@ Configuração por variável de ambiente:
 ## Pendências da entrega completa
 
 - Preparar a demonstração didática de reentrância a partir do teste das primitivas.
-- Acrescentar sementes, carga desigual, repetições e consolidação de métricas; comparar 5/10 Sync quando viável.
+- Acrescentar semente/configuração das durações no Sync, executar carga desigual e repetições e consolidar métricas; comparar 5/10 Sync quando viável. O cliente já oferece quantidade, intervalos e semente configuráveis.
 - Produzir os slides e selecionar as evidências dos experimentos finais.
 
 ## Referência

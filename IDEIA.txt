@@ -46,6 +46,7 @@ O cliente fala com o cluster sync por socket, que é uma ligação pela rede ent
 Em que ponto estamos
 
 - O cliente envia os pedidos e só aceita COMMITTED com o identificador correto.
+- O cliente aceita as variáveis CLIENTE_PEDIDOS, CLIENTE_ESPERA_MIN_MS, CLIENTE_ESPERA_MAX_MS e CLIENTE_SEMENTE da atualização da equipe. Argumentos explícitos têm prioridade sobre quantidade e intervalo do ambiente. Configurações inválidas são rejeitadas antes da conexão.
 - O Cluster Sync recebe por socket, disputa o FencedLock, simula R e confirma o término.
 - A Main inicia o atendimento depois que o CP está pronto.
 - O Verificador é um observador em execução: registra BEGIN e END, conta os acessos ativos e acusa sobreposições sem bloquear a entrada de ninguém.

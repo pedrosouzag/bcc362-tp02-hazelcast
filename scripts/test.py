@@ -152,8 +152,14 @@ def experiment(protected, base_env, k=0):
                 sock.sendall((invalid + "\n").encode())
                 check(sock.makefile("r").readline().startswith("ERROR"), "Pedido inválido aceito")
         # Os cinco clientes são iniciados juntos, sem pausa entre seus pedidos.
-        clients = [start(["cliente", str(id), "10", "0"], folder / ("cliente-" + str(id) + ".log"), env, processes)
-                   for id in range(1, 6)]
+        clients = []
+        for id in range(1, 6):
+            # Pares usam ambiente; ímpares provam que argumentos têm prioridade.
+            client_env = dict(env, CLIENTE_PEDIDOS="10" if id % 2 == 0 else "20",
+                CLIENTE_ESPERA_MIN_MS="0" if id % 2 == 0 else "1000",
+                CLIENTE_ESPERA_MAX_MS="0" if id % 2 == 0 else "2000", CLIENTE_SEMENTE="42")
+            args = ["cliente", str(id)] + ([] if id % 2 == 0 else ["10", "0"])
+            clients.append(start(args, folder / ("cliente-" + str(id) + ".log"), client_env, processes))
         for client in clients:
             check(client.wait(timeout=120) == 0, "Cliente falhou em " + name)
         summary = fields(query("SUMMARY"))
@@ -190,6 +196,11 @@ def experiment(protected, base_env, k=0):
 
 if __name__ == "__main__":
     free_ports()
+    (RUN / "classes").mkdir()
+    javac = str(Path(java).with_name("javac.exe" if os.name == "nt" else "javac"))
+    subprocess.run([javac, "--release", "17", "-encoding", "UTF-8", "-cp", CP, "-d", str(RUN / "classes"),
+                    str(ROOT / "tests/ClienteConfigTest.java")], check=True)
+    subprocess.run([java, "-cp", str(RUN / "classes") + os.pathsep + CP, "ClienteConfigTest"], check=True)
     env = dict(os.environ, HZ_BIND="127.0.0.1", HZ_CP_MEMBROS="5", OBS_HOST="127.0.0.1", OBS_PORT="7000",
                HZ_MEMBERS=",".join("127.0.0.1:" + str(port) for port in range(5701, 5706)))
     results = {"cliente": test_client(), "observador": test_observer(env)}
@@ -198,7 +209,7 @@ if __name__ == "__main__":
     results["com-lock"] = experiment(True, env)
     subprocess.run([sys.executable, str(ROOT / "scripts/test_logs.py"),
                     str(RUN / "com-lock/registros")], check=True)
-    (RUN / "classes").mkdir()
+    (RUN / "classes").mkdir(exist_ok=True)
     javac = str(Path(java).with_name("javac.exe" if os.name == "nt" else "javac"))
     subprocess.run([javac, "--release", "17", "-encoding", "UTF-8", "-cp", CP, "-d", str(RUN / "classes"),
                     str(ROOT / "tests/PrimitivasTest.java")], check=True)

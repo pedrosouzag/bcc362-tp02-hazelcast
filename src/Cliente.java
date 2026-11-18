@@ -1,40 +1,61 @@
 import java.io.*;
 import java.net.Socket;
+import java.util.Map;
 import java.util.Random;
 
 public class Cliente {
+    // Separar a configuração permite testar os sorteios sem abrir sockets.
+    static class Configuracao {
+        int id, total, esperaMin, esperaMax, semente;
+        Random rnd;
+    }
+
+    static int numero(Map<String, String> ambiente, String nome, int padrao) {
+        String valor = ambiente.get(nome);
+        return valor == null ? padrao : Integer.parseInt(valor);
+    }
+
+    static Configuracao configurar(String[] args, Map<String, String> ambiente) {
+        Configuracao c = new Configuracao();
+        c.id = Main.validarId(args[1]);
+        c.semente = numero(ambiente, "CLIENTE_SEMENTE", -1);
+        c.rnd = c.semente == -1 ? new Random() : new Random((long) c.semente + c.id);
+        // Argumentos explícitos têm prioridade sobre as variáveis de ambiente.
+        int pedidos = args.length >= 3 ? Integer.parseInt(args[2]) : numero(ambiente, "CLIENTE_PEDIDOS", 0);
+        if (pedidos != 0 && (pedidos < 10 || pedidos > 50))
+            throw new IllegalArgumentException("Pedidos: 0 para sorteio ou 10 a 50.");
+        c.total = pedidos == 0 ? 10 + c.rnd.nextInt(41) : pedidos;
+        if (args.length >= 4) {
+            c.esperaMin = c.esperaMax = Integer.parseInt(args[3]);
+        } else {
+            c.esperaMin = numero(ambiente, "CLIENTE_ESPERA_MIN_MS", 1000);
+            c.esperaMax = numero(ambiente, "CLIENTE_ESPERA_MAX_MS", 5000);
+        }
+        // Zero permite alta contenção; intervalos menores permitem carga desigual.
+        if (c.esperaMin < 0 || c.esperaMax < c.esperaMin || c.esperaMax > 5000)
+            throw new IllegalArgumentException("Espera deve respeitar 0 <= mínimo <= máximo <= 5000 ms.");
+        return c;
+    }
 
     static void executar(String[] args) throws Exception {
-        int clientId = Main.validarId(args[1]);     // cada cliente conhece apenas seu Sync
-        int porta = 6000 + clientId;                // ramal do meu cluster sync
-        Random rnd = new Random();
-
-        int total = args.length >= 3 ? Integer.parseInt(args[2]) : 10 + rnd.nextInt(41);
-        int intervalo = args.length >= 4 ? Integer.parseInt(args[3]) : -1;
-        if (total < 10 || total > 50) throw new IllegalArgumentException("Use de 10 a 50 pedidos.");
-        if (args.length >= 4 && intervalo != 0 && (intervalo < 1000 || intervalo > 5000))
-            throw new IllegalArgumentException("Intervalo: 0 para contenção ou 1000 a 5000 ms.");
-
-        for (int seq = 1; seq <= total; seq++) {
-            String requestId = clientId + "-" + seq;   // nome unico do pedido, id do cliente - numero do pedido
-
-            // liga no cluster sync: saida = falar, entrada = ouvir
-            try (Socket socket = new Socket("127.0.0.1", porta);
-                 PrintWriter saida = new PrintWriter(socket.getOutputStream(), true);   // converte texto em bytes e envia (falar)
-                 BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {   // converte bytes recebidos em texto, linha a linha (ouvir)
-
-                    saida.println("WRITE " + requestId);   // pede para escrever em r
-                    // espera a resposta: so volta quando o cluster sync conseguir o lock (entrar na regiao critica) e terminar
-                    String resposta = entrada.readLine();   // resposta: "COMMITTED " + requestId, ex.: "COMMITTED 3-17"
-                    // Só esta confirmação prova que o nosso pedido terminou.
-                    if (!("COMMITTED " + requestId).equals(resposta))
-                        throw new IOException("Pedido " + requestId + " sem confirmação válida: " + resposta);
-                    System.out.println("COMMITTED cliente=" + clientId + " request_id=" + requestId);
+        Configuracao c = configurar(args, System.getenv());
+        System.out.println("CLIENTE id=" + c.id + " pedidos=" + c.total + " espera=" + c.esperaMin
+            + ".." + c.esperaMax + "ms semente=" + c.semente);
+        for (int seq = 1; seq <= c.total; seq++) {
+            String pedido = c.id + "-" + seq;
+            // Cada cliente conhece somente o seu Sync.
+            try (Socket socket = new Socket("127.0.0.1", 6000 + c.id);
+                 PrintWriter saida = new PrintWriter(socket.getOutputStream(), true);
+                 BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+                saida.println("WRITE " + pedido);
+                String resposta = entrada.readLine();
+                if (!("COMMITTED " + pedido).equals(resposta))
+                    throw new IOException("Pedido " + pedido + " sem confirmação válida: " + resposta);
+                System.out.println("COMMITTED cliente=" + c.id + " request_id=" + pedido);
             }
-
-            // descansa de 1 a 5 segundos antes do proximo pedido
-            if (seq < total) Thread.sleep(intervalo < 0 ? 1000 + rnd.nextInt(4001) : intervalo);
+            // Não acrescentamos uma espera artificial depois do último pedido.
+            if (seq < c.total) Thread.sleep(c.esperaMin + c.rnd.nextInt(c.esperaMax - c.esperaMin + 1));
         }
-        System.out.println("CLIENTE_CONCLUIDO id=" + clientId + " pedidos=" + total);
+        System.out.println("CLIENTE_CONCLUIDO id=" + c.id + " pedidos=" + c.total);
     }
 }

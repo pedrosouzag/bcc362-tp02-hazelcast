@@ -1,0 +1,57 @@
+[
+  {
+    "caso": "valido",
+    "status": 0,
+    "esperado": 0
+  },
+  {
+    "caso": "vazio",
+    "status": 1,
+    "esperado": 1
+  },
+  {
+    "caso": "participante_ausente",
+    "status": 1,
+    "esperado": 1
+  },
+  {
+    "caso": "pedido_trocado",
+    "status": 1,
+    "esperado": 1
+  },
+  {
+    "caso": "saida_duplicada",
+    "status": 1,
+    "esperado": 1
+  },
+  {
+    "caso": "tempo_invertido",
+    "status": 1,
+    "esperado": 1
+  },
+  {
+    "caso": "fence_trocado",
+    "status": 1,
+    "esperado": 1
+  },
+  {
+    "caso": "evento_invalido",
+    "status": 1,
+    "esperado": 1
+  },
+  {
+    "caso": "sem_confirmacao",
+    "status": 1,
+    "esperado": 1
+  },
+  {
+    "caso": "observador_vazio",
+    "status": 1,
+    "esperado": 1
+  },
+  {
+    "caso": "observador_sobreposicao",
+    "status": 1,
+    "esperado": 1
+  }
+]
