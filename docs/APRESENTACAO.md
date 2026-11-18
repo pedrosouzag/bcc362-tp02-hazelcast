@@ -110,7 +110,7 @@ Carga desigual: acessos e espera do cliente rápido × demais `[preencher]`.
 ### 11. Resultados: 5 × 10 syncs e mensagens
 - 10 syncs é viável numa máquina: 10 JVMs, ~2,1 GB de RAM, CP formado em ~20 s;
   5 membros CP + 5 comuns.
-- Mensagens por entrada (ver `docs/MENSAGENS.md`): aplicação 2, observador 3,
+- Mensagens por entrada (ver `docs/MENSAGENS.md`): aplicação 2, observador 4,
   protocolo ≈ 4G = 20 (estimado). Com 10 syncs, o custo do protocolo **não cresce**
   (G continua 5); Ricart–Agrawala iria de 8 para 18.
 - Espera mediana 5 × 10 `[preencher]`.

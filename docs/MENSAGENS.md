@@ -18,9 +18,10 @@ por pedido; o handshake TCP não é contado como mensagem da aplicação.
 
 ## 2. Instrumentação (contada)
 
-Por pedido: `BEGIN`, `ACK do BEGIN` e `END` = **3 mensagens** (se o observador também confirmar o
-END, são 4). Elas existem só para verificação: não fazem parte do mecanismo de sincronização e
-não podem ser somadas ao custo do protocolo.
+Por etapa: `BEGIN`, `OK`, `END`, `OK` = **4 mensagens** (o Sync espera a confirmação do BEGIN antes
+da seção crítica e a do END antes de liberar o lock). Com a etapa de semáforo, cada pedido passa por
+duas etapas: 8 mensagens. Elas existem só para verificação: não fazem parte do mecanismo de
+sincronização e não podem ser somadas ao custo do protocolo.
 
 ## 3. Protocolo (estimado)
 

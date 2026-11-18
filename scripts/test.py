@@ -37,6 +37,8 @@ def check(condition, message):
 def free_ports():
     for port in [*range(5701, 5706), *range(6001, 6006), 7000]:
         with socket.socket() as sock:
+            # Igual ao ServerSocket do Java no Linux: TIME_WAIT de uma execução anterior não conta como ocupada.
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind(("127.0.0.1", port))
 
 
@@ -84,6 +86,8 @@ def test_client():
     for name, reply in [("id_incorreto", b"COMMITTED 9-99\n"), ("erro", b"ERROR rejeitado\n"), ("eof", b"")]:
         received = []
         with socket.socket() as server:
+            # No Linux/WSL a porta fica em TIME_WAIT entre os casos; sem isto o segundo bind falha.
+            server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             server.bind(("127.0.0.1", 6001))
             server.listen()
             server.settimeout(10)

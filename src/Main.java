@@ -87,7 +87,8 @@ public class Main {
         java.util.logging.Logger.getLogger("com.hazelcast").setLevel(java.util.logging.Level.WARNING);
         if (args.length == 0) throw new IllegalArgumentException(
             "Comandos: sync ID [sem-lock|semaforo2|semaforo3] | cliente ID [pedidos] [intervalo-ms]"
-            + " | observador | verificar | verificar2 | verificar3 | verificar-logs pedidos clientes [K]");
+            + " | observador | verificar | verificar2 | verificar3 | verificar-logs pedidos clientes [K]"
+            + " | reentrancia");
         switch (args[0]) {
             case "sync" -> {
                 if (args.length < 2 || args.length > 3)
@@ -108,6 +109,10 @@ public class Main {
                     throw new IllegalArgumentException("Uso: verificar-logs pedidos-por-cliente clientes [K]");
                 System.exit(Verificador.verificarLogs(Integer.parseInt(args[1]), Integer.parseInt(args[2]),
                     args.length == 4 ? Integer.parseInt(args[3]) : 0));
+            }
+            case "reentrancia" -> {
+                if (args.length != 1) throw new IllegalArgumentException("Este comando não recebe argumentos.");
+                Reentrancia.executar();
             }
             case "observador", "verificar", "verificar2", "verificar3" -> {
                 if (args.length != 1) throw new IllegalArgumentException("Este comando não recebe argumentos.");

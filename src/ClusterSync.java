@@ -11,13 +11,21 @@ public class ClusterSync {
     private final boolean protegido;
     private final FencedLock lock;
     private final ISemaphore semaforo;
-    private final Random random = new Random();
+    private final Random random;
+    private final long semente;
     private final Path arquivo;
 
     ClusterSync(HazelcastInstance hz, int id, boolean protegido, int capacidade) throws IOException {
         this.id = id;
         this.protegido = protegido;
         this.capacidade = capacidade;
+        // Semente das durações da seção crítica: SYNC_SEMENTE fixa repete os sorteios;
+        // sem ela, sorteamos uma e a imprimimos para que a rodada possa ser repetida.
+        long base = Long.parseLong(System.getenv().getOrDefault("SYNC_SEMENTE", "-1"));
+        semente = base == -1 ? new Random().nextInt(Integer.MAX_VALUE) : base;
+        random = new Random(semente + id);
+        System.out.println("SYNC_CONFIG id=" + id + " semente=" + semente + (base == -1 ? " (sorteada)" : "")
+            + " duracao_ms=200..1000 protegido=" + protegido + " K=" + capacidade);
         // Mesmo nome em todos os Sync: todos disputam a mesma primitiva.
         lock = hz.getCPSubsystem().getLock(Main.LOCK_R);
         semaforo = capacidade == 0 ? null : hz.getCPSubsystem().getSemaphore("R-K" + capacidade);

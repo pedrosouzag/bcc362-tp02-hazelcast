@@ -7,6 +7,8 @@ public class Cliente {
     // Separar a configuração permite testar os sorteios sem abrir sockets.
     static class Configuracao {
         int id, total, esperaMin, esperaMax, semente;
+        boolean sementeSorteada;
+        long inicioMs; // largada conjunta (relógio do host); 0 = começa na hora
         Random rnd;
     }
 
@@ -19,7 +21,12 @@ public class Cliente {
         Configuracao c = new Configuracao();
         c.id = Main.validarId(args[1]);
         c.semente = numero(ambiente, "CLIENTE_SEMENTE", -1);
-        c.rnd = c.semente == -1 ? new Random() : new Random((long) c.semente + c.id);
+        // -1: sorteia uma semente, mas ela é impressa no log para a rodada poder ser repetida.
+        c.sementeSorteada = c.semente == -1;
+        if (c.sementeSorteada) c.semente = new Random().nextInt(Integer.MAX_VALUE);
+        c.rnd = new Random((long) c.semente + c.id);
+        String inicio = ambiente.get("CLIENTE_INICIO_MS");
+        c.inicioMs = inicio == null ? 0 : Long.parseLong(inicio);
         // Argumentos explícitos têm prioridade sobre as variáveis de ambiente.
         int pedidos = args.length >= 3 ? Integer.parseInt(args[2]) : numero(ambiente, "CLIENTE_PEDIDOS", 0);
         if (pedidos != 0 && (pedidos < 10 || pedidos > 50))
@@ -40,9 +47,13 @@ public class Cliente {
     static void executar(String[] args) throws Exception {
         Configuracao c = configurar(args, System.getenv());
         System.out.println("CLIENTE id=" + c.id + " pedidos=" + c.total + " espera=" + c.esperaMin
-            + ".." + c.esperaMax + "ms semente=" + c.semente);
+            + ".." + c.esperaMax + "ms semente=" + c.semente + (c.sementeSorteada ? " (sorteada)" : ""));
+        // Largada conjunta: todos os clientes recebem o mesmo instante e começam juntos (alta contenção).
+        long falta = c.inicioMs - System.currentTimeMillis();
+        if (falta > 0) Thread.sleep(falta);
         for (int seq = 1; seq <= c.total; seq++) {
             String pedido = c.id + "-" + seq;
+            long inicio = System.nanoTime(); // relógio monotônico do próprio cliente
             // Cada cliente conhece somente o seu Sync.
             try (Socket socket = new Socket("127.0.0.1", 6000 + c.id);
                  PrintWriter saida = new PrintWriter(socket.getOutputStream(), true);
@@ -51,7 +62,9 @@ public class Cliente {
                 String resposta = entrada.readLine();
                 if (!("COMMITTED " + pedido).equals(resposta))
                     throw new IOException("Pedido " + pedido + " sem confirmação válida: " + resposta);
-                System.out.println("COMMITTED cliente=" + c.id + " request_id=" + pedido);
+                // resposta_ms: do envio do WRITE até o COMMITTED (espera pelo lock + seção crítica).
+                System.out.println("COMMITTED cliente=" + c.id + " request_id=" + pedido
+                    + " resposta_ms=" + (System.nanoTime() - inicio) / 1_000_000);
             }
             // Não acrescentamos uma espera artificial depois do último pedido.
             if (seq < c.total) Thread.sleep(c.esperaMin + c.rnd.nextInt(c.esperaMax - c.esperaMin + 1));

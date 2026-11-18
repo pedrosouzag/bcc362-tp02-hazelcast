@@ -82,7 +82,8 @@ Também é possível configurar o cliente por ambiente, conforme a atualização
 | `CLIENTE_PEDIDOS` | `0` | 0 sorteia 10–50; valores fixos devem estar entre 10 e 50 |
 | `CLIENTE_ESPERA_MIN_MS` | `1000` | limite inferior da pausa |
 | `CLIENTE_ESPERA_MAX_MS` | `5000` | limite superior; exige 0 ≤ mínimo ≤ máximo ≤ 5000 |
-| `CLIENTE_SEMENTE` | `-1` | -1 usa sorteio novo; outro inteiro usa semente + ID do cliente |
+| `CLIENTE_SEMENTE` | `-1` | -1 sorteia uma semente e a imprime (`semente=... (sorteada)`); outro inteiro fixa a semente. O cliente usa semente + ID |
+| `CLIENTE_INICIO_MS` | — | instante (epoch em ms) da largada conjunta; o cliente espera até ele antes do primeiro pedido |
 
 Argumentos explícitos de quantidade e intervalo têm prioridade sobre as variáveis correspondentes. A semente é definida por ambiente. Exemplo de alta contenção (repetir para os cinco IDs):
 
@@ -195,12 +196,49 @@ Configuração por variável de ambiente:
 | `OBS_HOST` | `127.0.0.1` | endereço do observador usado pelos Sync e pela consulta |
 | `OBS_PORT` | `7000` | porta do observador |
 | `LOG_DIR` | `logs` | pasta dos registros da execução; deve ser nova ou estar reservada ao experimento |
+| `SYNC_SEMENTE` | `-1` | semente das durações da seção crítica; -1 sorteia e imprime em `SYNC_CONFIG`. O Sync usa semente + ID |
+
+Com 10 Sync, gerar a lista de membros com `export HZ_MEMBERS=$(bash scripts/membros.sh 10)`; o `cpMemberCount` continua 5 (5 membros CP e 5 membros comuns).
+
+## Demonstração de reentrância
+
+Com os 5 Sync rodando e **sem carga** (nenhum cliente ativo):
+
+```bash
+bash scripts/run.sh reentrancia
+```
+
+O comando conecta ao cluster como cliente Hazelcast de diagnóstico (não é um dos 5 clientes do cenário), pega `R` duas vezes na mesma thread e mostra `lockCount` 1 → 2 com o **mesmo fence**, uma outra thread bloqueada enquanto o contador não volta a 0, e uma nova aquisição com fence maior. Termina com `REENTRANCIA_OK`.
+
+## Experimentos e métricas
+
+```bash
+bash scripts/build.sh
+python3 scripts/experimentos.py                         # todos os cenários (~30 min)
+python3 scripts/analisar.py resultados/experimentos/AAAAmmdd-HHMMSS
+```
+
+| Cenário | Sync | Carga | Repetições |
+|---|---|---|---|
+| `normal` | 5 | pausa 1–5 s entre pedidos | 3 |
+| `alta` | 5 | sem pausa, largada conjunta | 3 |
+| `desigual` | 5 | cliente 1 sem pausa e com 50 pedidos; demais com pausa 1–5 s | 1 |
+| `alta-n10` | 10 | igual a `alta`, com 10 Sync e 10 clientes | 1 |
+| `sem-lock` | 5 | `alta` sem FencedLock (controle negativo) | 1 |
+| `semaforo2` / `semaforo3` | 5 | `alta` com a etapa de semáforo K=2 / K=3 | 1 |
+
+Opções: `--cenarios alta,normal`, `--repeticoes N`, `--pedidos N` (10–50, padrão 20 por cliente), `--semente N`. A quantidade de pedidos é fixa por cliente para que as repetições de um cenário tenham a mesma carga. Cada rodada usa cluster, observador e pasta de logs novos, fixa as sementes do cliente e do Sync, faz a largada conjunta e grava em `resultados/experimentos/AAAAmmdd-HHMMSS/<cenario>-r<N>/`:
+
+- `config.json`: cenário, Sync, pedidos, pausas, duração da seção crítica, sementes, versões;
+- `resumo.json`: tempo total, contagens do observador, `verificar-logs` e `propriedades_ok`;
+- `registros/`: logs de cada Sync e do observador; `saida/`: saída de cada processo.
+
+O script confere as propriedades pelo observador: zero sobreposição e ocupação máxima 1 com lock, sobreposição detectada sem lock, nunca mais que K e uso concorrente no semáforo, e todos os pedidos concluídos. O `analisar.py` gera `RESUMO.md`, `metricas.csv` e `clientes.csv` com pedidos concluídos, tempo total, espera mediana/p90/máxima pelo lock (`espera_ns`, relógio monotônico do Sync), tempo de resposta no cliente, acessos e espera por cliente, e mensagens por pedido (aplicação e observador contadas; Raft estimado, ver [docs/MENSAGENS.md](docs/MENSAGENS.md)).
 
 ## Pendências da entrega completa
 
-- Preparar a demonstração didática de reentrância a partir do teste das primitivas.
-- Acrescentar semente/configuração das durações no Sync, executar carga desigual e repetições e consolidar métricas; comparar 5/10 Sync quando viável. O cliente já oferece quantidade, intervalos e semente configuráveis.
-- Produzir os slides e selecionar as evidências dos experimentos finais.
+- Executar a rodada completa de experimentos e escolher as evidências finais para `resultados/`.
+- Interpretar os resultados (exclusão mútua, progresso, deadlock, starvation) e produzir os slides ([docs/APRESENTACAO.md](docs/APRESENTACAO.md)).
 
 ## Referência
 
