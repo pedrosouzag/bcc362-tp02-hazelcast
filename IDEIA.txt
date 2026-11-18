@@ -55,4 +55,5 @@ Em que ponto estamos
 - Nos modos semaforo2 e semaforo3, cada pedido usa primeiro R com mutex, libera o mutex e depois usa uma etapa de capacidade K. Só responde COMMITTED depois de terminar as duas etapas.
 - Os logs em arquivo da equipe foram preservados e ampliados. A verificação offline confere os eventos por pedido e usa o registro do observador para checar ocupação, sem comparar relógios de máquinas diferentes.
 - Há testes locais de reentrância e devolução das permissões, além dos testes de fluxo e de logs inválidos.
+- Os slides em LaTeX estão na pasta slides (15 slides). Os campos dos resultados finais ainda estão em vermelho para preencher.
 - Faltam as cargas e repetições completas com sementes e métricas, a comparação 5/10 quando viável e a apresentação. A demonstração didática de reentrância pode usar o teste das primitivas.

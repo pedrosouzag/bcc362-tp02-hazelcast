@@ -1,0 +1,351 @@
+% Compilar duas vezes: pdflatex apresentacao.tex (dentro da pasta slides)
+% Tudo que aparece em vermelho como [preencher: ...] precisa ser trocado antes do seminario.
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern,booktabs,listings,tikz,array}
+\usetikzlibrary{positioning,arrows.meta}
+\definecolor{navy}{HTML}{10243A}
+\definecolor{teal}{HTML}{008C82}
+\definecolor{pale}{HTML}{EDF5F5}
+\definecolor{muted}{HTML}{536579}
+\setbeamercolor{normal text}{fg=navy,bg=white}
+\setbeamercolor{structure}{fg=teal}
+\setbeamercolor{frametitle}{fg=navy}
+\setbeamercolor{title}{fg=navy}
+\setbeamercolor{block title}{fg=white,bg=teal}
+\setbeamercolor{block body}{fg=navy,bg=pale}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{footline}{\hspace{0.45cm}\textcolor{muted}{\scriptsize UFOP \quad|\quad BCC362 \quad|\quad TP02 \quad|\quad Hazelcast}\hfill\textcolor{teal}{\scriptsize\insertframenumber/\inserttotalframenumber}\hspace{0.45cm}\vspace{0.2cm}}
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
+\lstset{language=Java,basicstyle=\ttfamily\small,keywordstyle=\color{teal}\bfseries,showstringspaces=false,breaklines=true,columns=fullflexible,backgroundcolor=\color{pale},frame=single,rulecolor=\color{pale}}
+\newcommand{\preencher}[1]{\textcolor{red}{\textbf{[preencher: #1]}}}
+\tikzset{
+  caixa/.style={draw=teal,fill=pale,rounded corners=2pt,minimum height=0.55cm,text=navy},
+  seta/.style={-{Stealth[length=2mm]},teal,thick},
+  dentro/.style={draw=teal,fill=teal,text=white},
+  espera/.style={draw=muted,fill=muted!25,text=navy}
+}
+
+\title{Exclusão mútua com FencedLock}
+\subtitle{Sincronização em sistemas distribuídos com Hazelcast}
+\author{\preencher{nomes e matrículas dos integrantes}}
+\institute{Universidade Federal de Ouro Preto\\BCC362 --- Sistemas Distribuídos}
+\date{Trabalho Prático 02 --- Trilha B, opção B5}
+
+\begin{document}
+
+% 1 ---------------------------------------------------------------
+\begin{frame}
+\titlepage
+\note{Apresentar o grupo. Plano: problema, arquitetura, como funciona por dentro, experimentos, resultados e perguntas.}
+\end{frame}
+
+% 2 ---------------------------------------------------------------
+\begin{frame}{O problema}
+\begin{columns}[c]
+\begin{column}{0.48\textwidth}
+\begin{itemize}\setlength\itemsep{0.35cm}
+\item Vários programas querem usar o mesmo recurso \textbf{R}.
+\item Se dois usam juntos, os dados se misturam.
+\item Queremos que \textbf{só um entre de cada vez}.
+\item Isso se chama \textbf{exclusão mútua}.
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[font=\small]
+\node[caixa,minimum width=2.3cm] (p1) at (0,0) {Processo 1};
+\node[caixa,minimum width=2.3cm] (p2) at (0,-1.4) {Processo 2};
+\node[dentro,rounded corners=2pt,minimum width=1.2cm,minimum height=1.3cm] (r) at (4.2,-0.7) {\textbf{R}};
+\draw[seta] (p1) -- node[above,font=\scriptsize,text=navy]{entra} (r.west |- p1);
+\draw[-{Stealth[length=2mm]},red,thick,dashed] (p2) -- node[below,font=\scriptsize,text=red]{espera} (r.west |- p2);
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+{\small R é só uma simulação: ``escrever'' em R é esperar de 200 a 1000 ms.}
+\note{R e de mentira, ninguem grava arquivo. O que importa e provar que dois nao ficam dentro ao mesmo tempo. A parte do codigo que usa R se chama regiao critica.}
+\end{frame}
+
+% 3 ---------------------------------------------------------------
+\begin{frame}{A ferramenta: FencedLock}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}\begin{block}{FencedLock}
+\begin{itemize}\setlength\itemsep{0.2cm}\small
+\item Um lock que vale entre programas diferentes.
+\item Quem pega o lock entra. Os outros esperam.
+\item Cada entrada recebe um número que só cresce: o \textbf{fence}.
+\end{itemize}\end{block}\end{column}
+\begin{column}{0.46\textwidth}\begin{block}{CP Subsystem}
+\begin{itemize}\setlength\itemsep{0.2cm}\small
+\item É o que faz o lock ser confiável.
+\item Os membros decidem juntos, por maioria.
+\item Precisa de pelo menos 3 membros. Usamos 5.
+\end{itemize}\end{block}\end{column}
+\end{columns}
+\vspace{0.25cm}
+\begin{alertblock}{Versão}
+\small Usamos o Hazelcast \textbf{5.4.0}. Na 5.6.0 o CP exige licença paga e o membro não sobe.
+\end{alertblock}
+\note{Fence = senha de atendimento: cada entrada recebe um numero maior. O enunciado manda conferir edicao e licenca; o grupo testou a 5.6.0 (erro: CP subsystem is a licensed feature) e a 5.4.0 Community.}
+\end{frame}
+
+% 4 ---------------------------------------------------------------
+\begin{frame}{Arquitetura}
+\centering
+\begin{tikzpicture}[font=\small]
+\foreach \i in {1,...,5}{
+  \node[caixa,minimum width=2.1cm] (c\i) at (0,-0.72*\i) {Cliente \i};
+  \node[caixa,minimum width=2.1cm] (s\i) at (4.8,-0.72*\i) {Cluster Sync \i};
+  \draw[seta] (c\i) -- (s\i);
+}
+\node[dentro,rounded corners=2pt,minimum width=3.2cm,minimum height=2.2cm,align=center] (lock) at (10.2,-2.16) {\textbf{FencedLock}\\``R''\\[2pt]\scriptsize CP Subsystem};
+\foreach \i in {1,...,5}{\draw[seta,dashed] (s\i.east) -- (lock.west);}
+\draw[dashed,muted] (3.55,-0.3) rectangle (6.05,-4.0);
+\node[muted,align=center] at (2.4,0.15) {\scriptsize socket TCP\\[-1pt]\scriptsize porta $6000+\mathrm{id}$};
+\node[muted,align=center] at (4.8,-4.6) {\scriptsize membros do cluster Hazelcast\\[-1pt]\scriptsize portas $5700+\mathrm{id}$};
+\node[muted,align=center] at (7.7,0.15) {\scriptsize pedem o lock};
+\node[caixa,minimum width=3.2cm,minimum height=0.7cm,align=center] (obs) at (10.2,-4.25) {Observador\\[-2pt]\scriptsize porta 7000};
+\draw[seta,dashed] (6.05,-3.6) -- node[below,pos=0.72,font=\scriptsize,text=muted]{BEGIN / END} (obs.west);
+\end{tikzpicture}
+\begin{itemize}\setlength\itemsep{0.1cm}\small
+\item Cada cliente fala só com o seu Cluster Sync. Quem \textbf{disputa o lock} são os 5 Cluster Sync. O observador só registra.
+\end{itemize}
+\note{5 clientes e 5 cluster sync, cada um e um processo separado. Os cluster sync sao os proprios membros do Hazelcast (implantacao minima permitida). O cliente nao conhece o Hazelcast.}
+\end{frame}
+
+% 5 ---------------------------------------------------------------
+\begin{frame}{O caminho de um pedido}
+\centering
+\begin{tikzpicture}[font=\small]
+\foreach \n/\t [count=\i from 0] in {REQUEST/pedido chega,ACQUIRE/pega o lock,ENTER/entra,EXIT/sai,RELEASE/solta o lock,COMMITTED/responde}{
+  \node[caixa,minimum width=2.0cm,font=\scriptsize\ttfamily] (n\i) at (2.4*\i,0) {\n};
+  \node[font=\scriptsize,muted,text width=2.1cm,align=center] at (2.4*\i,-0.65) {\t};
+}
+\foreach \i/\j in {0/1,1/2,2/3,3/4,4/5}{\draw[seta] (n\i) -- (n\j);}
+\draw[<->,muted,thick] (0.9,0.8) -- (1.5,0.8);
+\node[font=\scriptsize,muted] at (1.2,1.1) {espera};
+\draw[<->,teal,thick] (2.4,-1.45) -- (9.6,-1.45) node[midway,below,font=\scriptsize,text=teal]{com o lock (tem fence)};
+\draw[<->,teal,thick] (4.8,-2.3) -- (7.2,-2.3) node[midway,below,font=\scriptsize,text=teal]{região crítica};
+\end{tikzpicture}
+\begin{itemize}\setlength\itemsep{0.12cm}\small
+\item O cliente faz de 10 a 50 pedidos. Cada pedido tem um nome único, como \texttt{3-17}.
+\item \texttt{COMMITTED} só diz que o acesso simulado terminou.
+\item Ao entrar e ao sair, o Cluster Sync avisa o observador (\texttt{BEGIN} e \texttt{END}).
+\end{itemize}
+\note{Espera pelo lock = tempo entre REQUEST e ACQUIRE. Cada evento vai para logs/sync-ID.log com hora, sync, pedido, evento e fence.}
+\end{frame}
+
+% 6 ---------------------------------------------------------------
+\begin{frame}[fragile]{O código do Cluster Sync (simplificado)}
+\begin{lstlisting}
+log(pedido, "REQUEST");
+long fence = lock.lockAndGetFence();   // espera a vez
+try {
+    log(pedido, "ACQUIRE", fence);
+    observador("BEGIN", pedido);       // avisa que entrou
+    log(pedido, "ENTER", fence);
+    Thread.sleep(duracao);             // finge escrever em R
+    log(pedido, "EXIT", fence);
+    observador("END", pedido);         // avisa que saiu
+} finally {
+    lock.unlock();                     // solta o lock
+    log(pedido, "RELEASE", fence);
+}
+\end{lstlisting}
+\begin{itemize}\setlength\itemsep{0.15cm}\small
+\item \texttt{lockAndGetFence()} espera até o lock ficar livre.
+\item O \texttt{unlock()} fica no \texttt{finally}, para soltar mesmo se der erro.
+\end{itemize}
+\note{O FencedLock fica preso a thread; por isso cada pedido roda numa thread propria e lock/unlock acontecem nela. EXIT e registrado antes do unlock para o log nunca mostrar sobreposicao falsa.}
+\end{frame}
+
+% 7 ---------------------------------------------------------------
+\begin{frame}{Exemplo de disputa (log real)}
+\centering
+\begin{tikzpicture}[font=\small]
+\draw[-{Stealth},muted] (-0.9,0.85) -- (12.9,0.85) node[midway,above,font=\scriptsize]{ordem de entrada em R, um de cada vez};
+\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (0,0) {4-1};
+\node[dentro,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (2,0) {1-1\\fence 8};
+\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (4,0) {2-1};
+\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (6,0) {3-1};
+\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (8,0) {5-1};
+\node[caixa,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (10,0) {4-2};
+\node[dentro,minimum width=1.85cm,minimum height=0.8cm,align=center,font=\scriptsize] at (12,0) {1-2\\fence 15};
+\draw[<->,muted,thick] (2.95,-0.7) -- (11.05,-0.7) node[midway,below,font=\scriptsize,text=muted]{o Cluster Sync 1 espera 2,03 s pelo pedido 1-2};
+\end{tikzpicture}
+\begin{itemize}\setlength\itemsep{0.12cm}\small
+\item O pedido \texttt{1-2} esperou 2,03 s e entrou com o fence 15.
+\item Entre o \texttt{1-1} (fence 8) e o \texttt{1-2} (fence 15) entraram \texttt{2-1}, \texttt{3-1}, \texttt{5-1} e \texttt{4-2}.
+\end{itemize}
+{\scriptsize Fonte: \texttt{resultados/integracao-local} (5 clientes, 10 pedidos cada, sem pausa, com lock).}
+\note{Exemplo pedido pelo enunciado: mostrar por que um processo entrou e por que os demais esperaram. A ordem vem do log do observador; os fences 8 e 15 e a espera de 2029 ms vem do log do Sync 1. O fence pula de 8 para 15 porque outras operacoes do lock tambem ocupam posicoes no log do Raft. A ordem do desenho nao esta em escala de tempo.}
+\end{frame}
+
+% 8 ---------------------------------------------------------------
+\begin{frame}{Como verificamos}
+\begin{columns}[c]
+\begin{column}{0.48\textwidth}
+\begin{itemize}\setlength\itemsep{0.3cm}
+\item O \textbf{observador} recebe \texttt{BEGIN} e \texttt{END} e conta quantos estão em R.
+\item Ele só registra: não autoriza nem bloqueia ninguém.
+\item Depois conferimos os logs de cada pedido, de \texttt{REQUEST} a \texttt{COMMITTED}.
+\end{itemize}
+\vspace{0.2cm}
+{\small Resultado esperado:\\\texttt{maximo=1 sobreposicoes=0 erros=0}}
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+\begin{tikzpicture}[font=\scriptsize]
+\node[anchor=west,text=teal] at (0,1.15) {\textbf{OK}: um sai antes do outro entrar};
+\draw[dentro] (0,0.35) rectangle (2.1,0.85) node[midway]{acesso A};
+\draw[dentro,fill=teal!70] (2.3,0.35) rectangle (4.4,0.85) node[midway]{acesso B};
+\node[anchor=west,text=red] at (0,-0.35) {\textbf{Erro}: dois dentro ao mesmo tempo};
+\draw[dentro] (0,-1.15) rectangle (2.6,-0.65) node[midway]{acesso A};
+\draw[draw=red,fill=red!70,text=white] (1.7,-1.75) rectangle (4.3,-1.25) node[midway]{acesso B};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+{\small Sem o lock, o observador acusa a sobreposição (veja o slide de validação).}
+\note{O verificador so le logs; nao concede permissao nem bloqueia ninguem. Regra no codigo: a.horaEntrou < b.horaSaiu e b.horaEntrou < a.horaSaiu. O observador do enunciado conta acessos ativos sem funcionar como mutex.}
+\end{frame}
+
+% 9 ---------------------------------------------------------------
+\begin{frame}{Lock e semáforo}
+\centering
+\begin{tikzpicture}[font=\small]
+\node[anchor=east] at (-0.3,0) {Lock: 1 vaga};
+\node[dentro,rounded corners=2pt,minimum width=1.2cm,minimum height=0.6cm] at (0.6,0) {P1};
+\node[espera,rounded corners=2pt,minimum width=1.2cm,minimum height=0.6cm] at (2.6,0) {P2};
+\node[espera,rounded corners=2pt,minimum width=1.2cm,minimum height=0.6cm] at (4.0,0) {P3};
+\node[font=\scriptsize,muted,anchor=west] at (4.8,0) {esperam};
+\node[anchor=east] at (-0.3,-1.4) {Semáforo: K = 2 vagas};
+\node[dentro,rounded corners=2pt,minimum width=1.2cm,minimum height=0.6cm] at (0.6,-1.4) {P1};
+\node[dentro,rounded corners=2pt,minimum width=1.2cm,minimum height=0.6cm] at (2.0,-1.4) {P2};
+\node[espera,rounded corners=2pt,minimum width=1.2cm,minimum height=0.6cm] at (4.0,-1.4) {P3};
+\node[font=\scriptsize,muted,anchor=west] at (4.8,-1.4) {espera};
+\end{tikzpicture}
+\begin{itemize}\setlength\itemsep{0.15cm}
+\item \textbf{Lock:} só 1 entra.
+\item \textbf{Semáforo:} entram até K ao mesmo tempo.
+\item Testamos K=2 e K=3.
+\end{itemize}
+{\small Cada pedido usa R com lock, solta o lock e só depois usa a etapa do semáforo.}
+\note{Semaforos R-K2 e R-K3 ja estao configurados no Main. Falta a etapa que os usa e o contador de acessos simultaneos. No lock, quem pegou e quem solta.}
+\end{frame}
+
+% 10 --------------------------------------------------------------
+\begin{frame}{Reentrância}
+\centering
+\begin{tikzpicture}[font=\small]
+\foreach \n/\c [count=\i from 0] in {lock()/1,lock() de novo/2,unlock()/1,unlock()/0}{
+  \node[caixa,minimum width=2.6cm,minimum height=0.7cm] (e\i) at (3.6*\i,0) {\n};
+  \node[font=\scriptsize,muted] at (3.6*\i,-0.75) {contador = \c};
+}
+\foreach \i/\j in {0/1,1/2,2/3}{\draw[seta] (e\i) -- (e\j);}
+\node[dentro,rounded corners=2pt,font=\scriptsize] at (10.8,-1.4) {lock liberado};
+\end{tikzpicture}
+\begin{itemize}\setlength\itemsep{0.15cm}
+\item A mesma thread pode pegar o lock duas vezes sem travar.
+\item O fence é o mesmo nas duas vezes.
+\item O lock só é liberado depois dos dois \texttt{unlock()}.
+\end{itemize}
+\note{Sem reentrancia, a thread esperaria por ela mesma para sempre. O Main ja habilita a reentrancia (FencedLockConfig.enableReentrancy). Falta a demonstracao no codigo.}
+\end{frame}
+
+% 11 --------------------------------------------------------------
+\begin{frame}{O que já validamos}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Cenário} & \textbf{Pedidos} & \textbf{Máximo em R} & \textbf{Máximo no semáforo} & \textbf{Violações}\\
+\midrule
+Sem lock (controle) & 50 & 5 & --- & 48\\
+Com lock & 50 & 1 & --- & 0\\
+Lock e semáforo K=2 & 50 & 1 & 2 & 0\\
+Lock e semáforo K=3 & 50 & 1 & 3 & 0\\
+\bottomrule
+\end{tabular}
+\vspace{0.3cm}
+\begin{itemize}\setlength\itemsep{0.15cm}
+\item Sem o lock, até 5 processos ficaram em R ao mesmo tempo.
+\item Com o lock, nunca passou de 1. No semáforo, o pico foi K.
+\end{itemize}
+{\scriptsize Fonte: \texttt{resultados/integracao-local} (5 clientes, 10 pedidos cada, sem pausa). É uma validação funcional, não substitui os experimentos finais.}
+\note{Numeros do relatorio da equipe em resultados/integracao-local/README.md. As violacoes do cenario sem lock sao esperadas: mostram que o observador detecta a concorrencia.}
+\end{frame}
+
+% 12 --------------------------------------------------------------
+\begin{frame}{Experimentos}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}p{5.8cm}>{\raggedright\arraybackslash}p{4.2cm}@{}}
+\toprule
+\textbf{Experimento} & \textbf{Como fizemos} & \textbf{O que olhamos}\\
+\midrule
+Carga normal & 5 clientes, pausa de 1 a 5 s, 3 repetições & todos terminam, sem sobreposição\\
+Alta contenção & sem pausa e com largada conjunta, 3 repetições & espera pelo lock\\
+Carga desigual & o cliente 1 sem pausa e com 50 pedidos & justiça entre os clientes\\
+5 e 10 processos & alta contenção com 5 e com 10 Cluster Sync & espera conforme cresce o número\\
+Sem lock & lock desligado (controle negativo) & o observador detecta o erro\\
+Semáforo & K=2 e K=3 & nunca passa de K\\
+\bottomrule
+\end{tabular}
+\note{Se o professor quiser, rodar ao vivo uma versao curta (poucos pedidos por cliente, via CLIENTE_PEDIDOS). Perguntar na hora se roda ou nao.}
+\end{frame}
+
+% 12 --------------------------------------------------------------
+\begin{frame}{Critérios dos testes}
+\begin{block}{Um teste só vale se}
+\begin{itemize}\setlength\itemsep{0.2cm}
+\item Nenhum par de acessos se sobrepõe na região crítica.
+\item Todos os pedidos terminam com \texttt{COMMITTED}.
+\item A espera é medida no próprio processo, com relógio monotônico.
+\item Cada carga é repetida pelo menos 3 vezes.
+\item Só comparamos testes com a mesma duração da região crítica.
+\item No semáforo, nunca há mais de K acessos ao mesmo tempo.
+\end{itemize}\end{block}
+\note{Relogio monotonico = System.nanoTime(), para nao subtrair horarios de maquinas diferentes. Registrar versao do Hazelcast (5.4.0), duracao da regiao critica (200 a 1000 ms) e as sementes aleatorias de cada rodada.}
+\end{frame}
+
+% 13 --------------------------------------------------------------
+\begin{frame}{Resultados dos experimentos finais}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Experimento} & \textbf{Pedidos concluídos} & \textbf{Tempo total} & \textbf{Espera mediana} & \textbf{Sobreposições}\\
+\midrule
+Carga normal & \preencher{} & \preencher{} & \preencher{} & \preencher{}\\
+Alta contenção & \preencher{} & \preencher{} & \preencher{} & \preencher{}\\
+Carga desigual & \preencher{} & \preencher{} & \preencher{} & \preencher{}\\
+\bottomrule
+\end{tabular}
+\vspace{0.3cm}
+\begin{block}{Limites do que testamos}
+\begin{itemize}\setlength\itemsep{0.12cm}\small
+\item Sem falhas: não derrubamos membros nem perdemos mensagens.
+\item Não ver starvation numa execução curta é uma observação, não uma prova.
+\end{itemize}\end{block}
+\note{Nao comparar resultados com duracoes de regiao critica diferentes. Mensagens por entrada: informar se foi possivel medir no Hazelcast.}
+\end{frame}
+
+% 14 --------------------------------------------------------------
+\begin{frame}{Conclusão}
+\begin{itemize}\setlength\itemsep{0.4cm}
+\item O \textbf{FencedLock} garantiu que só um processo entra por vez.
+\item O \textbf{fence} mostra a ordem de entrada e identifica cada acesso.
+\item Provamos isso com logs e verificador.
+\item O semáforo deixa entrar até K, em vez de 1.
+\end{itemize}
+\vspace{0.5cm}\centering{\Large\textbf{Perguntas?}}
+\note{Todos os integrantes participam da discussao. Referencias: enunciado [11], documentacao do FencedLock e da configuracao do CP Subsystem.}
+\end{frame}
+
+\end{document}

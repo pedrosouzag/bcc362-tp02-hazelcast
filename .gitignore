@@ -7,3 +7,11 @@ target/
 .DS_Store
 Thumbs.db
 logs/
+slides/*.aux
+slides/*.log
+slides/*.nav
+slides/*.out
+slides/*.snm
+slides/*.toc
+slides/*.vrb
+slides/*.synctex.gz
