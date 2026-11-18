@@ -260,29 +260,6 @@ try {
 \end{frame}
 
 % 11 --------------------------------------------------------------
-\begin{frame}{O que já validamos}
-\small
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{@{}lcccc@{}}
-\toprule
-\textbf{Cenário} & \textbf{Pedidos} & \textbf{Máximo em R} & \textbf{Máximo no semáforo} & \textbf{Violações}\\
-\midrule
-Sem lock (controle) & 50 & 5 & --- & 48\\
-Com lock & 50 & 1 & --- & 0\\
-Lock e semáforo K=2 & 50 & 1 & 2 & 0\\
-Lock e semáforo K=3 & 50 & 1 & 3 & 0\\
-\bottomrule
-\end{tabular}
-\vspace{0.3cm}
-\begin{itemize}\setlength\itemsep{0.15cm}
-\item Sem o lock, até 5 processos ficaram em R ao mesmo tempo.
-\item Com o lock, nunca passou de 1. No semáforo, o pico foi K.
-\end{itemize}
-{\scriptsize Fonte: \texttt{resultados/integracao-local} (5 clientes, 10 pedidos cada, sem pausa). É uma validação funcional, não substitui os experimentos finais.}
-\note{Numeros do relatorio da equipe em resultados/integracao-local/README.md. As violacoes do cenario sem lock sao esperadas: mostram que o observador detecta a concorrencia.}
-\end{frame}
-
-% 12 --------------------------------------------------------------
 \begin{frame}{Experimentos}
 \small
 \renewcommand{\arraystretch}{1.3}
@@ -290,9 +267,9 @@ Lock e semáforo K=3 & 50 & 1 & 3 & 0\\
 \toprule
 \textbf{Experimento} & \textbf{Como fizemos} & \textbf{O que olhamos}\\
 \midrule
-Carga normal & 5 clientes, pausa de 1 a 5 s, 3 repetições & todos terminam, sem sobreposição\\
+Carga normal & 5 clientes, 20 pedidos, pausa de 1 a 5 s, 3 repetições & todos terminam, sem sobreposição\\
 Alta contenção & sem pausa e com largada conjunta, 3 repetições & espera pelo lock\\
-Carga desigual & o cliente 1 sem pausa e com 50 pedidos & justiça entre os clientes\\
+Carga desigual & o cliente 1 sem pausa e com 50 pedidos (os outros, 20) & justiça entre os clientes\\
 5 e 10 processos & alta contenção com 5 e com 10 Cluster Sync & espera conforme cresce o número\\
 Sem lock & lock desligado (controle negativo) & o observador detecta o erro\\
 Semáforo & K=2 e K=3 & nunca passa de K\\
@@ -308,7 +285,7 @@ Semáforo & K=2 e K=3 & nunca passa de K\\
 \item Nenhum par de acessos se sobrepõe na região crítica.
 \item Todos os pedidos terminam com \texttt{COMMITTED}.
 \item A espera é medida no próprio processo, com relógio monotônico.
-\item Cada carga é repetida pelo menos 3 vezes.
+\item Carga normal e alta contenção são repetidas 3 vezes.
 \item Só comparamos testes com a mesma duração da região crítica.
 \item No semáforo, nunca há mais de K acessos ao mesmo tempo.
 \end{itemize}\end{block}
@@ -316,32 +293,63 @@ Semáforo & K=2 e K=3 & nunca passa de K\\
 \end{frame}
 
 % 13 --------------------------------------------------------------
-\begin{frame}{Resultados dos experimentos finais}
+\begin{frame}{Resultados: exclusão mútua}
 \small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.25}
 \begin{tabular}{@{}lcccc@{}}
 \toprule
-\textbf{Experimento} & \textbf{Pedidos concluídos} & \textbf{Tempo total} & \textbf{Espera mediana} & \textbf{Sobreposições}\\
+\textbf{Cenário} & \textbf{Concluídos} & \textbf{Máx. em R} & \textbf{Máx. semáforo} & \textbf{Sobreposições}\\
 \midrule
-Carga normal & \preencher{} & \preencher{} & \preencher{} & \preencher{}\\
-Alta contenção & \preencher{} & \preencher{} & \preencher{} & \preencher{}\\
-Carga desigual & \preencher{} & \preencher{} & \preencher{} & \preencher{}\\
+Sem lock (controle) & 100/100 & 5 & --- & 98\\
+Normal com lock (3 rodadas) & 300/300 & 1 & --- & 0\\
+Alta contenção com lock (3 rodadas) & 300/300 & 1 & --- & 0\\
+Lock e semáforo K=2 & 100/100 & 1 & 2 & 0\\
+Lock e semáforo K=3 & 100/100 & 1 & 3 & 0\\
 \bottomrule
 \end{tabular}
-\vspace{0.3cm}
-\begin{block}{Limites do que testamos}
-\begin{itemize}\setlength\itemsep{0.12cm}\small
-\item Sem falhas: não derrubamos membros nem perdemos mensagens.
-\item Não ver starvation numa execução curta é uma observação, não uma prova.
-\end{itemize}\end{block}
-\note{Nao comparar resultados com duracoes de regiao critica diferentes. Mensagens por entrada: informar se foi possivel medir no Hazelcast.}
+\vspace{0.25cm}
+\begin{itemize}\setlength\itemsep{0.12cm}
+\item Com o lock, em 1.130 acessos nunca houve dois ao mesmo tempo em R.
+\item Sem o lock, 5 ficaram juntos e o observador acusou 98 sobreposições.
+\item No semáforo, o pico foi exatamente K, nunca acima.
+\item Todos os 1.230 pedidos terminaram com \texttt{COMMITTED}.
+\end{itemize}
+{\scriptsize Fonte: \texttt{resultados/experimentos/final}.}
+\note{Numeros de resultados/experimentos/final/RESUMO.md. Todas as rodadas passaram nas checagens automaticas. O cenario sem lock e o controle negativo: mostra que o observador detecta a violacao quando ela existe. Nao houve deadlock: ha um unico lock por etapa, o semaforo so comeca depois de liberar R e o unlock fica em finally.}
 \end{frame}
 
 % 14 --------------------------------------------------------------
+\begin{frame}{Resultados: espera e justiça}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Experimento} & \textbf{Concluídos} & \textbf{Total (s)} & \textbf{Espera mediana (ms)} & \textbf{Espera p90 (ms)}\\
+\midrule
+Normal (3 rodadas) & 300/300 & 84,3 & 196 & 1007\\
+Alta contenção (3 rodadas) & 300/300 & 60,7 & 2420 & 3035\\
+Carga desigual & 130/130 & 93,6 & 685 & 1640\\
+Alta contenção, 10 Sync & 200/200 & 124,9 & 5566 & 6282\\
+\bottomrule
+\end{tabular}
+\vspace{0.2cm}
+\begin{itemize}\setlength\itemsep{0.08cm}\small
+\item De 5 para 10 Cluster Sync, a espera foi de 2,4 s para 5,6 s e a vazão ficou igual (cerca de 1,6 acesso/s): o lock serializa os acessos.
+\item Carga desigual: o cliente 1 fez 50 acessos e os outros quatro também concluíram os seus 20.
+\item Numa rodada de alta contenção, os primeiros pedidos esperaram cerca de 27 s por uma eleição do Raft. A exclusão mútua foi mantida; só o progresso atrasou.
+\end{itemize}
+{\scriptsize Espera pelo lock; mediana das rodadas. Limites: mesmo computador, uma rodada fora do normal e da alta contenção, mensagens do Raft só estimadas, sem falhas. Não ver starvation é observação, não prova.}
+\note{Nao comparar cenarios com cargas diferentes diretamente. Espera = tempo do acquire ate obter o lock, medido no proprio Sync com System.nanoTime(). Caso alta-r1: 12 mensagens de eleicao no Sync 5 (We are FOLLOWER and there is no current leader); o CP Subsystem prefere parar a perder a consistencia. A causa provavel e disputa de CPU com 11 JVMs subindo juntas; nao investigamos, falhas estao fora do escopo. A vazao igual com 10 Sync mostra que o limite e a duracao da secao critica (media de 0,59 s). A documentacao do Hazelcast nao promete FIFO.}
+\end{frame}
+
+% 15 --------------------------------------------------------------
 \begin{frame}{Conclusão}
 \begin{itemize}\setlength\itemsep{0.4cm}
 \item O \textbf{FencedLock} garantiu que só um processo entra por vez.
 \item O \textbf{fence} mostra a ordem de entrada e identifica cada acesso.
-\item Provamos isso com logs e verificador.
+\item Em 1.130 acessos com lock, nunca houve dois em R ao mesmo tempo.
 \item O semáforo deixa entrar até K, em vez de 1.
 \end{itemize}
 \vspace{0.5cm}\centering{\Large\textbf{Perguntas?}}
