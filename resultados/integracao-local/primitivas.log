@@ -1,0 +1,18 @@
+CONFIG cpMembers=5 groupSize=5
+PASS five_members
+PASS reentrancy_same_fence_depth_2
+PASS other_client_blocked_at_depth_2
+PASS first_unlock_keeps_ownership
+PASS other_client_blocked_at_depth_1
+PASS other_client_acquires_after_release
+PASS semaphore_initial_2
+PASS semaphore_take_capacity_2
+PASS semaphore_blocks_above_2
+PASS semaphore_shared_permits_2
+PASS semaphore_restored_2
+PASS semaphore_initial_3
+PASS semaphore_take_capacity_3
+PASS semaphore_blocks_above_3
+PASS semaphore_shared_permits_3
+PASS semaphore_restored_3
+PROBE_OK infrastructure_only_not_end_to_end

@@ -24,7 +24,7 @@ Também pede mostrar a reentrância, que é pegar o mesmo lock duas vezes na mes
 
 Como o cenário funciona
 
-São 5 clientes e 5 cluster sync, cada um em um programa separado. Cada cliente fala somente com o seu cluster sync. Quem disputa o lock no Hazelcast são os cluster sync.
+São 5 clientes e 5 cluster sync, cada um em um programa separado. Cada cliente fala somente com o seu cluster sync. Os Sync também são os membros Hazelcast e disputam o mesmo lock diretamente no cluster.
 
 O cliente:
 Faz de 10 a 50 pedidos de escrita.
@@ -41,7 +41,7 @@ O cluster sync:
 
 Como os programas se comunicam
 
-O cliente fala com o cluster sync por socket, que é uma ligação pela rede entre dois programas. O cluster sync fala com o Hazelcast para pedir o lock.
+O cliente fala com o cluster sync por socket, que é uma ligação pela rede entre dois programas. Como o Sync é um membro Hazelcast, ele usa as primitivas do próprio cluster.
 
 Em que ponto estamos
 
@@ -51,4 +51,7 @@ Em que ponto estamos
 - O Verificador é um observador em execução: registra BEGIN e END, conta os acessos ativos e acusa sobreposições sem bloquear a entrada de ninguém.
 - Há um modo sem-lock para mostrar que o observador detecta concorrência sem proteção, e um teste automático com cinco clientes e cinco Sync nos dois modos.
 - Os logs identificam pedido, processo e os eventos REQUEST, ACQUIRE, ENTER, EXIT, RELEASE e COMMITTED.
-- Faltam usar os semáforos em uma etapa separada, demonstrar reentrância, executar as cargas e repetições completas com sementes e métricas, e preparar a apresentação.
+- Nos modos semaforo2 e semaforo3, cada pedido usa primeiro R com mutex, libera o mutex e depois usa uma etapa de capacidade K. Só responde COMMITTED depois de terminar as duas etapas.
+- Os logs em arquivo da equipe foram preservados e ampliados. A verificação offline confere os eventos por pedido e usa o registro do observador para checar ocupação, sem comparar relógios de máquinas diferentes.
+- Há testes locais de reentrância e devolução das permissões, além dos testes de fluxo e de logs inválidos.
+- Faltam as cargas e repetições completas com sementes e métricas, a comparação 5/10 quando viável e a apresentação. A demonstração didática de reentrância pode usar o teste das primitivas.

@@ -55,7 +55,7 @@ public class Main {
         return config;
     }
 
-    static void sync(int id, boolean protegido) throws Exception {
+    static void sync(int id, boolean protegido, int capacidade) throws Exception {
         int porta = 5700 + id;
         HazelcastInstance hz = Hazelcast.newHazelcastInstance(configuracao(porta));
         Runtime.getRuntime().addShutdownHook(new Thread(hz::shutdown));
@@ -71,7 +71,7 @@ public class Main {
 
         // O atendimento só começa depois que o CP está pronto.
         try {
-            new ClusterSync(hz, id, protegido).executar();
+            new ClusterSync(hz, id, protegido, capacidade).executar();
         } finally {
             hz.shutdown();
         }
@@ -86,22 +86,34 @@ public class Main {
     public static void main(String[] args) throws Exception {
         java.util.logging.Logger.getLogger("com.hazelcast").setLevel(java.util.logging.Level.WARNING);
         if (args.length == 0) throw new IllegalArgumentException(
-            "Comandos: sync ID [sem-lock] | cliente ID [pedidos] [intervalo-ms] | observador | verificar");
+            "Comandos: sync ID [sem-lock|semaforo2|semaforo3] | cliente ID [pedidos] [intervalo-ms]"
+            + " | observador | verificar | verificar2 | verificar3 | verificar-logs pedidos clientes [K]");
         switch (args[0]) {
             case "sync" -> {
-                if (args.length < 2 || args.length > 3 || (args.length == 3 && !args[2].equals("sem-lock")))
-                    throw new IllegalArgumentException("Uso: sync ID [sem-lock]");
-                sync(validarId(args[1]), args.length == 2);
+                if (args.length < 2 || args.length > 3)
+                    throw new IllegalArgumentException("Uso: sync ID [sem-lock|semaforo2|semaforo3]");
+                String modo = args.length == 3 ? args[2] : "mutex";
+                if (!java.util.Set.of("mutex", "sem-lock", "semaforo2", "semaforo3").contains(modo))
+                    throw new IllegalArgumentException("Modo desconhecido: " + modo);
+                int capacidade = modo.startsWith("semaforo") ? Integer.parseInt(modo.substring(8)) : 0;
+                sync(validarId(args[1]), !modo.equals("sem-lock"), capacidade);
             }
             case "cliente" -> {
                 if (args.length < 2 || args.length > 4)
                     throw new IllegalArgumentException("Uso: cliente ID [pedidos] [intervalo-ms]");
                 Cliente.executar(args);
             }
-            case "observador", "verificar" -> {
+            case "verificar-logs" -> {
+                if (args.length < 3 || args.length > 4)
+                    throw new IllegalArgumentException("Uso: verificar-logs pedidos-por-cliente clientes [K]");
+                System.exit(Verificador.verificarLogs(Integer.parseInt(args[1]), Integer.parseInt(args[2]),
+                    args.length == 4 ? Integer.parseInt(args[3]) : 0));
+            }
+            case "observador", "verificar", "verificar2", "verificar3" -> {
                 if (args.length != 1) throw new IllegalArgumentException("Este comando não recebe argumentos.");
                 if (args[0].equals("observador")) Verificador.executar();
-                else System.out.println(Verificador.enviar("SUMMARY"));
+                else System.out.println(Verificador.enviar("SUMMARY " +
+                    (args[0].equals("verificar") ? "R" : "R-K" + args[0].substring(9))));
             }
             default -> throw new IllegalArgumentException("Comando desconhecido: " + args[0]);
         }

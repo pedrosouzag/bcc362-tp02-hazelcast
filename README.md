@@ -87,7 +87,7 @@ Encerrar os Sync e o observador com Ctrl+C. Reiniciar o observador para cada exp
 
 ## Como a sincronização foi implementada
 
-`Main` configura o cluster CP e inicia `ClusterSync`. Cada Sync abre um servidor socket e processa os pedidos de seu cliente sequencialmente. A concorrência ocorre entre os processos Sync, que disputam o mesmo `FencedLock("R")`.
+`Main` configura o cluster CP e inicia `ClusterSync`. Cada Sync abre um servidor socket e processa os pedidos de seu cliente sequencialmente. A concorrência ocorre entre os processos Sync, que disputam o mesmo `FencedLock("R")`. A integração preserva os logs em arquivo e o fence da implementação da equipe; o atendimento local permanece sequencial, suficiente para um cliente por Sync.
 
 O fluxo é `REQUEST → acquire → ACQUIRE → BEGIN/OK → ENTER → sleep → EXIT → END/OK → release → RELEASE → COMMITTED`. A aquisição e a liberação estão separadas da simulação, e o lock é liberado em `finally`, na mesma thread que o adquiriu. No log, `espera_ns` mede a espera pela aquisição com relógio monotônico do próprio processo.
 
@@ -122,6 +122,51 @@ Este é um teste funcional inicial. Não substitui as três repetições de carg
 
 Os [resultados da validação inicial](resultados/validacao-inicial/README.md) incluem o resumo e os logs selecionados dos dois cenários.
 
+A [validação da integração e dos semáforos](resultados/integracao-local/README.md) registra os quatro cenários, as regressões do verificador e os testes das primitivas executados após integrar a atualização da equipe.
+
+## Etapa de semáforo e verificação dos arquivos
+
+Para K=2, iniciar um observador novo e os cinco Sync usando o mesmo modo:
+
+```bash
+bash scripts/run.sh observador
+HZ_BIND=127.0.0.1 bash scripts/run.sh sync 1 semaforo2   # repetir até ID 5
+```
+
+Depois iniciar os cinco clientes com `cliente ID 10 0`. Cada pedido faz a etapa R com mutex, libera o lock e só então adquire uma permissão de `R-K2`. A segunda etapa também simula trabalho entre 200 e 1000 ms, devolve a permissão em `finally` e termina antes de COMMITTED. Não há mutex envolvendo a etapa do semáforo.
+
+Para K=3, encerrar todos os processos, iniciar um observador novo e usar `semaforo3` em todos os Sync. Não misturar modos na mesma execução. Consultar as contagens de cada recurso com:
+
+```bash
+bash scripts/run.sh verificar    # R: limite 1
+bash scripts/run.sh verificar2   # R-K2: limite 2
+bash scripts/run.sh verificar3   # R-K3: limite 3
+```
+
+Nos resumos, `sobreposicoes` conta entradas acima do limite do recurso. Duas entradas simultâneas no semáforo K=2 são válidas. Ao final, esperar 50 entradas/saídas por etapa usada, zero ativos, zero erros e zero violações. Na etapa do semáforo deve existir uso concorrente (máximo maior que 1 e até K).
+
+Os logs ficam em `logs/`, ou na pasta definida por `LOG_DIR` em todos os processos. Cada Sync recria seu arquivo ao iniciar. Use pasta nova para cada experimento e não execute duas experiências na mesma pasta. Formato:
+
+```text
+hora_ms;sync;pedido;evento;fence;recurso;tempo_monotonico_ns;detalhe
+```
+
+O fence é o token retornado por `lockAndGetFence()`; no semáforo é zero. O relógio monotônico só é comparado dentro do mesmo Sync. O observador grava seus BEGIN/END em ordem no arquivo `observador.log`, confirmando o registro antes de responder.
+
+Após os clientes terminarem, verificar a execução fixa de dez pedidos por cliente:
+
+```bash
+bash scripts/run.sh verificar-logs 10 5       # apenas mutex
+bash scripts/run.sh verificar-logs 10 5 2     # mutex + semáforo K=2
+bash scripts/run.sh verificar-logs 10 5 3     # mutex + semáforo K=3
+```
+
+Escolher somente o comando correspondente ao experimento. O verificador retorna 1 para arquivos vazios, participantes ausentes, formato antigo/inválido, pedidos trocados, eventos ausentes/duplicados/fora de ordem, fence inconsistente, ordem monotônica invertida ou ocupação inválida no observador. Exige a quantidade informada para cada cliente; para esta conferência, iniciar os clientes com quantidade fixa. Logs antigos ENTROU/SAIU não são aceitos como evidência completa: gerar uma execução nova.
+
+O teste `python3 scripts/test.py` agora cobre quatro cenários: sem lock, mutex, mutex+K2 e mutex+K3, com 50 pedidos por cenário. Também executa regressões com logs alterados e `tests/PrimitivasTest.java`. Esse teste adicional usa dois clientes Hazelcast de diagnóstico após a carga: confere reentrância, bloqueio até a segunda liberação, limite das permissões e devolução das permissões pela aplicação. Esses clientes de diagnóstico não substituem os cinco clientes socket do cenário do trabalho.
+
+Os registros e resumos de cada cenário ficam na pasta `build/teste-*/`. As regressões de arquivos podem ser repetidas com `python3 scripts/test_logs.py CAMINHO_DOS_REGISTROS_DO_CENARIO_COM_LOCK`.
+
 Configuração por variável de ambiente:
 
 | Variável | Padrão | Uso |
@@ -132,11 +177,11 @@ Configuração por variável de ambiente:
 | `HZ_BIND` | — | interface de rede (`127.0.0.1` para rodar local) |
 | `OBS_HOST` | `127.0.0.1` | endereço do observador usado pelos Sync e pela consulta |
 | `OBS_PORT` | `7000` | porta do observador |
+| `LOG_DIR` | `logs` | pasta dos registros da execução; deve ser nova ou estar reservada ao experimento |
 
 ## Pendências da entrega completa
 
-- Usar os semáforos já configurados em uma etapa separada e demonstrar K=2 e K=3.
-- Demonstrar reentrância na aplicação; sua configuração já está habilitada.
+- Preparar a demonstração didática de reentrância a partir do teste das primitivas.
 - Acrescentar sementes, carga desigual, repetições e consolidação de métricas; comparar 5/10 Sync quando viável.
 - Produzir os slides e selecionar as evidências dos experimentos finais.
 

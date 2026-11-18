@@ -7,6 +7,7 @@ import re
 import shutil
 import socket
 import subprocess
+import sys
 import threading
 import time
 import uuid
@@ -105,6 +106,7 @@ def test_client():
 
 
 def test_observer(env):
+    env = dict(env, LOG_DIR=str(RUN / "registros-protocolo"))
     processes = []
     path = RUN / "observador-protocolo.log"
     try:
@@ -116,27 +118,39 @@ def test_observer(env):
         check(query("END 1 1-1") == "OK" and query("END 2 2-1") == "OK", "END falhou")
         summary = fields(query("SUMMARY"))
         check(summary == dict(entradas=2, saidas=2, ativos=0, maximo=2, sobreposicoes=1, erros=2), "Contagem incorreta")
+        check(query("BEGIN 1 1-1").startswith("ERROR"), "Repetição após END foi aceita")
+        for k in (2, 3):
+            for id in range(1, k + 2):
+                check(query(f"BEGIN {id} {id}-1 R-K{k}") == "OK", "Observador bloqueou entrada")
+            value = fields(query(f"SUMMARY R-K{k}"))
+            check(value["maximo"] == k + 1 and value["sobreposicoes"] == 1, "Limite K não verificado")
+            for id in range(1, k + 2):
+                check(query(f"END {id} {id}-1 R-K{k}") == "OK", "END do semáforo falhou")
         return summary
     finally:
         stop(processes)
 
 
-def experiment(protected, base_env):
-    name = "com-lock" if protected else "sem-lock"
+def experiment(protected, base_env, k=0):
+    name = "semaforo" + str(k) if k else ("com-lock" if protected else "sem-lock")
     folder = RUN / name
     folder.mkdir()
     processes = []
-    env = dict(base_env, HZ_CLUSTER="teste-" + uuid.uuid4().hex)
+    env = dict(base_env, HZ_CLUSTER="teste-" + uuid.uuid4().hex, LOG_DIR=str(folder / "registros"))
     try:
         path = folder / "observador.log"
         ready(start(["observador"], path, env, processes), path, "OBSERVADOR_PRONTO")
         members = []
         for id in range(1, 6):
             path = folder / ("sync-" + str(id) + ".log")
-            args = ["sync", str(id)] + ([] if protected else ["sem-lock"])
+            args = ["sync", str(id)] + (["semaforo" + str(k)] if k else ([] if protected else ["sem-lock"]))
             members.append((start(args, path, env, processes), path))
         for process, path in members:
             ready(process, path, "SERVIDOR_PRONTO")
+        for invalid in ("DELETE 1-1", "WRITE 2-1", "WRITE", "WRITE 1-0"):
+            with socket.create_connection(("127.0.0.1", 6001), timeout=5) as sock:
+                sock.sendall((invalid + "\n").encode())
+                check(sock.makefile("r").readline().startswith("ERROR"), "Pedido inválido aceito")
         # Os cinco clientes são iniciados juntos, sem pausa entre seus pedidos.
         clients = [start(["cliente", str(id), "10", "0"], folder / ("cliente-" + str(id) + ".log"), env, processes)
                    for id in range(1, 6)]
@@ -153,8 +167,21 @@ def experiment(protected, base_env):
             lines = (folder / ("sync-" + str(id) + ".log")).read_text(errors="replace").splitlines()
             for seq in range(1, 11):
                 key = "request_id=" + str(id) + "-" + str(seq) + " "
-                events = [line.split()[0] for line in lines if key in line]
+                events = [line.split()[0] for line in lines if key in line and "recurso=R " in line]
                 check(events == ["REQUEST", "ACQUIRE", "ENTER", "EXIT", "RELEASE", "COMMITTED"], "Ordem de eventos incorreta: " + key)
+        if k:
+            sem = fields(query("SUMMARY R-K" + str(k)))
+            check(sem["entradas"] == sem["saidas"] == 50 and sem["ativos"] == sem["erros"] == 0, "Semáforo incompleto")
+            check(1 < sem["maximo"] <= k and sem["sobreposicoes"] == 0, "Capacidade ou concorrência incorreta")
+            summary = {"mutex": summary, "semaforo": sem}
+        offline = subprocess.run(COMMAND + ["verificar-logs", "10", "5", str(k)], env=env, cwd=ROOT, capture_output=True, timeout=15)
+        (folder / "verificacao-logs.log").write_bytes(offline.stdout + offline.stderr)
+        check(offline.returncode == (0 if protected else 1), "Verificação offline incorreta")
+        if k == 3:
+            probe = subprocess.run([java, "-XX:ActiveProcessorCount=2", "-cp", str(RUN / "classes") + os.pathsep + CP,
+                                    "PrimitivasTest"], env=env, cwd=ROOT, capture_output=True, timeout=60)
+            (folder / "primitivas.log").write_bytes(probe.stdout + probe.stderr)
+            check(probe.returncode == 0 and b"PROBE_OK" in probe.stdout, "Teste das primitivas falhou")
         print(name + ": " + json.dumps(summary), flush=True)
         return summary
     finally:
@@ -169,6 +196,14 @@ if __name__ == "__main__":
     print("Validação do cliente e do observador: OK", flush=True)
     results["sem-lock"] = experiment(False, env)
     results["com-lock"] = experiment(True, env)
+    subprocess.run([sys.executable, str(ROOT / "scripts/test_logs.py"),
+                    str(RUN / "com-lock/registros")], check=True)
+    (RUN / "classes").mkdir()
+    javac = str(Path(java).with_name("javac.exe" if os.name == "nt" else "javac"))
+    subprocess.run([javac, "--release", "17", "-encoding", "UTF-8", "-cp", CP, "-d", str(RUN / "classes"),
+                    str(ROOT / "tests/PrimitivasTest.java")], check=True)
+    results["semaforo2"] = experiment(True, env, 2)
+    results["semaforo3"] = experiment(True, env, 3)
     results["escopo"] = "Teste funcional inicial; não substitui as repetições e métricas da entrega final."
     (RUN / "resumo.json").write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
     print("TESTES_OK logs=" + str(RUN), flush=True)
