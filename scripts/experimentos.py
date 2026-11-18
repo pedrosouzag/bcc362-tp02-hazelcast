@@ -35,7 +35,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 JAR = ROOT / "build" / "tp02.jar"
 CP = os.pathsep.join([str(JAR), str(ROOT / "lib" / "*")])
-JAVA = [shutil.which("java") or "java", "-Xms64m", "-Xmx512m", "-XX:ActiveProcessorCount=2", "-cp", CP, "Main"]
+java = shutil.which("java") or "java"
+# No Windows, o atalho Oracle pode deixar uma JVM filha viva ao encerrar o processo.
+propriedades = subprocess.run([java, "-XshowSettings:properties", "-version"], capture_output=True, text=True, check=True)
+home = re.search(r"^\s*java.home = (.+)$", propriedades.stderr, re.MULTILINE)
+if home:
+    java = str(Path(home.group(1).strip()) / "bin" / ("java.exe" if os.name == "nt" else "java"))
+JAVA = [java, "-Xms64m", "-Xmx512m", "-XX:ActiveProcessorCount=2", "-cp", CP, "Main"]
 
 CENARIOS = {
     #            syncs  modo         pausa cliente 1    pausa demais      repetições  pedidos cliente 1

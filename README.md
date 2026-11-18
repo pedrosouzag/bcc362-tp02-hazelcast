@@ -1,5 +1,7 @@
 # TP02 — Sincronização em Sistemas Distribuídos (Hazelcast)
 
+Para apresentar: [roteiro de execução e explicação dos eventos](docs/COMO_APRESENTAR.md).
+
 BCC362 — Sistemas Distribuídos | Prof. Joubert Lima
 
 Trabalho feito sobre o [TP01](https://github.com/cardosoAM/bcc362-tp01-hazelcast), seguindo a **Trilha B, opção B5 (Hazelcast)** do enunciado.

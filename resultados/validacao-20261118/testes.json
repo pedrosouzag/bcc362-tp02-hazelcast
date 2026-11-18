@@ -1,0 +1,68 @@
+{
+  "cliente": [
+    "id_incorreto: rejeitado",
+    "erro: rejeitado",
+    "eof: rejeitado"
+  ],
+  "observador": {
+    "entradas": 2,
+    "saidas": 2,
+    "ativos": 0,
+    "maximo": 2,
+    "sobreposicoes": 1,
+    "erros": 2
+  },
+  "sem-lock": {
+    "entradas": 50,
+    "saidas": 50,
+    "ativos": 0,
+    "maximo": 5,
+    "sobreposicoes": 49,
+    "erros": 0
+  },
+  "com-lock": {
+    "entradas": 50,
+    "saidas": 50,
+    "ativos": 0,
+    "maximo": 1,
+    "sobreposicoes": 0,
+    "erros": 0
+  },
+  "semaforo2": {
+    "mutex": {
+      "entradas": 50,
+      "saidas": 50,
+      "ativos": 0,
+      "maximo": 1,
+      "sobreposicoes": 0,
+      "erros": 0
+    },
+    "semaforo": {
+      "entradas": 50,
+      "saidas": 50,
+      "ativos": 0,
+      "maximo": 2,
+      "sobreposicoes": 0,
+      "erros": 0
+    }
+  },
+  "semaforo3": {
+    "mutex": {
+      "entradas": 50,
+      "saidas": 50,
+      "ativos": 0,
+      "maximo": 1,
+      "sobreposicoes": 0,
+      "erros": 0
+    },
+    "semaforo": {
+      "entradas": 50,
+      "saidas": 50,
+      "ativos": 0,
+      "maximo": 3,
+      "sobreposicoes": 0,
+      "erros": 0
+    }
+  },
+  "escopo": "Teste funcional inicial; não substitui as repetições e métricas da entrega final."
+}
