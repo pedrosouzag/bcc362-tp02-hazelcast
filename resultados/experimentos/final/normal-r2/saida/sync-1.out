@@ -1,0 +1,155 @@
+Nov 18, 2026 9:51:54 AM com.hazelcast.instance.impl.HazelcastInstanceFactory
+WARNING: Hazelcast is starting in a Java modular environment (Java 9 and newer) but without proper access to required Java packages. Use additional Java arguments to provide Hazelcast access to Java internal API. The internal API access is used to get the best performance results. Arguments to be used:
+ --add-modules java.se --add-exports java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management/sun.management=ALL-UNNAMED --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+MEMBRO_PRONTO id=1 porta=5701
+CP_PRONTO id=1 membrosCP=5 souCP=true
+SYNC_CONFIG id=1 semente=4526 duracao_ms=200..1000 protegido=true K=0
+SERVIDOR_PRONTO id=1 protegido=true K=0
+REQUEST sync=1 request_id=1-1 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-1 recurso=R fence=11 protegido=true espera_ns=2207532247
+ENTER sync=1 request_id=1-1 recurso=R fence=11 protegido=true duracao_ms=598
+EXIT sync=1 request_id=1-1 recurso=R fence=11 protegido=true 
+RELEASE sync=1 request_id=1-1 recurso=R fence=11 protegido=true 
+COMMITTED sync=1 request_id=1-1 recurso=R fence=11 protegido=true 
+REQUEST sync=1 request_id=1-2 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-2 recurso=R fence=23 protegido=true espera_ns=2713503
+ENTER sync=1 request_id=1-2 recurso=R fence=23 protegido=true duracao_ms=793
+EXIT sync=1 request_id=1-2 recurso=R fence=23 protegido=true 
+RELEASE sync=1 request_id=1-2 recurso=R fence=23 protegido=true 
+COMMITTED sync=1 request_id=1-2 recurso=R fence=23 protegido=true 
+REQUEST sync=1 request_id=1-3 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-3 recurso=R fence=38 protegido=true espera_ns=159492934
+ENTER sync=1 request_id=1-3 recurso=R fence=38 protegido=true duracao_ms=706
+EXIT sync=1 request_id=1-3 recurso=R fence=38 protegido=true 
+RELEASE sync=1 request_id=1-3 recurso=R fence=38 protegido=true 
+COMMITTED sync=1 request_id=1-3 recurso=R fence=38 protegido=true 
+REQUEST sync=1 request_id=1-4 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-4 recurso=R fence=47 protegido=true espera_ns=727854527
+ENTER sync=1 request_id=1-4 recurso=R fence=47 protegido=true duracao_ms=331
+EXIT sync=1 request_id=1-4 recurso=R fence=47 protegido=true 
+RELEASE sync=1 request_id=1-4 recurso=R fence=47 protegido=true 
+COMMITTED sync=1 request_id=1-4 recurso=R fence=47 protegido=true 
+REQUEST sync=1 request_id=1-5 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-5 recurso=R fence=64 protegido=true espera_ns=1640112949
+ENTER sync=1 request_id=1-5 recurso=R fence=64 protegido=true duracao_ms=863
+EXIT sync=1 request_id=1-5 recurso=R fence=64 protegido=true 
+RELEASE sync=1 request_id=1-5 recurso=R fence=64 protegido=true 
+COMMITTED sync=1 request_id=1-5 recurso=R fence=64 protegido=true 
+REQUEST sync=1 request_id=1-6 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-6 recurso=R fence=82 protegido=true espera_ns=2472003
+ENTER sync=1 request_id=1-6 recurso=R fence=82 protegido=true duracao_ms=259
+EXIT sync=1 request_id=1-6 recurso=R fence=82 protegido=true 
+RELEASE sync=1 request_id=1-6 recurso=R fence=82 protegido=true 
+COMMITTED sync=1 request_id=1-6 recurso=R fence=82 protegido=true 
+REQUEST sync=1 request_id=1-7 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-7 recurso=R fence=87 protegido=true espera_ns=1573663
+ENTER sync=1 request_id=1-7 recurso=R fence=87 protegido=true duracao_ms=300
+EXIT sync=1 request_id=1-7 recurso=R fence=87 protegido=true 
+RELEASE sync=1 request_id=1-7 recurso=R fence=87 protegido=true 
+COMMITTED sync=1 request_id=1-7 recurso=R fence=87 protegido=true 
+REQUEST sync=1 request_id=1-8 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-8 recurso=R fence=94 protegido=true espera_ns=43555784
+ENTER sync=1 request_id=1-8 recurso=R fence=94 protegido=true duracao_ms=700
+EXIT sync=1 request_id=1-8 recurso=R fence=94 protegido=true 
+RELEASE sync=1 request_id=1-8 recurso=R fence=94 protegido=true 
+COMMITTED sync=1 request_id=1-8 recurso=R fence=94 protegido=true 
+REQUEST sync=1 request_id=1-9 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-9 recurso=R fence=105 protegido=true espera_ns=1870193
+ENTER sync=1 request_id=1-9 recurso=R fence=105 protegido=true duracao_ms=614
+EXIT sync=1 request_id=1-9 recurso=R fence=105 protegido=true 
+RELEASE sync=1 request_id=1-9 recurso=R fence=105 protegido=true 
+COMMITTED sync=1 request_id=1-9 recurso=R fence=105 protegido=true 
+REQUEST sync=1 request_id=1-10 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-10 recurso=R fence=110 protegido=true espera_ns=719824071
+ENTER sync=1 request_id=1-10 recurso=R fence=110 protegido=true duracao_ms=661
+EXIT sync=1 request_id=1-10 recurso=R fence=110 protegido=true 
+RELEASE sync=1 request_id=1-10 recurso=R fence=110 protegido=true 
+COMMITTED sync=1 request_id=1-10 recurso=R fence=110 protegido=true 
+REQUEST sync=1 request_id=1-11 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-11 recurso=R fence=118 protegido=true espera_ns=31964976
+ENTER sync=1 request_id=1-11 recurso=R fence=118 protegido=true duracao_ms=363
+EXIT sync=1 request_id=1-11 recurso=R fence=118 protegido=true 
+RELEASE sync=1 request_id=1-11 recurso=R fence=118 protegido=true 
+COMMITTED sync=1 request_id=1-11 recurso=R fence=118 protegido=true 
+REQUEST sync=1 request_id=1-12 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-12 recurso=R fence=133 protegido=true espera_ns=955727866
+ENTER sync=1 request_id=1-12 recurso=R fence=133 protegido=true duracao_ms=431
+EXIT sync=1 request_id=1-12 recurso=R fence=133 protegido=true 
+RELEASE sync=1 request_id=1-12 recurso=R fence=133 protegido=true 
+COMMITTED sync=1 request_id=1-12 recurso=R fence=133 protegido=true 
+REQUEST sync=1 request_id=1-13 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-13 recurso=R fence=140 protegido=true espera_ns=758057361
+ENTER sync=1 request_id=1-13 recurso=R fence=140 protegido=true duracao_ms=976
+EXIT sync=1 request_id=1-13 recurso=R fence=140 protegido=true 
+RELEASE sync=1 request_id=1-13 recurso=R fence=140 protegido=true 
+COMMITTED sync=1 request_id=1-13 recurso=R fence=140 protegido=true 
+REQUEST sync=1 request_id=1-14 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-14 recurso=R fence=152 protegido=true espera_ns=249238056
+ENTER sync=1 request_id=1-14 recurso=R fence=152 protegido=true duracao_ms=918
+EXIT sync=1 request_id=1-14 recurso=R fence=152 protegido=true 
+RELEASE sync=1 request_id=1-14 recurso=R fence=152 protegido=true 
+COMMITTED sync=1 request_id=1-14 recurso=R fence=152 protegido=true 
+REQUEST sync=1 request_id=1-15 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-15 recurso=R fence=163 protegido=true espera_ns=1583922
+ENTER sync=1 request_id=1-15 recurso=R fence=163 protegido=true duracao_ms=356
+EXIT sync=1 request_id=1-15 recurso=R fence=163 protegido=true 
+RELEASE sync=1 request_id=1-15 recurso=R fence=163 protegido=true 
+COMMITTED sync=1 request_id=1-15 recurso=R fence=163 protegido=true 
+REQUEST sync=1 request_id=1-16 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-16 recurso=R fence=175 protegido=true espera_ns=78288575
+ENTER sync=1 request_id=1-16 recurso=R fence=175 protegido=true duracao_ms=594
+EXIT sync=1 request_id=1-16 recurso=R fence=175 protegido=true 
+RELEASE sync=1 request_id=1-16 recurso=R fence=175 protegido=true 
+COMMITTED sync=1 request_id=1-16 recurso=R fence=175 protegido=true 
+REQUEST sync=1 request_id=1-17 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-17 recurso=R fence=186 protegido=true espera_ns=3319434
+ENTER sync=1 request_id=1-17 recurso=R fence=186 protegido=true duracao_ms=678
+EXIT sync=1 request_id=1-17 recurso=R fence=186 protegido=true 
+RELEASE sync=1 request_id=1-17 recurso=R fence=186 protegido=true 
+COMMITTED sync=1 request_id=1-17 recurso=R fence=186 protegido=true 
+REQUEST sync=1 request_id=1-18 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-18 recurso=R fence=196 protegido=true espera_ns=1354415
+ENTER sync=1 request_id=1-18 recurso=R fence=196 protegido=true duracao_ms=371
+EXIT sync=1 request_id=1-18 recurso=R fence=196 protegido=true 
+RELEASE sync=1 request_id=1-18 recurso=R fence=196 protegido=true 
+COMMITTED sync=1 request_id=1-18 recurso=R fence=196 protegido=true 
+REQUEST sync=1 request_id=1-19 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-19 recurso=R fence=200 protegido=true espera_ns=1617981
+ENTER sync=1 request_id=1-19 recurso=R fence=200 protegido=true duracao_ms=284
+EXIT sync=1 request_id=1-19 recurso=R fence=200 protegido=true 
+RELEASE sync=1 request_id=1-19 recurso=R fence=200 protegido=true 
+COMMITTED sync=1 request_id=1-19 recurso=R fence=200 protegido=true 
+REQUEST sync=1 request_id=1-20 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-20 recurso=R fence=212 protegido=true espera_ns=2307030
+ENTER sync=1 request_id=1-20 recurso=R fence=212 protegido=true duracao_ms=262
+EXIT sync=1 request_id=1-20 recurso=R fence=212 protegido=true 
+RELEASE sync=1 request_id=1-20 recurso=R fence=212 protegido=true 
+COMMITTED sync=1 request_id=1-20 recurso=R fence=212 protegido=true 
+Exception in thread "hz.youthful_bohr.cached.thread-7" java.lang.IllegalStateException: Missing CP member in active CP members: [CPMember{uuid=391fa13b-03cc-4ff8-bc4b-e59e9f105db5, address=[127.0.0.1]:5705}] for CPGroupInfo{id=CPGroupId{name='METADATA', seed=0, groupId=0}, initialMembers=[RaftEndpoint{uuid='98d27a95-426c-4497-a45a-a745e346882e'}, RaftEndpoint{uuid='a5b85da0-c669-4dfa-a1cf-4d2bf46d4999'}, RaftEndpoint{uuid='f2155373-756b-416e-a0b6-f1ab00339d13'}, RaftEndpoint{uuid='03670ab0-84da-4e5a-aa81-c556fd6fa0a4'}, RaftEndpoint{uuid='391fa13b-03cc-4ff8-bc4b-e59e9f105db5'}], membersCommitIndex=31, members=[RaftEndpoint{uuid='f2155373-756b-416e-a0b6-f1ab00339d13'}, RaftEndpoint{uuid='391fa13b-03cc-4ff8-bc4b-e59e9f105db5'}], status=ACTIVE}
+	at com.hazelcast.cp.internal.CPGroupInfo.toSummary(CPGroupInfo.java:179)
+	at com.hazelcast.cp.internal.MetadataRaftGroupManager.getGroup(MetadataRaftGroupManager.java:347)
+	at com.hazelcast.cp.internal.RaftService.publishGroupAvailabilityEvents(RaftService.java:668)
+	at com.hazelcast.cp.internal.RaftService.publishGroupAvailabilityEvents(RaftService.java:653)
+	at com.hazelcast.cp.internal.RaftService.memberRemoved(RaftService.java:647)
+	at com.hazelcast.internal.cluster.impl.MembershipManager.lambda$sendMembershipEventNotifications$2(MembershipManager.java:857)
+	at com.hazelcast.internal.util.executor.CachedExecutorServiceDelegate$Worker.run(CachedExecutorServiceDelegate.java:220)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.executeRun(HazelcastManagedThread.java:76)
+	at com.hazelcast.internal.util.executor.PoolExecutorThreadFactory$ManagedThread.executeRun(PoolExecutorThreadFactory.java:74)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.run(HazelcastManagedThread.java:111)
+Exception in thread "hz.youthful_bohr.cached.thread-5" java.lang.IllegalStateException: Missing CP member in active CP members: [CPMember{uuid=391fa13b-03cc-4ff8-bc4b-e59e9f105db5, address=[127.0.0.1]:5705}] for CPGroupInfo{id=CPGroupId{name='METADATA', seed=0, groupId=0}, initialMembers=[RaftEndpoint{uuid='98d27a95-426c-4497-a45a-a745e346882e'}, RaftEndpoint{uuid='a5b85da0-c669-4dfa-a1cf-4d2bf46d4999'}, RaftEndpoint{uuid='f2155373-756b-416e-a0b6-f1ab00339d13'}, RaftEndpoint{uuid='03670ab0-84da-4e5a-aa81-c556fd6fa0a4'}, RaftEndpoint{uuid='391fa13b-03cc-4ff8-bc4b-e59e9f105db5'}], membersCommitIndex=31, members=[RaftEndpoint{uuid='f2155373-756b-416e-a0b6-f1ab00339d13'}, RaftEndpoint{uuid='391fa13b-03cc-4ff8-bc4b-e59e9f105db5'}], status=ACTIVE}
+	at com.hazelcast.cp.internal.CPGroupInfo.toSummary(CPGroupInfo.java:179)
+	at com.hazelcast.cp.internal.MetadataRaftGroupManager.getGroup(MetadataRaftGroupManager.java:347)
+	at com.hazelcast.cp.internal.RaftService.publishGroupAvailabilityEvents(RaftService.java:668)
+	at com.hazelcast.cp.internal.RaftService.publishGroupAvailabilityEvents(RaftService.java:653)
+	at com.hazelcast.cp.internal.RaftService.memberRemoved(RaftService.java:647)
+	at com.hazelcast.internal.cluster.impl.MembershipManager.lambda$sendMembershipEventNotifications$2(MembershipManager.java:857)
+	at com.hazelcast.internal.util.executor.CachedExecutorServiceDelegate$Worker.run(CachedExecutorServiceDelegate.java:220)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.executeRun(HazelcastManagedThread.java:76)
+	at com.hazelcast.internal.util.executor.PoolExecutorThreadFactory$ManagedThread.executeRun(PoolExecutorThreadFactory.java:74)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.run(HazelcastManagedThread.java:111)

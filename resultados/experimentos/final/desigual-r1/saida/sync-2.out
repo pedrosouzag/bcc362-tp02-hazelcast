@@ -1,0 +1,145 @@
+Nov 18, 2026 10:00:41 AM com.hazelcast.instance.impl.HazelcastInstanceFactory
+WARNING: Hazelcast is starting in a Java modular environment (Java 9 and newer) but without proper access to required Java packages. Use additional Java arguments to provide Hazelcast access to Java internal API. The internal API access is used to get the best performance results. Arguments to be used:
+ --add-modules java.se --add-exports java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management/sun.management=ALL-UNNAMED --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+Nov 18, 2026 10:00:53 AM com.hazelcast.internal.cluster.ClusterService
+WARNING: [127.0.0.1]:5702 [exp-99642a080094] [5.4.0] Not updating members received from caller: [127.0.0.1]:5701 because node is not joined! 
+Nov 18, 2026 10:00:53 AM com.hazelcast.internal.cluster.ClusterService
+WARNING: [127.0.0.1]:5702 [exp-99642a080094] [5.4.0] Not updating members received from caller: [127.0.0.1]:5701 because node is not joined! 
+MEMBRO_PRONTO id=2 porta=5702
+CP_PRONTO id=2 membrosCP=5 souCP=true
+SYNC_CONFIG id=2 semente=3526 duracao_ms=200..1000 protegido=true K=0
+SERVIDOR_PRONTO id=2 protegido=true K=0
+REQUEST sync=2 request_id=2-1 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-1 recurso=R fence=11 protegido=true espera_ns=2062737168
+ENTER sync=2 request_id=2-1 recurso=R fence=11 protegido=true duracao_ms=434
+EXIT sync=2 request_id=2-1 recurso=R fence=11 protegido=true 
+RELEASE sync=2 request_id=2-1 recurso=R fence=11 protegido=true 
+COMMITTED sync=2 request_id=2-1 recurso=R fence=11 protegido=true 
+REQUEST sync=2 request_id=2-2 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-2 recurso=R fence=33 protegido=true espera_ns=468156909
+ENTER sync=2 request_id=2-2 recurso=R fence=33 protegido=true duracao_ms=446
+EXIT sync=2 request_id=2-2 recurso=R fence=33 protegido=true 
+RELEASE sync=2 request_id=2-2 recurso=R fence=33 protegido=true 
+COMMITTED sync=2 request_id=2-2 recurso=R fence=33 protegido=true 
+REQUEST sync=2 request_id=2-3 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-3 recurso=R fence=47 protegido=true espera_ns=741234381
+ENTER sync=2 request_id=2-3 recurso=R fence=47 protegido=true duracao_ms=405
+EXIT sync=2 request_id=2-3 recurso=R fence=47 protegido=true 
+RELEASE sync=2 request_id=2-3 recurso=R fence=47 protegido=true 
+COMMITTED sync=2 request_id=2-3 recurso=R fence=47 protegido=true 
+REQUEST sync=2 request_id=2-4 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-4 recurso=R fence=68 protegido=true espera_ns=1131203890
+ENTER sync=2 request_id=2-4 recurso=R fence=68 protegido=true duracao_ms=928
+EXIT sync=2 request_id=2-4 recurso=R fence=68 protegido=true 
+RELEASE sync=2 request_id=2-4 recurso=R fence=68 protegido=true 
+COMMITTED sync=2 request_id=2-4 recurso=R fence=68 protegido=true 
+REQUEST sync=2 request_id=2-5 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-5 recurso=R fence=91 protegido=true espera_ns=378118561
+ENTER sync=2 request_id=2-5 recurso=R fence=91 protegido=true duracao_ms=603
+EXIT sync=2 request_id=2-5 recurso=R fence=91 protegido=true 
+RELEASE sync=2 request_id=2-5 recurso=R fence=91 protegido=true 
+COMMITTED sync=2 request_id=2-5 recurso=R fence=91 protegido=true 
+REQUEST sync=2 request_id=2-6 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-6 recurso=R fence=102 protegido=true espera_ns=943004199
+ENTER sync=2 request_id=2-6 recurso=R fence=102 protegido=true duracao_ms=253
+EXIT sync=2 request_id=2-6 recurso=R fence=102 protegido=true 
+RELEASE sync=2 request_id=2-6 recurso=R fence=102 protegido=true 
+COMMITTED sync=2 request_id=2-6 recurso=R fence=102 protegido=true 
+REQUEST sync=2 request_id=2-7 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-7 recurso=R fence=112 protegido=true espera_ns=749686442
+ENTER sync=2 request_id=2-7 recurso=R fence=112 protegido=true duracao_ms=665
+EXIT sync=2 request_id=2-7 recurso=R fence=112 protegido=true 
+RELEASE sync=2 request_id=2-7 recurso=R fence=112 protegido=true 
+COMMITTED sync=2 request_id=2-7 recurso=R fence=112 protegido=true 
+REQUEST sync=2 request_id=2-8 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-8 recurso=R fence=127 protegido=true espera_ns=858768561
+ENTER sync=2 request_id=2-8 recurso=R fence=127 protegido=true duracao_ms=524
+EXIT sync=2 request_id=2-8 recurso=R fence=127 protegido=true 
+RELEASE sync=2 request_id=2-8 recurso=R fence=127 protegido=true 
+COMMITTED sync=2 request_id=2-8 recurso=R fence=127 protegido=true 
+REQUEST sync=2 request_id=2-9 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-9 recurso=R fence=151 protegido=true espera_ns=1488498799
+ENTER sync=2 request_id=2-9 recurso=R fence=151 protegido=true duracao_ms=500
+EXIT sync=2 request_id=2-9 recurso=R fence=151 protegido=true 
+RELEASE sync=2 request_id=2-9 recurso=R fence=151 protegido=true 
+COMMITTED sync=2 request_id=2-9 recurso=R fence=151 protegido=true 
+REQUEST sync=2 request_id=2-10 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-10 recurso=R fence=170 protegido=true espera_ns=1944595055
+ENTER sync=2 request_id=2-10 recurso=R fence=170 protegido=true duracao_ms=588
+EXIT sync=2 request_id=2-10 recurso=R fence=170 protegido=true 
+RELEASE sync=2 request_id=2-10 recurso=R fence=170 protegido=true 
+COMMITTED sync=2 request_id=2-10 recurso=R fence=170 protegido=true 
+REQUEST sync=2 request_id=2-11 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-11 recurso=R fence=184 protegido=true espera_ns=284266448
+ENTER sync=2 request_id=2-11 recurso=R fence=184 protegido=true duracao_ms=786
+EXIT sync=2 request_id=2-11 recurso=R fence=184 protegido=true 
+RELEASE sync=2 request_id=2-11 recurso=R fence=184 protegido=true 
+COMMITTED sync=2 request_id=2-11 recurso=R fence=184 protegido=true 
+REQUEST sync=2 request_id=2-12 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-12 recurso=R fence=199 protegido=true espera_ns=1236288701
+ENTER sync=2 request_id=2-12 recurso=R fence=199 protegido=true duracao_ms=912
+EXIT sync=2 request_id=2-12 recurso=R fence=199 protegido=true 
+RELEASE sync=2 request_id=2-12 recurso=R fence=199 protegido=true 
+COMMITTED sync=2 request_id=2-12 recurso=R fence=199 protegido=true 
+REQUEST sync=2 request_id=2-13 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-13 recurso=R fence=223 protegido=true espera_ns=348388103
+ENTER sync=2 request_id=2-13 recurso=R fence=223 protegido=true duracao_ms=866
+EXIT sync=2 request_id=2-13 recurso=R fence=223 protegido=true 
+RELEASE sync=2 request_id=2-13 recurso=R fence=223 protegido=true 
+COMMITTED sync=2 request_id=2-13 recurso=R fence=223 protegido=true 
+REQUEST sync=2 request_id=2-14 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-14 recurso=R fence=235 protegido=true espera_ns=252018809
+ENTER sync=2 request_id=2-14 recurso=R fence=235 protegido=true duracao_ms=909
+EXIT sync=2 request_id=2-14 recurso=R fence=235 protegido=true 
+RELEASE sync=2 request_id=2-14 recurso=R fence=235 protegido=true 
+COMMITTED sync=2 request_id=2-14 recurso=R fence=235 protegido=true 
+REQUEST sync=2 request_id=2-15 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-15 recurso=R fence=245 protegido=true espera_ns=1137875255
+ENTER sync=2 request_id=2-15 recurso=R fence=245 protegido=true duracao_ms=901
+EXIT sync=2 request_id=2-15 recurso=R fence=245 protegido=true 
+RELEASE sync=2 request_id=2-15 recurso=R fence=245 protegido=true 
+COMMITTED sync=2 request_id=2-15 recurso=R fence=245 protegido=true 
+REQUEST sync=2 request_id=2-16 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-16 recurso=R fence=252 protegido=true espera_ns=659243061
+ENTER sync=2 request_id=2-16 recurso=R fence=252 protegido=true duracao_ms=569
+EXIT sync=2 request_id=2-16 recurso=R fence=252 protegido=true 
+RELEASE sync=2 request_id=2-16 recurso=R fence=252 protegido=true 
+COMMITTED sync=2 request_id=2-16 recurso=R fence=252 protegido=true 
+REQUEST sync=2 request_id=2-17 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-17 recurso=R fence=260 protegido=true espera_ns=1961793
+ENTER sync=2 request_id=2-17 recurso=R fence=260 protegido=true duracao_ms=287
+EXIT sync=2 request_id=2-17 recurso=R fence=260 protegido=true 
+RELEASE sync=2 request_id=2-17 recurso=R fence=260 protegido=true 
+COMMITTED sync=2 request_id=2-17 recurso=R fence=260 protegido=true 
+REQUEST sync=2 request_id=2-18 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-18 recurso=R fence=266 protegido=true espera_ns=1145758416
+ENTER sync=2 request_id=2-18 recurso=R fence=266 protegido=true duracao_ms=213
+EXIT sync=2 request_id=2-18 recurso=R fence=266 protegido=true 
+RELEASE sync=2 request_id=2-18 recurso=R fence=266 protegido=true 
+COMMITTED sync=2 request_id=2-18 recurso=R fence=266 protegido=true 
+REQUEST sync=2 request_id=2-19 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-19 recurso=R fence=273 protegido=true espera_ns=583177213
+ENTER sync=2 request_id=2-19 recurso=R fence=273 protegido=true duracao_ms=994
+EXIT sync=2 request_id=2-19 recurso=R fence=273 protegido=true 
+RELEASE sync=2 request_id=2-19 recurso=R fence=273 protegido=true 
+COMMITTED sync=2 request_id=2-19 recurso=R fence=273 protegido=true 
+REQUEST sync=2 request_id=2-20 recurso=R fence=0 protegido=true 
+ACQUIRE sync=2 request_id=2-20 recurso=R fence=283 protegido=true espera_ns=2142724
+ENTER sync=2 request_id=2-20 recurso=R fence=283 protegido=true duracao_ms=519
+EXIT sync=2 request_id=2-20 recurso=R fence=283 protegido=true 
+RELEASE sync=2 request_id=2-20 recurso=R fence=283 protegido=true 
+COMMITTED sync=2 request_id=2-20 recurso=R fence=283 protegido=true 
+Exception in thread "hz.agitated_matsumoto.cached.thread-5" java.lang.IllegalStateException: Missing CP member in active CP members: [CPMember{uuid=97527654-7349-4944-9330-b2293c9691b4, address=[127.0.0.1]:5705}] for CPGroupInfo{id=CPGroupId{name='METADATA', seed=0, groupId=0}, initialMembers=[RaftEndpoint{uuid='9717d32a-a6b4-48fe-859f-2bfeb036d68d'}, RaftEndpoint{uuid='97527654-7349-4944-9330-b2293c9691b4'}, RaftEndpoint{uuid='f8a0d8f3-348d-48f2-bae0-33973e489073'}, RaftEndpoint{uuid='01d0702a-c9a7-41d5-94d7-fd347e55d25a'}, RaftEndpoint{uuid='2a46b217-6d01-4bd2-b791-e854842cb974'}], membersCommitIndex=35, members=[RaftEndpoint{uuid='97527654-7349-4944-9330-b2293c9691b4'}, RaftEndpoint{uuid='f8a0d8f3-348d-48f2-bae0-33973e489073'}], status=ACTIVE}
+	at com.hazelcast.cp.internal.CPGroupInfo.toSummary(CPGroupInfo.java:179)
+	at com.hazelcast.cp.internal.MetadataRaftGroupManager.getGroup(MetadataRaftGroupManager.java:347)
+	at com.hazelcast.cp.internal.RaftService.publishGroupAvailabilityEvents(RaftService.java:668)
+	at com.hazelcast.cp.internal.RaftService.publishGroupAvailabilityEvents(RaftService.java:653)
+	at com.hazelcast.cp.internal.RaftService.memberRemoved(RaftService.java:647)
+	at com.hazelcast.internal.cluster.impl.MembershipManager.lambda$sendMembershipEventNotifications$2(MembershipManager.java:857)
+	at com.hazelcast.internal.util.executor.CachedExecutorServiceDelegate$Worker.run(CachedExecutorServiceDelegate.java:220)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.executeRun(HazelcastManagedThread.java:76)
+	at com.hazelcast.internal.util.executor.PoolExecutorThreadFactory$ManagedThread.executeRun(PoolExecutorThreadFactory.java:74)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.run(HazelcastManagedThread.java:111)

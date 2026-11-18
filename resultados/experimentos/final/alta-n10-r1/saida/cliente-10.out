@@ -1,0 +1,22 @@
+CLIENTE id=10 pedidos=20 espera=0..0ms semente=3026
+COMMITTED cliente=10 request_id=10-1 resposta_ms=3521
+COMMITTED cliente=10 request_id=10-2 resposta_ms=5503
+COMMITTED cliente=10 request_id=10-3 resposta_ms=4333
+COMMITTED cliente=10 request_id=10-4 resposta_ms=5625
+COMMITTED cliente=10 request_id=10-5 resposta_ms=7234
+COMMITTED cliente=10 request_id=10-6 resposta_ms=6149
+COMMITTED cliente=10 request_id=10-7 resposta_ms=5448
+COMMITTED cliente=10 request_id=10-8 resposta_ms=6668
+COMMITTED cliente=10 request_id=10-9 resposta_ms=6164
+COMMITTED cliente=10 request_id=10-10 resposta_ms=5201
+COMMITTED cliente=10 request_id=10-11 resposta_ms=7117
+COMMITTED cliente=10 request_id=10-12 resposta_ms=6365
+COMMITTED cliente=10 request_id=10-13 resposta_ms=6566
+COMMITTED cliente=10 request_id=10-14 resposta_ms=7036
+COMMITTED cliente=10 request_id=10-15 resposta_ms=6009
+COMMITTED cliente=10 request_id=10-16 resposta_ms=6682
+COMMITTED cliente=10 request_id=10-17 resposta_ms=6336
+COMMITTED cliente=10 request_id=10-18 resposta_ms=6122
+COMMITTED cliente=10 request_id=10-19 resposta_ms=6006
+COMMITTED cliente=10 request_id=10-20 resposta_ms=6314
+CLIENTE_CONCLUIDO id=10 pedidos=20

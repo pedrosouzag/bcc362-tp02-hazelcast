@@ -1,0 +1,215 @@
+Nov 18, 2026 9:55:47 AM com.hazelcast.instance.impl.HazelcastInstanceFactory
+WARNING: Hazelcast is starting in a Java modular environment (Java 9 and newer) but without proper access to required Java packages. Use additional Java arguments to provide Hazelcast access to Java internal API. The internal API access is used to get the best performance results. Arguments to be used:
+ --add-modules java.se --add-exports java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management/sun.management=ALL-UNNAMED --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+MEMBRO_PRONTO id=1 porta=5701
+CP_PRONTO id=1 membrosCP=5 souCP=true
+SYNC_CONFIG id=1 semente=3526 duracao_ms=200..1000 protegido=true K=0
+SERVIDOR_PRONTO id=1 protegido=true K=0
+Nov 18, 2026 9:56:06 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:06 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 2
+Nov 18, 2026 9:56:06 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 2
+Nov 18, 2026 9:56:06 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 2
+Nov 18, 2026 9:56:06 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='5d1fe792-ce08-4733-82c9-055cb2030af2'}, term=1, granted=false} is received, current term: 2
+REQUEST sync=1 request_id=1-1 recurso=R fence=0 protegido=true 
+Nov 18, 2026 9:56:08 AM com.hazelcast.cp.internal.raft.impl.task.LeaderElectionTimeoutTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Leader election for term: 2 has timed out!
+Nov 18, 2026 9:56:08 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 3
+Nov 18, 2026 9:56:08 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 3
+Nov 18, 2026 9:56:08 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 3
+Nov 18, 2026 9:56:11 AM com.hazelcast.cp.internal.raft.impl.task.LeaderElectionTimeoutTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Leader election for term: 3 has timed out!
+Nov 18, 2026 9:56:11 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 4
+Nov 18, 2026 9:56:11 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 4
+Nov 18, 2026 9:56:11 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 4
+Nov 18, 2026 9:56:14 AM com.hazelcast.cp.internal.raft.impl.task.LeaderElectionTimeoutTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Leader election for term: 4 has timed out!
+Nov 18, 2026 9:56:14 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 5
+Nov 18, 2026 9:56:14 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 5
+Nov 18, 2026 9:56:14 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 5
+Nov 18, 2026 9:56:16 AM com.hazelcast.cp.internal.raft.impl.task.LeaderElectionTimeoutTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Leader election for term: 5 has timed out!
+Nov 18, 2026 9:56:16 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 6
+Nov 18, 2026 9:56:16 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 6
+Nov 18, 2026 9:56:16 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 6
+Nov 18, 2026 9:56:19 AM com.hazelcast.cp.internal.raft.impl.task.LeaderElectionTimeoutTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Leader election for term: 6 has timed out!
+Nov 18, 2026 9:56:19 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 7
+Nov 18, 2026 9:56:19 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 7
+Nov 18, 2026 9:56:19 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 7
+Nov 18, 2026 9:56:21 AM com.hazelcast.cp.internal.raft.impl.task.LeaderElectionTimeoutTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Leader election for term: 7 has timed out!
+Nov 18, 2026 9:56:21 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 8
+Nov 18, 2026 9:56:21 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 8
+Nov 18, 2026 9:56:21 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 8
+Nov 18, 2026 9:56:23 AM com.hazelcast.cp.internal.raft.impl.task.LeaderElectionTimeoutTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Leader election for term: 8 has timed out!
+Nov 18, 2026 9:56:23 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 9
+Nov 18, 2026 9:56:23 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 9
+Nov 18, 2026 9:56:23 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 9
+Nov 18, 2026 9:56:26 AM com.hazelcast.cp.internal.raft.impl.task.LeaderElectionTimeoutTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Leader election for term: 9 has timed out!
+Nov 18, 2026 9:56:26 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 10
+Nov 18, 2026 9:56:26 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 10
+Nov 18, 2026 9:56:26 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 10
+Nov 18, 2026 9:56:29 AM com.hazelcast.cp.internal.raft.impl.task.LeaderElectionTimeoutTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Leader election for term: 10 has timed out!
+Nov 18, 2026 9:56:29 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 11
+Nov 18, 2026 9:56:29 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 11
+Nov 18, 2026 9:56:29 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 11
+Nov 18, 2026 9:56:32 AM com.hazelcast.cp.internal.raft.impl.task.LeaderElectionTimeoutTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Leader election for term: 11 has timed out!
+Nov 18, 2026 9:56:32 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=2, granted=false} is received, current term: 12
+Nov 18, 2026 9:56:32 AM com.hazelcast.cp.internal.raft.impl.handler.VoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5701 [exp-a895edaa95e1] [5.4.0] Stale VoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=2, granted=false} is received, current term: 12
+ACQUIRE sync=1 request_id=1-1 recurso=R fence=12 protegido=true espera_ns=29047638651
+ENTER sync=1 request_id=1-1 recurso=R fence=12 protegido=true duracao_ms=305
+EXIT sync=1 request_id=1-1 recurso=R fence=12 protegido=true 
+RELEASE sync=1 request_id=1-1 recurso=R fence=12 protegido=true 
+COMMITTED sync=1 request_id=1-1 recurso=R fence=12 protegido=true 
+REQUEST sync=1 request_id=1-2 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-2 recurso=R fence=21 protegido=true espera_ns=1308459539
+ENTER sync=1 request_id=1-2 recurso=R fence=21 protegido=true duracao_ms=432
+EXIT sync=1 request_id=1-2 recurso=R fence=21 protegido=true 
+RELEASE sync=1 request_id=1-2 recurso=R fence=21 protegido=true 
+COMMITTED sync=1 request_id=1-2 recurso=R fence=21 protegido=true 
+REQUEST sync=1 request_id=1-3 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-3 recurso=R fence=31 protegido=true espera_ns=1758877196
+ENTER sync=1 request_id=1-3 recurso=R fence=31 protegido=true duracao_ms=302
+EXIT sync=1 request_id=1-3 recurso=R fence=31 protegido=true 
+RELEASE sync=1 request_id=1-3 recurso=R fence=31 protegido=true 
+COMMITTED sync=1 request_id=1-3 recurso=R fence=31 protegido=true 
+REQUEST sync=1 request_id=1-4 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-4 recurso=R fence=46 protegido=true espera_ns=2955622894
+ENTER sync=1 request_id=1-4 recurso=R fence=46 protegido=true duracao_ms=223
+EXIT sync=1 request_id=1-4 recurso=R fence=46 protegido=true 
+RELEASE sync=1 request_id=1-4 recurso=R fence=46 protegido=true 
+COMMITTED sync=1 request_id=1-4 recurso=R fence=46 protegido=true 
+REQUEST sync=1 request_id=1-5 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-5 recurso=R fence=56 protegido=true espera_ns=2323825429
+ENTER sync=1 request_id=1-5 recurso=R fence=56 protegido=true duracao_ms=248
+EXIT sync=1 request_id=1-5 recurso=R fence=56 protegido=true 
+RELEASE sync=1 request_id=1-5 recurso=R fence=56 protegido=true 
+COMMITTED sync=1 request_id=1-5 recurso=R fence=56 protegido=true 
+REQUEST sync=1 request_id=1-6 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-6 recurso=R fence=71 protegido=true espera_ns=1985669504
+ENTER sync=1 request_id=1-6 recurso=R fence=71 protegido=true duracao_ms=616
+EXIT sync=1 request_id=1-6 recurso=R fence=71 protegido=true 
+RELEASE sync=1 request_id=1-6 recurso=R fence=71 protegido=true 
+COMMITTED sync=1 request_id=1-6 recurso=R fence=71 protegido=true 
+REQUEST sync=1 request_id=1-7 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-7 recurso=R fence=81 protegido=true espera_ns=2604278139
+ENTER sync=1 request_id=1-7 recurso=R fence=81 protegido=true duracao_ms=967
+EXIT sync=1 request_id=1-7 recurso=R fence=81 protegido=true 
+RELEASE sync=1 request_id=1-7 recurso=R fence=81 protegido=true 
+COMMITTED sync=1 request_id=1-7 recurso=R fence=81 protegido=true 
+REQUEST sync=1 request_id=1-8 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-8 recurso=R fence=96 protegido=true espera_ns=2508392434
+ENTER sync=1 request_id=1-8 recurso=R fence=96 protegido=true duracao_ms=683
+EXIT sync=1 request_id=1-8 recurso=R fence=96 protegido=true 
+RELEASE sync=1 request_id=1-8 recurso=R fence=96 protegido=true 
+COMMITTED sync=1 request_id=1-8 recurso=R fence=96 protegido=true 
+REQUEST sync=1 request_id=1-9 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-9 recurso=R fence=111 protegido=true espera_ns=2466941252
+ENTER sync=1 request_id=1-9 recurso=R fence=111 protegido=true duracao_ms=325
+EXIT sync=1 request_id=1-9 recurso=R fence=111 protegido=true 
+RELEASE sync=1 request_id=1-9 recurso=R fence=111 protegido=true 
+COMMITTED sync=1 request_id=1-9 recurso=R fence=111 protegido=true 
+REQUEST sync=1 request_id=1-10 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-10 recurso=R fence=121 protegido=true espera_ns=2723886266
+ENTER sync=1 request_id=1-10 recurso=R fence=121 protegido=true duracao_ms=714
+EXIT sync=1 request_id=1-10 recurso=R fence=121 protegido=true 
+RELEASE sync=1 request_id=1-10 recurso=R fence=121 protegido=true 
+COMMITTED sync=1 request_id=1-10 recurso=R fence=121 protegido=true 
+REQUEST sync=1 request_id=1-11 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-11 recurso=R fence=136 protegido=true espera_ns=2772057012
+ENTER sync=1 request_id=1-11 recurso=R fence=136 protegido=true duracao_ms=686
+EXIT sync=1 request_id=1-11 recurso=R fence=136 protegido=true 
+RELEASE sync=1 request_id=1-11 recurso=R fence=136 protegido=true 
+COMMITTED sync=1 request_id=1-11 recurso=R fence=136 protegido=true 
+REQUEST sync=1 request_id=1-12 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-12 recurso=R fence=151 protegido=true espera_ns=2380087989
+ENTER sync=1 request_id=1-12 recurso=R fence=151 protegido=true duracao_ms=252
+EXIT sync=1 request_id=1-12 recurso=R fence=151 protegido=true 
+RELEASE sync=1 request_id=1-12 recurso=R fence=151 protegido=true 
+COMMITTED sync=1 request_id=1-12 recurso=R fence=151 protegido=true 
+REQUEST sync=1 request_id=1-13 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-13 recurso=R fence=161 protegido=true espera_ns=2979030440
+ENTER sync=1 request_id=1-13 recurso=R fence=161 protegido=true duracao_ms=393
+EXIT sync=1 request_id=1-13 recurso=R fence=161 protegido=true 
+RELEASE sync=1 request_id=1-13 recurso=R fence=161 protegido=true 
+COMMITTED sync=1 request_id=1-13 recurso=R fence=161 protegido=true 
+REQUEST sync=1 request_id=1-14 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-14 recurso=R fence=176 protegido=true espera_ns=3237171607
+ENTER sync=1 request_id=1-14 recurso=R fence=176 protegido=true duracao_ms=409
+EXIT sync=1 request_id=1-14 recurso=R fence=176 protegido=true 
+RELEASE sync=1 request_id=1-14 recurso=R fence=176 protegido=true 
+COMMITTED sync=1 request_id=1-14 recurso=R fence=176 protegido=true 
+REQUEST sync=1 request_id=1-15 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-15 recurso=R fence=191 protegido=true espera_ns=2358166161
+ENTER sync=1 request_id=1-15 recurso=R fence=191 protegido=true duracao_ms=862
+EXIT sync=1 request_id=1-15 recurso=R fence=191 protegido=true 
+RELEASE sync=1 request_id=1-15 recurso=R fence=191 protegido=true 
+COMMITTED sync=1 request_id=1-15 recurso=R fence=191 protegido=true 
+REQUEST sync=1 request_id=1-16 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-16 recurso=R fence=201 protegido=true espera_ns=3000497557
+ENTER sync=1 request_id=1-16 recurso=R fence=201 protegido=true duracao_ms=366
+EXIT sync=1 request_id=1-16 recurso=R fence=201 protegido=true 
+RELEASE sync=1 request_id=1-16 recurso=R fence=201 protegido=true 
+COMMITTED sync=1 request_id=1-16 recurso=R fence=201 protegido=true 
+REQUEST sync=1 request_id=1-17 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-17 recurso=R fence=216 protegido=true espera_ns=2827189583
+ENTER sync=1 request_id=1-17 recurso=R fence=216 protegido=true duracao_ms=298
+EXIT sync=1 request_id=1-17 recurso=R fence=216 protegido=true 
+RELEASE sync=1 request_id=1-17 recurso=R fence=216 protegido=true 
+COMMITTED sync=1 request_id=1-17 recurso=R fence=216 protegido=true 
+REQUEST sync=1 request_id=1-18 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-18 recurso=R fence=231 protegido=true espera_ns=2488945583
+ENTER sync=1 request_id=1-18 recurso=R fence=231 protegido=true duracao_ms=555
+EXIT sync=1 request_id=1-18 recurso=R fence=231 protegido=true 
+RELEASE sync=1 request_id=1-18 recurso=R fence=231 protegido=true 
+COMMITTED sync=1 request_id=1-18 recurso=R fence=231 protegido=true 
+REQUEST sync=1 request_id=1-19 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-19 recurso=R fence=241 protegido=true espera_ns=3376648164
+ENTER sync=1 request_id=1-19 recurso=R fence=241 protegido=true duracao_ms=357
+EXIT sync=1 request_id=1-19 recurso=R fence=241 protegido=true 
+RELEASE sync=1 request_id=1-19 recurso=R fence=241 protegido=true 
+COMMITTED sync=1 request_id=1-19 recurso=R fence=241 protegido=true 
+REQUEST sync=1 request_id=1-20 recurso=R fence=0 protegido=true 
+ACQUIRE sync=1 request_id=1-20 recurso=R fence=256 protegido=true espera_ns=2782784735
+ENTER sync=1 request_id=1-20 recurso=R fence=256 protegido=true duracao_ms=707
+EXIT sync=1 request_id=1-20 recurso=R fence=256 protegido=true 
+RELEASE sync=1 request_id=1-20 recurso=R fence=256 protegido=true 
+COMMITTED sync=1 request_id=1-20 recurso=R fence=256 protegido=true 

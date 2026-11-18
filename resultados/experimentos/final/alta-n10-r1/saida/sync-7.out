@@ -1,0 +1,211 @@
+Nov 18, 2026 10:03:01 AM com.hazelcast.instance.impl.HazelcastInstanceFactory
+WARNING: Hazelcast is starting in a Java modular environment (Java 9 and newer) but without proper access to required Java packages. Use additional Java arguments to provide Hazelcast access to Java internal API. The internal API access is used to get the best performance results. Arguments to be used:
+ --add-modules java.se --add-exports java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management/sun.management=ALL-UNNAMED --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+MEMBRO_PRONTO id=7 porta=5707
+Nov 18, 2026 10:03:19 AM com.hazelcast.internal.partition.operation.MigrationRequestOperation
+WARNING: [127.0.0.1]:5707 [exp-30dadf4bde49] [5.4.0] Failure while executing MigrationInfo{uuid=37d8551d-2409-408c-96cf-0026a6a05300, partitionId=1, source=[127.0.0.1]:5707 - 7f006c6c-3509-461d-a853-c946504f7ed7, sourceCurrentReplicaIndex=0, sourceNewReplicaIndex=-1, destination=[127.0.0.1]:5710 - ebd5b7f3-c656-4d73-bf70-e11a001f97ba, destinationCurrentReplicaIndex=-1, destinationNewReplicaIndex=0, master=[127.0.0.1]:5701, initialPartitionVersion=10, partitionVersionIncrement=1, status=ACTIVE}
+java.lang.IllegalStateException: Migration operation is received before startup is completed. Sender: [127.0.0.1]:5707
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.verifyNodeStarted(BaseMigrationOperation.java:108)
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.beforeRun(BaseMigrationOperation.java:90)
+	at com.hazelcast.internal.partition.operation.MigrationOperation.beforeRun(MigrationOperation.java:57)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:264)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:497)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:185)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:141)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.loop(OperationThread.java:134)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.executeRun(OperationThread.java:115)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.run(HazelcastManagedThread.java:111)
+
+Nov 18, 2026 10:03:19 AM com.hazelcast.internal.partition.operation.MigrationRequestOperation
+WARNING: [127.0.0.1]:5707 [exp-30dadf4bde49] [5.4.0] Failure while executing MigrationInfo{uuid=9778fbd7-dc29-409f-b16c-c0da514d72dc, partitionId=2, source=[127.0.0.1]:5707 - 7f006c6c-3509-461d-a853-c946504f7ed7, sourceCurrentReplicaIndex=0, sourceNewReplicaIndex=-1, destination=[127.0.0.1]:5710 - ebd5b7f3-c656-4d73-bf70-e11a001f97ba, destinationCurrentReplicaIndex=-1, destinationNewReplicaIndex=0, master=[127.0.0.1]:5701, initialPartitionVersion=8, partitionVersionIncrement=1, status=ACTIVE}
+java.lang.IllegalStateException: Migration operation is received before startup is completed. Sender: [127.0.0.1]:5707
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.verifyNodeStarted(BaseMigrationOperation.java:108)
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.beforeRun(BaseMigrationOperation.java:90)
+	at com.hazelcast.internal.partition.operation.MigrationOperation.beforeRun(MigrationOperation.java:57)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:264)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:497)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:185)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:141)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.loop(OperationThread.java:134)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.executeRun(OperationThread.java:115)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.run(HazelcastManagedThread.java:111)
+
+Nov 18, 2026 10:03:19 AM com.hazelcast.internal.partition.operation.MigrationRequestOperation
+WARNING: [127.0.0.1]:5707 [exp-30dadf4bde49] [5.4.0] Failure while executing MigrationInfo{uuid=2ac4546b-34e0-4d47-a3c2-ced1450b0d51, partitionId=3, source=[127.0.0.1]:5707 - 7f006c6c-3509-461d-a853-c946504f7ed7, sourceCurrentReplicaIndex=0, sourceNewReplicaIndex=-1, destination=[127.0.0.1]:5710 - ebd5b7f3-c656-4d73-bf70-e11a001f97ba, destinationCurrentReplicaIndex=-1, destinationNewReplicaIndex=0, master=[127.0.0.1]:5701, initialPartitionVersion=9, partitionVersionIncrement=1, status=ACTIVE}
+java.lang.IllegalStateException: Migration operation is received before startup is completed. Sender: [127.0.0.1]:5707
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.verifyNodeStarted(BaseMigrationOperation.java:108)
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.beforeRun(BaseMigrationOperation.java:90)
+	at com.hazelcast.internal.partition.operation.MigrationOperation.beforeRun(MigrationOperation.java:57)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:264)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:497)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:185)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:141)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.loop(OperationThread.java:134)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.executeRun(OperationThread.java:115)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.run(HazelcastManagedThread.java:111)
+
+Nov 18, 2026 10:03:19 AM com.hazelcast.internal.partition.operation.MigrationRequestOperation
+WARNING: [127.0.0.1]:5707 [exp-30dadf4bde49] [5.4.0] Failure while executing MigrationInfo{uuid=bae8fcf0-2cc5-4585-8247-c61f1e6b8a65, partitionId=0, source=[127.0.0.1]:5707 - 7f006c6c-3509-461d-a853-c946504f7ed7, sourceCurrentReplicaIndex=0, sourceNewReplicaIndex=-1, destination=[127.0.0.1]:5710 - ebd5b7f3-c656-4d73-bf70-e11a001f97ba, destinationCurrentReplicaIndex=-1, destinationNewReplicaIndex=0, master=[127.0.0.1]:5701, initialPartitionVersion=9, partitionVersionIncrement=1, status=ACTIVE}
+java.lang.IllegalStateException: Migration operation is received before startup is completed. Sender: [127.0.0.1]:5707
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.verifyNodeStarted(BaseMigrationOperation.java:108)
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.beforeRun(BaseMigrationOperation.java:90)
+	at com.hazelcast.internal.partition.operation.MigrationOperation.beforeRun(MigrationOperation.java:57)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:264)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:497)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:185)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:141)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.loop(OperationThread.java:134)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.executeRun(OperationThread.java:115)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.run(HazelcastManagedThread.java:111)
+
+Nov 18, 2026 10:03:19 AM com.hazelcast.internal.partition.operation.MigrationRequestOperation
+WARNING: [127.0.0.1]:5707 [exp-30dadf4bde49] [5.4.0] Failure while executing MigrationInfo{uuid=65ebe012-620c-4142-9720-6df42903ee0f, partitionId=7, source=[127.0.0.1]:5701 - 0070264b-2b72-46f5-b277-56069836f2a5, sourceCurrentReplicaIndex=1, sourceNewReplicaIndex=-1, destination=[127.0.0.1]:5710 - ebd5b7f3-c656-4d73-bf70-e11a001f97ba, destinationCurrentReplicaIndex=-1, destinationNewReplicaIndex=1, master=[127.0.0.1]:5701, initialPartitionVersion=9, partitionVersionIncrement=1, status=ACTIVE}
+java.lang.IllegalStateException: Migration operation is received before startup is completed. Sender: [127.0.0.1]:5707
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.verifyNodeStarted(BaseMigrationOperation.java:108)
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.beforeRun(BaseMigrationOperation.java:90)
+	at com.hazelcast.internal.partition.operation.MigrationOperation.beforeRun(MigrationOperation.java:57)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:264)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:497)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:185)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:141)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.loop(OperationThread.java:134)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.executeRun(OperationThread.java:115)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.run(HazelcastManagedThread.java:111)
+
+Nov 18, 2026 10:03:19 AM com.hazelcast.internal.partition.operation.MigrationRequestOperation
+WARNING: [127.0.0.1]:5707 [exp-30dadf4bde49] [5.4.0] Failure while executing MigrationInfo{uuid=9b25243e-265a-4680-8c1f-1eb00aabb57a, partitionId=8, source=[127.0.0.1]:5702 - d5306305-e602-405f-aa36-338fe4777b99, sourceCurrentReplicaIndex=1, sourceNewReplicaIndex=-1, destination=[127.0.0.1]:5710 - ebd5b7f3-c656-4d73-bf70-e11a001f97ba, destinationCurrentReplicaIndex=-1, destinationNewReplicaIndex=1, master=[127.0.0.1]:5701, initialPartitionVersion=11, partitionVersionIncrement=1, status=ACTIVE}
+java.lang.IllegalStateException: Migration operation is received before startup is completed. Sender: [127.0.0.1]:5707
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.verifyNodeStarted(BaseMigrationOperation.java:108)
+	at com.hazelcast.internal.partition.operation.BaseMigrationOperation.beforeRun(BaseMigrationOperation.java:90)
+	at com.hazelcast.internal.partition.operation.MigrationOperation.beforeRun(MigrationOperation.java:57)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:264)
+	at com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.run(OperationRunnerImpl.java:497)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:185)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.process(OperationThread.java:141)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.loop(OperationThread.java:134)
+	at com.hazelcast.spi.impl.operationexecutor.impl.OperationThread.executeRun(OperationThread.java:115)
+	at com.hazelcast.internal.util.executor.HazelcastManagedThread.run(HazelcastManagedThread.java:111)
+
+CP_PRONTO id=7 membrosCP=5 souCP=false
+SYNC_CONFIG id=7 semente=3526 duracao_ms=200..1000 protegido=true K=0
+SERVIDOR_PRONTO id=7 protegido=true K=0
+REQUEST sync=7 request_id=7-1 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-1 recurso=R fence=16 protegido=true espera_ns=3255303245
+ENTER sync=7 request_id=7-1 recurso=R fence=16 protegido=true duracao_ms=563
+EXIT sync=7 request_id=7-1 recurso=R fence=16 protegido=true 
+RELEASE sync=7 request_id=7-1 recurso=R fence=16 protegido=true 
+COMMITTED sync=7 request_id=7-1 recurso=R fence=16 protegido=true 
+REQUEST sync=7 request_id=7-2 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-2 recurso=R fence=31 protegido=true espera_ns=4881630538
+ENTER sync=7 request_id=7-2 recurso=R fence=31 protegido=true duracao_ms=460
+EXIT sync=7 request_id=7-2 recurso=R fence=31 protegido=true 
+RELEASE sync=7 request_id=7-2 recurso=R fence=31 protegido=true 
+COMMITTED sync=7 request_id=7-2 recurso=R fence=31 protegido=true 
+REQUEST sync=7 request_id=7-3 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-3 recurso=R fence=61 protegido=true espera_ns=3812558314
+ENTER sync=7 request_id=7-3 recurso=R fence=61 protegido=true duracao_ms=508
+EXIT sync=7 request_id=7-3 recurso=R fence=61 protegido=true 
+RELEASE sync=7 request_id=7-3 recurso=R fence=61 protegido=true 
+COMMITTED sync=7 request_id=7-3 recurso=R fence=61 protegido=true 
+REQUEST sync=7 request_id=7-4 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-4 recurso=R fence=91 protegido=true espera_ns=5063165632
+ENTER sync=7 request_id=7-4 recurso=R fence=91 protegido=true duracao_ms=832
+EXIT sync=7 request_id=7-4 recurso=R fence=91 protegido=true 
+RELEASE sync=7 request_id=7-4 recurso=R fence=91 protegido=true 
+COMMITTED sync=7 request_id=7-4 recurso=R fence=91 protegido=true 
+REQUEST sync=7 request_id=7-5 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-5 recurso=R fence=121 protegido=true espera_ns=6355435381
+ENTER sync=7 request_id=7-5 recurso=R fence=121 protegido=true duracao_ms=959
+EXIT sync=7 request_id=7-5 recurso=R fence=121 protegido=true 
+RELEASE sync=7 request_id=7-5 recurso=R fence=121 protegido=true 
+COMMITTED sync=7 request_id=7-5 recurso=R fence=121 protegido=true 
+REQUEST sync=7 request_id=7-6 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-6 recurso=R fence=161 protegido=true espera_ns=5147906698
+ENTER sync=7 request_id=7-6 recurso=R fence=161 protegido=true duracao_ms=446
+EXIT sync=7 request_id=7-6 recurso=R fence=161 protegido=true 
+RELEASE sync=7 request_id=7-6 recurso=R fence=161 protegido=true 
+COMMITTED sync=7 request_id=7-6 recurso=R fence=161 protegido=true 
+REQUEST sync=7 request_id=7-7 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-7 recurso=R fence=191 protegido=true espera_ns=4951236445
+ENTER sync=7 request_id=7-7 recurso=R fence=191 protegido=true duracao_ms=364
+EXIT sync=7 request_id=7-7 recurso=R fence=191 protegido=true 
+RELEASE sync=7 request_id=7-7 recurso=R fence=191 protegido=true 
+COMMITTED sync=7 request_id=7-7 recurso=R fence=191 protegido=true 
+REQUEST sync=7 request_id=7-8 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-8 recurso=R fence=221 protegido=true espera_ns=6087074852
+ENTER sync=7 request_id=7-8 recurso=R fence=221 protegido=true duracao_ms=610
+EXIT sync=7 request_id=7-8 recurso=R fence=221 protegido=true 
+RELEASE sync=7 request_id=7-8 recurso=R fence=221 protegido=true 
+COMMITTED sync=7 request_id=7-8 recurso=R fence=221 protegido=true 
+REQUEST sync=7 request_id=7-9 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-9 recurso=R fence=250 protegido=true espera_ns=5519689698
+ENTER sync=7 request_id=7-9 recurso=R fence=250 protegido=true duracao_ms=430
+EXIT sync=7 request_id=7-9 recurso=R fence=250 protegido=true 
+RELEASE sync=7 request_id=7-9 recurso=R fence=250 protegido=true 
+COMMITTED sync=7 request_id=7-9 recurso=R fence=250 protegido=true 
+REQUEST sync=7 request_id=7-10 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-10 recurso=R fence=290 protegido=true espera_ns=4740097304
+ENTER sync=7 request_id=7-10 recurso=R fence=290 protegido=true duracao_ms=463
+EXIT sync=7 request_id=7-10 recurso=R fence=290 protegido=true 
+RELEASE sync=7 request_id=7-10 recurso=R fence=290 protegido=true 
+COMMITTED sync=7 request_id=7-10 recurso=R fence=290 protegido=true 
+REQUEST sync=7 request_id=7-11 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-11 recurso=R fence=320 protegido=true espera_ns=6624171743
+ENTER sync=7 request_id=7-11 recurso=R fence=320 protegido=true duracao_ms=330
+EXIT sync=7 request_id=7-11 recurso=R fence=320 protegido=true 
+RELEASE sync=7 request_id=7-11 recurso=R fence=320 protegido=true 
+COMMITTED sync=7 request_id=7-11 recurso=R fence=320 protegido=true 
+REQUEST sync=7 request_id=7-12 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-12 recurso=R fence=350 protegido=true espera_ns=5969304218
+ENTER sync=7 request_id=7-12 recurso=R fence=350 protegido=true duracao_ms=527
+EXIT sync=7 request_id=7-12 recurso=R fence=350 protegido=true 
+RELEASE sync=7 request_id=7-12 recurso=R fence=350 protegido=true 
+COMMITTED sync=7 request_id=7-12 recurso=R fence=350 protegido=true 
+REQUEST sync=7 request_id=7-13 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-13 recurso=R fence=379 protegido=true espera_ns=5980279864
+ENTER sync=7 request_id=7-13 recurso=R fence=379 protegido=true duracao_ms=538
+EXIT sync=7 request_id=7-13 recurso=R fence=379 protegido=true 
+RELEASE sync=7 request_id=7-13 recurso=R fence=379 protegido=true 
+COMMITTED sync=7 request_id=7-13 recurso=R fence=379 protegido=true 
+REQUEST sync=7 request_id=7-14 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-14 recurso=R fence=419 protegido=true espera_ns=6445258467
+ENTER sync=7 request_id=7-14 recurso=R fence=419 protegido=true duracao_ms=608
+EXIT sync=7 request_id=7-14 recurso=R fence=419 protegido=true 
+RELEASE sync=7 request_id=7-14 recurso=R fence=419 protegido=true 
+COMMITTED sync=7 request_id=7-14 recurso=R fence=419 protegido=true 
+REQUEST sync=7 request_id=7-15 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-15 recurso=R fence=449 protegido=true espera_ns=5361693390
+ENTER sync=7 request_id=7-15 recurso=R fence=449 protegido=true duracao_ms=384
+EXIT sync=7 request_id=7-15 recurso=R fence=449 protegido=true 
+RELEASE sync=7 request_id=7-15 recurso=R fence=449 protegido=true 
+COMMITTED sync=7 request_id=7-15 recurso=R fence=449 protegido=true 
+REQUEST sync=7 request_id=7-16 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-16 recurso=R fence=479 protegido=true espera_ns=6261402679
+ENTER sync=7 request_id=7-16 recurso=R fence=479 protegido=true duracao_ms=772
+EXIT sync=7 request_id=7-16 recurso=R fence=479 protegido=true 
+RELEASE sync=7 request_id=7-16 recurso=R fence=479 protegido=true 
+COMMITTED sync=7 request_id=7-16 recurso=R fence=479 protegido=true 
+REQUEST sync=7 request_id=7-17 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-17 recurso=R fence=519 protegido=true espera_ns=5510161658
+ENTER sync=7 request_id=7-17 recurso=R fence=519 protegido=true duracao_ms=522
+EXIT sync=7 request_id=7-17 recurso=R fence=519 protegido=true 
+RELEASE sync=7 request_id=7-17 recurso=R fence=519 protegido=true 
+COMMITTED sync=7 request_id=7-17 recurso=R fence=519 protegido=true 
+REQUEST sync=7 request_id=7-18 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-18 recurso=R fence=549 protegido=true espera_ns=5562811476
+ENTER sync=7 request_id=7-18 recurso=R fence=549 protegido=true duracao_ms=427
+EXIT sync=7 request_id=7-18 recurso=R fence=549 protegido=true 
+RELEASE sync=7 request_id=7-18 recurso=R fence=549 protegido=true 
+COMMITTED sync=7 request_id=7-18 recurso=R fence=549 protegido=true 
+REQUEST sync=7 request_id=7-19 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-19 recurso=R fence=579 protegido=true espera_ns=5549130034
+ENTER sync=7 request_id=7-19 recurso=R fence=579 protegido=true duracao_ms=829
+EXIT sync=7 request_id=7-19 recurso=R fence=579 protegido=true 
+RELEASE sync=7 request_id=7-19 recurso=R fence=579 protegido=true 
+COMMITTED sync=7 request_id=7-19 recurso=R fence=579 protegido=true 
+REQUEST sync=7 request_id=7-20 recurso=R fence=0 protegido=true 
+ACQUIRE sync=7 request_id=7-20 recurso=R fence=609 protegido=true espera_ns=5442248852
+ENTER sync=7 request_id=7-20 recurso=R fence=609 protegido=true duracao_ms=332
+EXIT sync=7 request_id=7-20 recurso=R fence=609 protegido=true 
+RELEASE sync=7 request_id=7-20 recurso=R fence=609 protegido=true 
+COMMITTED sync=7 request_id=7-20 recurso=R fence=609 protegido=true 

@@ -235,10 +235,13 @@ Opções: `--cenarios alta,normal`, `--repeticoes N`, `--pedidos N` (10–50, pa
 
 O script confere as propriedades pelo observador: zero sobreposição e ocupação máxima 1 com lock, sobreposição detectada sem lock, nunca mais que K e uso concorrente no semáforo, e todos os pedidos concluídos. O `analisar.py` gera `RESUMO.md`, `metricas.csv` e `clientes.csv` com pedidos concluídos, tempo total, espera mediana/p90/máxima pelo lock (`espera_ns`, relógio monotônico do Sync), tempo de resposta no cliente, acessos e espera por cliente, e mensagens por pedido (aplicação e observador contadas; Raft estimado, ver [docs/MENSAGENS.md](docs/MENSAGENS.md)).
 
+## Resultados
+
+Rodada final em [`resultados/experimentos/final/`](resultados/experimentos/final/RESUMO.md): 11 rodadas (normal e alta contenção com 3 repetições; desigual, 10 Sync, sem lock e semáforos K=2/K=3), todas com as propriedades verificadas. Interpretação (exclusão mútua, progresso, deadlock, justiça/starvation, 5 × 10 Sync, mensagens) em [docs/RESULTADOS.md](docs/RESULTADOS.md).
+
 ## Pendências da entrega completa
 
-- Executar a rodada completa de experimentos e escolher as evidências finais para `resultados/`.
-- Interpretar os resultados (exclusão mútua, progresso, deadlock, starvation) e produzir os slides ([docs/APRESENTACAO.md](docs/APRESENTACAO.md)).
+- Produzir os slides a partir de [docs/APRESENTACAO.md](docs/APRESENTACAO.md) e ensaiar a demonstração.
 
 ## Referência
 

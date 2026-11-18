@@ -1,0 +1,14 @@
+{
+  "tempo_total_s": 93.557,
+  "pedidos_esperados": 130,
+  "clientes_com_falha": [],
+  "observador_R": {
+    "entradas": 130,
+    "saidas": 130,
+    "ativos": 0,
+    "maximo": 1,
+    "sobreposicoes": 0,
+    "erros": 0
+  },
+  "propriedades_ok": true
+}

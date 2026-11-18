@@ -1,0 +1,12 @@
+rodada,cenario,repeticao,syncs,modo,esperados,concluidos,tempo_total_s,vazao_por_s,espera_mediana_ms,espera_p90_ms,espera_max_ms,espera_semaforo_mediana_ms,resposta_mediana_ms,secao_critica_media_ms,ocupacao_max_R,sobreposicoes_R,ocupacao_max_semaforo,msg_aplicacao_por_pedido,msg_observador_por_pedido,msg_protocolo_estimada_por_pedido,entradas_raft_por_acesso_obs,semente_clientes,semente_sync,propriedades_ok
+normal-r1,normal,1,5,mutex,100,100,86.383,1.158,179.6,910.7,2236.4,,931.5,588.3,1,0,,2,4,20,2.2,3026,3526,True
+normal-r2,normal,2,5,mutex,100,100,83.435,1.199,195.7,1006.5,2207.5,,871.0,549.4,1,0,,2,4,20,2.17,4026,4526,True
+normal-r3,normal,3,5,mutex,100,100,84.257,1.187,211.8,1147.7,1822.0,,962.5,550.1,1,0,,2,4,20,2.26,5026,5526,True
+alta-r1,alta,1,5,mutex,100,100,90.018,1.111,2561.2,3237.2,29377.6,,3225.5,588.3,1,0,,2,4,20,2.52,3026,3526,True
+alta-r2,alta,2,5,mutex,100,100,58.509,1.709,2336.1,2874.4,3273.3,,2954.5,549.4,1,0,,2,4,20,2.52,4026,4526,True
+alta-r3,alta,3,5,mutex,100,100,60.661,1.649,2419.9,3035.2,3497.8,,3032.0,550.1,1,0,,2,4,20,2.52,5026,5526,True
+desigual-r1,desigual,1,5,mutex,130,130,93.557,1.39,685.0,1640.0,2400.8,,1352.0,583.5,1,0,,2,4,20,2.25,3026,3526,True
+alta-n10-r1,alta-n10,1,10,mutex,200,200,124.919,1.601,5565.5,6281.5,7063.4,,6248.0,587.1,1,0,,2,4,20,3.1,3026,3526,True
+sem-lock-r1,sem-lock,1,5,sem-lock,100,100,14.658,6.822,0.0,0.0,0.1,,654.5,588.3,5,98,,2,4,0,,3026,3526,True
+semaforo2-r1,semaforo2,1,5,semaforo2,100,100,64.007,1.562,1908.6,2545.6,3221.8,1.5,3162.5,583.7,1,0,2,2,8,40,4.45,3026,3526,True
+semaforo3-r1,semaforo3,1,5,semaforo3,100,100,62.96,1.588,1842.0,2462.5,2845.3,1.6,3109.0,583.7,1,0,3,2,8,40,4.49,3026,3526,True

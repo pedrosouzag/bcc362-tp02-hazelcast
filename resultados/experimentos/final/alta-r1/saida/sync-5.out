@@ -1,0 +1,215 @@
+Nov 18, 2026 9:55:47 AM com.hazelcast.instance.impl.HazelcastInstanceFactory
+WARNING: Hazelcast is starting in a Java modular environment (Java 9 and newer) but without proper access to required Java packages. Use additional Java arguments to provide Hazelcast access to Java internal API. The internal API access is used to get the best performance results. Arguments to be used:
+ --add-modules java.se --add-exports java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management/sun.management=ALL-UNNAMED --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+MEMBRO_PRONTO id=5 porta=5705
+CP_PRONTO id=5 membrosCP=5 souCP=true
+SYNC_CONFIG id=5 semente=3526 duracao_ms=200..1000 protegido=true K=0
+SERVIDOR_PRONTO id=5 protegido=true K=0
+Nov 18, 2026 9:56:05 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+REQUEST sync=5 request_id=5-1 recurso=R fence=0 protegido=true 
+Nov 18, 2026 9:56:08 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:08 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 2
+Nov 18, 2026 9:56:08 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 2
+Nov 18, 2026 9:56:08 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 2
+Nov 18, 2026 9:56:10 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:10 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 3
+Nov 18, 2026 9:56:10 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 3
+Nov 18, 2026 9:56:10 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 3
+Nov 18, 2026 9:56:13 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:13 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 4
+Nov 18, 2026 9:56:13 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 4
+Nov 18, 2026 9:56:13 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 4
+Nov 18, 2026 9:56:15 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:15 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 5
+Nov 18, 2026 9:56:15 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 5
+Nov 18, 2026 9:56:15 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 5
+Nov 18, 2026 9:56:17 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:17 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 6
+Nov 18, 2026 9:56:17 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 6
+Nov 18, 2026 9:56:17 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 6
+Nov 18, 2026 9:56:19 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:19 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 7
+Nov 18, 2026 9:56:19 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 7
+Nov 18, 2026 9:56:19 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 7
+Nov 18, 2026 9:56:21 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:21 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 8
+Nov 18, 2026 9:56:21 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 8
+Nov 18, 2026 9:56:21 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 8
+Nov 18, 2026 9:56:24 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:24 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 9
+Nov 18, 2026 9:56:24 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 9
+Nov 18, 2026 9:56:24 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 9
+Nov 18, 2026 9:56:27 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:27 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 10
+Nov 18, 2026 9:56:27 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 10
+Nov 18, 2026 9:56:27 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 10
+Nov 18, 2026 9:56:29 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:29 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='8269cc4a-9009-438d-9023-d64ea1516fc3'}, term=1, granted=false} is received, current term: 11
+Nov 18, 2026 9:56:29 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=1, granted=false} is received, current term: 11
+Nov 18, 2026 9:56:29 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=1, granted=false} is received, current term: 11
+Nov 18, 2026 9:56:32 AM com.hazelcast.cp.internal.raft.impl.RaftNodeImpl$LeaderFailureDetectionTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] We are FOLLOWER and there is no current leader. Will start new election round...
+Nov 18, 2026 9:56:32 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='f1c0a776-6425-43da-bba6-ef0db174cc36'}, term=2, granted=false} is received, current term: 12
+Nov 18, 2026 9:56:32 AM com.hazelcast.cp.internal.raft.impl.handler.PreVoteResponseHandlerTask(default)
+WARNING: [127.0.0.1]:5705 [exp-a895edaa95e1] [5.4.0] Stale PreVoteResponse{voter=RaftEndpoint{uuid='146c76f8-18e0-4801-b83b-85a2585eed60'}, term=2, granted=false} is received, current term: 12
+ACQUIRE sync=5 request_id=5-1 recurso=R fence=9 protegido=true espera_ns=27233914107
+ENTER sync=5 request_id=5-1 recurso=R fence=9 protegido=true duracao_ms=568
+EXIT sync=5 request_id=5-1 recurso=R fence=9 protegido=true 
+RELEASE sync=5 request_id=5-1 recurso=R fence=9 protegido=true 
+COMMITTED sync=5 request_id=5-1 recurso=R fence=9 protegido=true 
+REQUEST sync=5 request_id=5-2 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-2 recurso=R fence=15 protegido=true espera_ns=1815580289
+ENTER sync=5 request_id=5-2 recurso=R fence=15 protegido=true duracao_ms=234
+EXIT sync=5 request_id=5-2 recurso=R fence=15 protegido=true 
+RELEASE sync=5 request_id=5-2 recurso=R fence=15 protegido=true 
+COMMITTED sync=5 request_id=5-2 recurso=R fence=15 protegido=true 
+REQUEST sync=5 request_id=5-3 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-3 recurso=R fence=25 protegido=true espera_ns=1933025714
+ENTER sync=5 request_id=5-3 recurso=R fence=25 protegido=true duracao_ms=336
+EXIT sync=5 request_id=5-3 recurso=R fence=25 protegido=true 
+RELEASE sync=5 request_id=5-3 recurso=R fence=25 protegido=true 
+COMMITTED sync=5 request_id=5-3 recurso=R fence=25 protegido=true 
+REQUEST sync=5 request_id=5-4 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-4 recurso=R fence=40 protegido=true espera_ns=1517820449
+ENTER sync=5 request_id=5-4 recurso=R fence=40 protegido=true duracao_ms=996
+EXIT sync=5 request_id=5-4 recurso=R fence=40 protegido=true 
+RELEASE sync=5 request_id=5-4 recurso=R fence=40 protegido=true 
+COMMITTED sync=5 request_id=5-4 recurso=R fence=40 protegido=true 
+REQUEST sync=5 request_id=5-5 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-5 recurso=R fence=50 protegido=true espera_ns=2652535350
+ENTER sync=5 request_id=5-5 recurso=R fence=50 protegido=true duracao_ms=385
+EXIT sync=5 request_id=5-5 recurso=R fence=50 protegido=true 
+RELEASE sync=5 request_id=5-5 recurso=R fence=50 protegido=true 
+COMMITTED sync=5 request_id=5-5 recurso=R fence=50 protegido=true 
+REQUEST sync=5 request_id=5-6 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-6 recurso=R fence=65 protegido=true espera_ns=1919874525
+ENTER sync=5 request_id=5-6 recurso=R fence=65 protegido=true duracao_ms=339
+EXIT sync=5 request_id=5-6 recurso=R fence=65 protegido=true 
+RELEASE sync=5 request_id=5-6 recurso=R fence=65 protegido=true 
+COMMITTED sync=5 request_id=5-6 recurso=R fence=65 protegido=true 
+REQUEST sync=5 request_id=5-7 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-7 recurso=R fence=75 protegido=true espera_ns=2395618298
+ENTER sync=5 request_id=5-7 recurso=R fence=75 protegido=true duracao_ms=615
+EXIT sync=5 request_id=5-7 recurso=R fence=75 protegido=true 
+RELEASE sync=5 request_id=5-7 recurso=R fence=75 protegido=true 
+COMMITTED sync=5 request_id=5-7 recurso=R fence=75 protegido=true 
+REQUEST sync=5 request_id=5-8 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-8 recurso=R fence=90 protegido=true espera_ns=3163693642
+ENTER sync=5 request_id=5-8 recurso=R fence=90 protegido=true duracao_ms=654
+EXIT sync=5 request_id=5-8 recurso=R fence=90 protegido=true 
+RELEASE sync=5 request_id=5-8 recurso=R fence=90 protegido=true 
+COMMITTED sync=5 request_id=5-8 recurso=R fence=90 protegido=true 
+REQUEST sync=5 request_id=5-9 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-9 recurso=R fence=100 protegido=true espera_ns=2498593993
+ENTER sync=5 request_id=5-9 recurso=R fence=100 protegido=true duracao_ms=576
+EXIT sync=5 request_id=5-9 recurso=R fence=100 protegido=true 
+RELEASE sync=5 request_id=5-9 recurso=R fence=100 protegido=true 
+COMMITTED sync=5 request_id=5-9 recurso=R fence=100 protegido=true 
+REQUEST sync=5 request_id=5-10 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-10 recurso=R fence=115 protegido=true espera_ns=2523152206
+ENTER sync=5 request_id=5-10 recurso=R fence=115 protegido=true duracao_ms=293
+EXIT sync=5 request_id=5-10 recurso=R fence=115 protegido=true 
+RELEASE sync=5 request_id=5-10 recurso=R fence=115 protegido=true 
+COMMITTED sync=5 request_id=5-10 recurso=R fence=115 protegido=true 
+REQUEST sync=5 request_id=5-11 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-11 recurso=R fence=130 protegido=true espera_ns=3058048687
+ENTER sync=5 request_id=5-11 recurso=R fence=130 protegido=true duracao_ms=334
+EXIT sync=5 request_id=5-11 recurso=R fence=130 protegido=true 
+RELEASE sync=5 request_id=5-11 recurso=R fence=130 protegido=true 
+COMMITTED sync=5 request_id=5-11 recurso=R fence=130 protegido=true 
+REQUEST sync=5 request_id=5-12 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-12 recurso=R fence=140 protegido=true espera_ns=2678867454
+ENTER sync=5 request_id=5-12 recurso=R fence=140 protegido=true duracao_ms=264
+EXIT sync=5 request_id=5-12 recurso=R fence=140 protegido=true 
+RELEASE sync=5 request_id=5-12 recurso=R fence=140 protegido=true 
+COMMITTED sync=5 request_id=5-12 recurso=R fence=140 protegido=true 
+REQUEST sync=5 request_id=5-13 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-13 recurso=R fence=155 protegido=true espera_ns=2404341238
+ENTER sync=5 request_id=5-13 recurso=R fence=155 protegido=true duracao_ms=869
+EXIT sync=5 request_id=5-13 recurso=R fence=155 protegido=true 
+RELEASE sync=5 request_id=5-13 recurso=R fence=155 protegido=true 
+COMMITTED sync=5 request_id=5-13 recurso=R fence=155 protegido=true 
+REQUEST sync=5 request_id=5-14 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-14 recurso=R fence=170 protegido=true espera_ns=2837933061
+ENTER sync=5 request_id=5-14 recurso=R fence=170 protegido=true duracao_ms=587
+EXIT sync=5 request_id=5-14 recurso=R fence=170 protegido=true 
+RELEASE sync=5 request_id=5-14 recurso=R fence=170 protegido=true 
+COMMITTED sync=5 request_id=5-14 recurso=R fence=170 protegido=true 
+REQUEST sync=5 request_id=5-15 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-15 recurso=R fence=180 protegido=true espera_ns=2882825739
+ENTER sync=5 request_id=5-15 recurso=R fence=180 protegido=true duracao_ms=252
+EXIT sync=5 request_id=5-15 recurso=R fence=180 protegido=true 
+RELEASE sync=5 request_id=5-15 recurso=R fence=180 protegido=true 
+COMMITTED sync=5 request_id=5-15 recurso=R fence=180 protegido=true 
+REQUEST sync=5 request_id=5-16 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-16 recurso=R fence=195 protegido=true espera_ns=3027261644
+ENTER sync=5 request_id=5-16 recurso=R fence=195 protegido=true duracao_ms=862
+EXIT sync=5 request_id=5-16 recurso=R fence=195 protegido=true 
+RELEASE sync=5 request_id=5-16 recurso=R fence=195 protegido=true 
+COMMITTED sync=5 request_id=5-16 recurso=R fence=195 protegido=true 
+REQUEST sync=5 request_id=5-17 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-17 recurso=R fence=210 protegido=true espera_ns=2471080107
+ENTER sync=5 request_id=5-17 recurso=R fence=210 protegido=true duracao_ms=966
+EXIT sync=5 request_id=5-17 recurso=R fence=210 protegido=true 
+RELEASE sync=5 request_id=5-17 recurso=R fence=210 protegido=true 
+COMMITTED sync=5 request_id=5-17 recurso=R fence=210 protegido=true 
+REQUEST sync=5 request_id=5-18 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-18 recurso=R fence=220 protegido=true espera_ns=2059471950
+ENTER sync=5 request_id=5-18 recurso=R fence=220 protegido=true duracao_ms=651
+EXIT sync=5 request_id=5-18 recurso=R fence=220 protegido=true 
+RELEASE sync=5 request_id=5-18 recurso=R fence=220 protegido=true 
+COMMITTED sync=5 request_id=5-18 recurso=R fence=220 protegido=true 
+REQUEST sync=5 request_id=5-19 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-19 recurso=R fence=235 protegido=true espera_ns=2265887033
+ENTER sync=5 request_id=5-19 recurso=R fence=235 protegido=true duracao_ms=866
+EXIT sync=5 request_id=5-19 recurso=R fence=235 protegido=true 
+RELEASE sync=5 request_id=5-19 recurso=R fence=235 protegido=true 
+COMMITTED sync=5 request_id=5-19 recurso=R fence=235 protegido=true 
+REQUEST sync=5 request_id=5-20 recurso=R fence=0 protegido=true 
+ACQUIRE sync=5 request_id=5-20 recurso=R fence=250 protegido=true espera_ns=2754499425
+ENTER sync=5 request_id=5-20 recurso=R fence=250 protegido=true duracao_ms=939
+EXIT sync=5 request_id=5-20 recurso=R fence=250 protegido=true 
+RELEASE sync=5 request_id=5-20 recurso=R fence=250 protegido=true 
+COMMITTED sync=5 request_id=5-20 recurso=R fence=250 protegido=true 

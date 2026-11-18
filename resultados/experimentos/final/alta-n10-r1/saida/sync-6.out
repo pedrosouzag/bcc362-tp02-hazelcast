@@ -1,0 +1,127 @@
+Nov 18, 2026 10:03:01 AM com.hazelcast.instance.impl.HazelcastInstanceFactory
+WARNING: Hazelcast is starting in a Java modular environment (Java 9 and newer) but without proper access to required Java packages. Use additional Java arguments to provide Hazelcast access to Java internal API. The internal API access is used to get the best performance results. Arguments to be used:
+ --add-modules java.se --add-exports java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management/sun.management=ALL-UNNAMED --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+MEMBRO_PRONTO id=6 porta=5706
+CP_PRONTO id=6 membrosCP=5 souCP=true
+SYNC_CONFIG id=6 semente=3526 duracao_ms=200..1000 protegido=true K=0
+SERVIDOR_PRONTO id=6 protegido=true K=0
+REQUEST sync=6 request_id=6-1 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-1 recurso=R fence=21 protegido=true espera_ns=5710596270
+ENTER sync=6 request_id=6-1 recurso=R fence=21 protegido=true duracao_ms=697
+EXIT sync=6 request_id=6-1 recurso=R fence=21 protegido=true 
+RELEASE sync=6 request_id=6-1 recurso=R fence=21 protegido=true 
+COMMITTED sync=6 request_id=6-1 recurso=R fence=21 protegido=true 
+REQUEST sync=6 request_id=6-2 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-2 recurso=R fence=51 protegido=true espera_ns=4680377203
+ENTER sync=6 request_id=6-2 recurso=R fence=51 protegido=true duracao_ms=248
+EXIT sync=6 request_id=6-2 recurso=R fence=51 protegido=true 
+RELEASE sync=6 request_id=6-2 recurso=R fence=51 protegido=true 
+COMMITTED sync=6 request_id=6-2 recurso=R fence=51 protegido=true 
+REQUEST sync=6 request_id=6-3 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-3 recurso=R fence=81 protegido=true espera_ns=3971984838
+ENTER sync=6 request_id=6-3 recurso=R fence=81 protegido=true duracao_ms=439
+EXIT sync=6 request_id=6-3 recurso=R fence=81 protegido=true 
+RELEASE sync=6 request_id=6-3 recurso=R fence=81 protegido=true 
+COMMITTED sync=6 request_id=6-3 recurso=R fence=81 protegido=true 
+REQUEST sync=6 request_id=6-4 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-4 recurso=R fence=111 protegido=true espera_ns=6052707122
+ENTER sync=6 request_id=6-4 recurso=R fence=111 protegido=true duracao_ms=900
+EXIT sync=6 request_id=6-4 recurso=R fence=111 protegido=true 
+RELEASE sync=6 request_id=6-4 recurso=R fence=111 protegido=true 
+COMMITTED sync=6 request_id=6-4 recurso=R fence=111 protegido=true 
+REQUEST sync=6 request_id=6-5 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-5 recurso=R fence=141 protegido=true espera_ns=6424377846
+ENTER sync=6 request_id=6-5 recurso=R fence=141 protegido=true duracao_ms=741
+EXIT sync=6 request_id=6-5 recurso=R fence=141 protegido=true 
+RELEASE sync=6 request_id=6-5 recurso=R fence=141 protegido=true 
+COMMITTED sync=6 request_id=6-5 recurso=R fence=141 protegido=true 
+REQUEST sync=6 request_id=6-6 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-6 recurso=R fence=181 protegido=true espera_ns=4836499746
+ENTER sync=6 request_id=6-6 recurso=R fence=181 protegido=true duracao_ms=777
+EXIT sync=6 request_id=6-6 recurso=R fence=181 protegido=true 
+RELEASE sync=6 request_id=6-6 recurso=R fence=181 protegido=true 
+COMMITTED sync=6 request_id=6-6 recurso=R fence=181 protegido=true 
+REQUEST sync=6 request_id=6-7 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-7 recurso=R fence=211 protegido=true espera_ns=5290529553
+ENTER sync=6 request_id=6-7 recurso=R fence=211 protegido=true duracao_ms=313
+EXIT sync=6 request_id=6-7 recurso=R fence=211 protegido=true 
+RELEASE sync=6 request_id=6-7 recurso=R fence=211 protegido=true 
+COMMITTED sync=6 request_id=6-7 recurso=R fence=211 protegido=true 
+REQUEST sync=6 request_id=6-8 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-8 recurso=R fence=240 protegido=true espera_ns=6019671738
+ENTER sync=6 request_id=6-8 recurso=R fence=240 protegido=true duracao_ms=495
+EXIT sync=6 request_id=6-8 recurso=R fence=240 protegido=true 
+RELEASE sync=6 request_id=6-8 recurso=R fence=240 protegido=true 
+COMMITTED sync=6 request_id=6-8 recurso=R fence=240 protegido=true 
+REQUEST sync=6 request_id=6-9 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-9 recurso=R fence=270 protegido=true espera_ns=5455282963
+ENTER sync=6 request_id=6-9 recurso=R fence=270 protegido=true duracao_ms=506
+EXIT sync=6 request_id=6-9 recurso=R fence=270 protegido=true 
+RELEASE sync=6 request_id=6-9 recurso=R fence=270 protegido=true 
+COMMITTED sync=6 request_id=6-9 recurso=R fence=270 protegido=true 
+REQUEST sync=6 request_id=6-10 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-10 recurso=R fence=300 protegido=true espera_ns=5387256451
+ENTER sync=6 request_id=6-10 recurso=R fence=300 protegido=true duracao_ms=968
+EXIT sync=6 request_id=6-10 recurso=R fence=300 protegido=true 
+RELEASE sync=6 request_id=6-10 recurso=R fence=300 protegido=true 
+COMMITTED sync=6 request_id=6-10 recurso=R fence=300 protegido=true 
+REQUEST sync=6 request_id=6-11 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-11 recurso=R fence=340 protegido=true espera_ns=5420419432
+ENTER sync=6 request_id=6-11 recurso=R fence=340 protegido=true duracao_ms=434
+EXIT sync=6 request_id=6-11 recurso=R fence=340 protegido=true 
+RELEASE sync=6 request_id=6-11 recurso=R fence=340 protegido=true 
+COMMITTED sync=6 request_id=6-11 recurso=R fence=340 protegido=true 
+REQUEST sync=6 request_id=6-12 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-12 recurso=R fence=369 protegido=true espera_ns=5832572029
+ENTER sync=6 request_id=6-12 recurso=R fence=369 protegido=true duracao_ms=925
+EXIT sync=6 request_id=6-12 recurso=R fence=369 protegido=true 
+RELEASE sync=6 request_id=6-12 recurso=R fence=369 protegido=true 
+COMMITTED sync=6 request_id=6-12 recurso=R fence=369 protegido=true 
+REQUEST sync=6 request_id=6-13 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-13 recurso=R fence=399 protegido=true espera_ns=5927925559
+ENTER sync=6 request_id=6-13 recurso=R fence=399 protegido=true duracao_ms=542
+EXIT sync=6 request_id=6-13 recurso=R fence=399 protegido=true 
+RELEASE sync=6 request_id=6-13 recurso=R fence=399 protegido=true 
+COMMITTED sync=6 request_id=6-13 recurso=R fence=399 protegido=true 
+REQUEST sync=6 request_id=6-14 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-14 recurso=R fence=429 protegido=true espera_ns=6583316854
+ENTER sync=6 request_id=6-14 recurso=R fence=429 protegido=true duracao_ms=286
+EXIT sync=6 request_id=6-14 recurso=R fence=429 protegido=true 
+RELEASE sync=6 request_id=6-14 recurso=R fence=429 protegido=true 
+COMMITTED sync=6 request_id=6-14 recurso=R fence=429 protegido=true 
+REQUEST sync=6 request_id=6-15 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-15 recurso=R fence=469 protegido=true espera_ns=5610902947
+ENTER sync=6 request_id=6-15 recurso=R fence=469 protegido=true duracao_ms=536
+EXIT sync=6 request_id=6-15 recurso=R fence=469 protegido=true 
+RELEASE sync=6 request_id=6-15 recurso=R fence=469 protegido=true 
+COMMITTED sync=6 request_id=6-15 recurso=R fence=469 protegido=true 
+REQUEST sync=6 request_id=6-16 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-16 recurso=R fence=499 protegido=true espera_ns=5916844842
+ENTER sync=6 request_id=6-16 recurso=R fence=499 protegido=true duracao_ms=264
+EXIT sync=6 request_id=6-16 recurso=R fence=499 protegido=true 
+RELEASE sync=6 request_id=6-16 recurso=R fence=499 protegido=true 
+COMMITTED sync=6 request_id=6-16 recurso=R fence=499 protegido=true 
+REQUEST sync=6 request_id=6-17 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-17 recurso=R fence=529 protegido=true espera_ns=5264561742
+ENTER sync=6 request_id=6-17 recurso=R fence=529 protegido=true duracao_ms=955
+EXIT sync=6 request_id=6-17 recurso=R fence=529 protegido=true 
+RELEASE sync=6 request_id=6-17 recurso=R fence=529 protegido=true 
+COMMITTED sync=6 request_id=6-17 recurso=R fence=529 protegido=true 
+REQUEST sync=6 request_id=6-18 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-18 recurso=R fence=569 protegido=true espera_ns=5286573996
+ENTER sync=6 request_id=6-18 recurso=R fence=569 protegido=true duracao_ms=865
+EXIT sync=6 request_id=6-18 recurso=R fence=569 protegido=true 
+RELEASE sync=6 request_id=6-18 recurso=R fence=569 protegido=true 
+COMMITTED sync=6 request_id=6-18 recurso=R fence=569 protegido=true 
+REQUEST sync=6 request_id=6-19 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-19 recurso=R fence=599 protegido=true espera_ns=5745812143
+ENTER sync=6 request_id=6-19 recurso=R fence=599 protegido=true duracao_ms=702
+EXIT sync=6 request_id=6-19 recurso=R fence=599 protegido=true 
+RELEASE sync=6 request_id=6-19 recurso=R fence=599 protegido=true 
+COMMITTED sync=6 request_id=6-19 recurso=R fence=599 protegido=true 
+REQUEST sync=6 request_id=6-20 recurso=R fence=0 protegido=true 
+ACQUIRE sync=6 request_id=6-20 recurso=R fence=629 protegido=true espera_ns=5572994485
+ENTER sync=6 request_id=6-20 recurso=R fence=629 protegido=true duracao_ms=997
+EXIT sync=6 request_id=6-20 recurso=R fence=629 protegido=true 
+RELEASE sync=6 request_id=6-20 recurso=R fence=629 protegido=true 
+COMMITTED sync=6 request_id=6-20 recurso=R fence=629 protegido=true 

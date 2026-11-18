@@ -1,0 +1,40 @@
+{
+  "cenario": "normal",
+  "repeticao": 1,
+  "syncs": 5,
+  "clientes": 5,
+  "modo": "mutex",
+  "K": null,
+  "pedidos_por_cliente": {
+    "1": 20,
+    "2": 20,
+    "3": 20,
+    "4": 20,
+    "5": 20
+  },
+  "pausa_ms": {
+    "cliente_1": [
+      1000,
+      5000
+    ],
+    "demais": [
+      1000,
+      5000
+    ]
+  },
+  "secao_critica_ms": [
+    200,
+    1000
+  ],
+  "cp_member_count": 5,
+  "semente_clientes": 3026,
+  "semente_sync": 3526,
+  "regra_sementes": "cliente i usa Random(semente_clientes + i); Sync i usa Random(semente_sync + i)",
+  "hazelcast": "5.4.0",
+  "java": "openjdk version \"17.0.21.0.3\" 2026-10-24",
+  "sistema": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpus": 16,
+  "cluster": "exp-8469da54b0e1",
+  "inicio": "2026-11-18 09:50:04",
+  "fim": "2026-11-18 09:51:53"
+}

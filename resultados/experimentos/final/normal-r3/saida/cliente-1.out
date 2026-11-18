@@ -1,0 +1,22 @@
+CLIENTE id=1 pedidos=20 espera=1000..5000ms semente=5026
+COMMITTED cliente=1 request_id=1-1 resposta_ms=1502
+COMMITTED cliente=1 request_id=1-2 resposta_ms=2008
+COMMITTED cliente=1 request_id=1-3 resposta_ms=529
+COMMITTED cliente=1 request_id=1-4 resposta_ms=1298
+COMMITTED cliente=1 request_id=1-5 resposta_ms=1516
+COMMITTED cliente=1 request_id=1-6 resposta_ms=1758
+COMMITTED cliente=1 request_id=1-7 resposta_ms=365
+COMMITTED cliente=1 request_id=1-8 resposta_ms=516
+COMMITTED cliente=1 request_id=1-9 resposta_ms=1017
+COMMITTED cliente=1 request_id=1-10 resposta_ms=582
+COMMITTED cliente=1 request_id=1-11 resposta_ms=760
+COMMITTED cliente=1 request_id=1-12 resposta_ms=792
+COMMITTED cliente=1 request_id=1-13 resposta_ms=1418
+COMMITTED cliente=1 request_id=1-14 resposta_ms=1325
+COMMITTED cliente=1 request_id=1-15 resposta_ms=418
+COMMITTED cliente=1 request_id=1-16 resposta_ms=1134
+COMMITTED cliente=1 request_id=1-17 resposta_ms=2526
+COMMITTED cliente=1 request_id=1-18 resposta_ms=997
+COMMITTED cliente=1 request_id=1-19 resposta_ms=392
+COMMITTED cliente=1 request_id=1-20 resposta_ms=457
+CLIENTE_CONCLUIDO id=1 pedidos=20
